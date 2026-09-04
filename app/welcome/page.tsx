@@ -23,6 +23,10 @@ export default function Welcome() {
         <span className="wl-code">OSP ENTRANCE EXAMINATION · PRACTICE EDITION · {YEAR}</span>
       </header>
 
+      <p className="wl-rubric">
+        Read each question carefully · Answer all questions · No calculators for the specimen · Progress is saved to your account
+      </p>
+
       <section className="wl-top">
         <div className="wl-left">
           <h1>Sit the SIIT<br />entrance exam<br />before you sit it.</h1>
@@ -50,7 +54,7 @@ export default function Welcome() {
             <li><span>C</span><Tex s="$x=\dfrac{b\pm\sqrt{b^2-4ac}}{2a}$" /></li>
             <li><span>D</span><Tex s="$x=\dfrac{-b\pm\sqrt{4ac-b^2}}{2a}$" /></li>
           </ol>
-          <div className="wl-spec-foot">Answer, then move on — no feedback until you submit.</div>
+          <div className="wl-spec-foot">Answer, then move on. No feedback until you submit.</div>
         </aside>
       </section>
 
@@ -80,7 +84,7 @@ export default function Welcome() {
         <p className="wl-also">
           Beyond the mock paper: topic-by-topic practice with instant feedback, formula
           flashcards for Maths and Physics, a searchable formula library, daily challenges,
-          and a class leaderboard — all tracked in your account.
+          and a class leaderboard. Everything is tracked in your account.
         </p>
       </section>
 

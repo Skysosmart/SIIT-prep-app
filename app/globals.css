@@ -160,8 +160,9 @@ main{padding:32px 0 80px}
   padding:0 0 12px;border-bottom:2px solid var(--ink);margin-bottom:36px}
 .wl-inst{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1rem;letter-spacing:-.01em}
 .wl-sigma{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:#fff;
-  font-family:Georgia,serif;font-style:italic;background:var(--ink)}
+  font-family:Georgia,serif;font-style:italic;background:var(--navy)}
 .wl-code{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--mut);font-variant-numeric:tabular-nums}
+.wl-rubric{margin:-24px 0 36px;font-size:.8rem;color:var(--mut);letter-spacing:.01em}
 
 .wl-top{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
 @media(max-width:820px){.wl-top{grid-template-columns:1fr;gap:32px}}
@@ -173,10 +174,12 @@ main{padding:32px 0 80px}
 .wl-note{font-size:.85rem;color:var(--mut);margin-top:14px}
 
 /* specimen exam question */
-.wl-specimen{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--sh2);overflow:hidden}
-.wl-spec-head{display:flex;justify-content:space-between;padding:11px 18px;background:var(--ink);color:var(--bg);
+.wl-specimen{background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--sh2);overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease}
+.wl-specimen:hover{transform:translateY(-2px)}
+.wl-spec-head{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;background:var(--navy);color:#EAF1FB;
   font-size:.7rem;font-weight:700;letter-spacing:.12em}
-.wl-spec-q{padding:20px 20px 6px;font-weight:600;font-size:1.05rem}
+.wl-spec-q{padding:20px 20px 6px;font-weight:600;font-size:1.05rem;line-height:1.5}
 .wl-spec-opts{list-style:none;margin:0;padding:12px 16px 8px;display:flex;flex-direction:column;gap:8px}
 .wl-spec-opts li{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:5px;min-height:52px}
 .wl-spec-opts li>span:first-child{width:24px;height:24px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;
