@@ -15,19 +15,19 @@ export type Question = {
   timer: number;              // seconds, from the PDF (scaled by difficulty)
   tag: "core" | "extra";
   q: string;                  // question text ($..$ for math)
-  choices: [string, string, string, string];
-  answer: 0 | 1 | 2 | 3;      // index into choices
+  choices: string[];          // 4 choices (original bank) or 6 (practice packs)
+  answer: number;             // index into choices
   formula: string;            // name of the underlying formula/idea
   explain: string;
 };
 
 const Q = (
   id: number, topic: TopicId, kind: Question["kind"], timer: number,
-  tag: Question["tag"], answer: Question["answer"], q: string,
-  choices: [string, string, string, string], formula: string, explain: string,
+  tag: Question["tag"], answer: number, q: string,
+  choices: string[], formula: string, explain: string,
 ): Question => ({ id, topic, kind, timer, tag, answer, q, choices, formula, explain });
 
-export const QUESTIONS: Question[] = [
+const BASE_QUESTIONS: Question[] = [
   // ── 1. Sets & Logic (Q1–12) ─────────────────────────────────────────────
   Q(1,"set","calc",20,"core",3,"If $n(A)=5$, how many elements are in $\\mathcal{P}(A)$?",
     ["$10$","$16$","$25$","$32$"],"Power set size","$|\\mathcal{P}(A)|=2^n=2^5=32$ — each element is in or out."),
@@ -394,6 +394,10 @@ export const QUESTIONS: Question[] = [
   Q(213,"cal","fill",20,"core",0,"Complete the product rule: $(uv)'=u'v+\\boxed{?}$",
     ["$uv'$","$u'v'$","$uv$","$u+v'$"],"Product rule","Differentiate one factor at a time and add: $u'v+uv'$."),
 ];
+
+import { PACK_QUESTIONS } from "./packs";
+
+export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PACK_QUESTIONS];
 
 export const questionsForTopic = (topic: TopicId) =>
   QUESTIONS.filter((q) => q.topic === topic);

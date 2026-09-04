@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
-import { Triangle, Diamond, Circle, Square, ChevronRight, ArrowLeft } from "lucide-react";
+import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft } from "lucide-react";
 import { useProfile, type QuizSummary } from "@/lib/profile";
 import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
 import { Tex } from "@/components/Tex";
@@ -14,7 +14,7 @@ import { TopicChip, StreakFlame } from "@/components/bits";
 
 type PlayQ = { q: Question; order: number[]; correctAt: number };
 
-const GLYPHS = [Triangle, Diamond, Circle, Square];
+const GLYPHS = [Triangle, Diamond, Circle, Square, Pentagon, Hexagon];
 const TICK_MS = 100;
 
 const kindLabel = (k: Question["kind"]) =>
@@ -77,7 +77,7 @@ function QuizInner() {
   function start() {
     const picked = daily ? shuffle(bank) : pickQuestions(bank, mode);
     const play = picked.map((q) => {
-      const order = shuffle([0, 1, 2, 3]);
+      const order = shuffle(q.choices.map((_, idx) => idx));
       return { q, order, correctAt: order.indexOf(q.answer) };
     });
     results.current = [];
@@ -132,7 +132,9 @@ function QuizInner() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (stage !== "play") return;
-      if (picked === null && ["1", "2", "3", "4"].includes(e.key)) answer(Number(e.key) - 1);
+      const n = qs[i]?.q.choices.length ?? 4;
+      const k = Number(e.key);
+      if (picked === null && k >= 1 && k <= n) answer(k - 1);
       else if (picked !== null && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); next(); }
     };
     window.addEventListener("keydown", onKey);

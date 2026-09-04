@@ -189,6 +189,8 @@ main{padding:32px 0 80px}
 .ans.c1{background:linear-gradient(135deg,#0E9BD8,#38BDF8)}
 .ans.c2{background:linear-gradient(135deg,#7C4DE8,#8B5CF6)}
 .ans.c3{background:linear-gradient(135deg,#D9880C,#F59E0B)}
+.ans.c4{background:linear-gradient(135deg,#DB2763,#F43F5E)}
+.ans.c5{background:linear-gradient(135deg,#059669,#10B981)}
 .ans[disabled]{cursor:default}
 .ans.dim{opacity:.28;transform:none}
 .ans.hit{outline:4px solid var(--grn);outline-offset:3px}
