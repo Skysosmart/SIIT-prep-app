@@ -1,42 +1,46 @@
 :root{
-  --bg:#F7F9FC; --card:#FFFFFF; --ink:#10172A; --mut:#5A6B87; --line:#E3E9F2;
-  --teal:#14B8A6; --teal-d:#0D9488; --cyan:#38BDF8; --pur:#8B5CF6; --amb:#F59E0B;
-  --grn:#22C55E; --red:#EF4444; --navy:#10172A; --navy2:#1B2440;
-  --teal-t:rgba(20,184,166,.12); --pur-t:rgba(139,92,246,.12); --cyan-t:rgba(56,189,248,.12);
-  --grn-t:rgba(34,197,94,.13); --red-t:rgba(239,68,68,.12); --amb-t:rgba(245,158,11,.14);
-  --sh:0 1px 2px rgba(16,23,42,.05),0 8px 24px rgba(16,23,42,.07);
-  --sh2:0 2px 6px rgba(16,23,42,.08),0 16px 40px rgba(16,23,42,.12);
-  --hero-ink:#F2F6FF; --hero-mut:#9FB0D0;
+  /* Refined academic palette: soft cool-paper ground, deep slate ink,
+     teal held back as an accent rather than a fill. */
+  --bg:#F4F6F8; --card:#FFFFFF; --ink:#141C2B; --mut:#5B6A80; --line:#E4E9F0;
+  --teal:#0E9488; --teal-d:#0B7A70; --cyan:#2E8FB8; --pur:#7C6BD8; --amb:#C8871B;
+  --grn:#1FA363; --red:#DC4A46; --navy:#182234; --navy2:#22304A;
+  --teal-t:rgba(14,148,136,.10); --pur-t:rgba(124,107,216,.11); --cyan-t:rgba(46,143,184,.11);
+  --grn-t:rgba(31,163,99,.12); --red-t:rgba(220,74,70,.11); --amb-t:rgba(200,135,27,.13);
+  --sh:0 1px 2px rgba(20,28,43,.04),0 6px 20px rgba(20,28,43,.05);
+  --sh2:0 2px 6px rgba(20,28,43,.07),0 18px 40px rgba(20,28,43,.10);
+  --hero-ink:#F3F6FB; --hero-mut:#A6B4CC;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0B1120; --card:#141D33; --ink:#EDF2FB; --mut:#93A3BF; --line:#24304C;
-    --teal:#2DD4BF; --teal-d:#14B8A6; --cyan:#7DD3FC; --pur:#A78BFA;
-    --teal-t:rgba(45,212,191,.14); --pur-t:rgba(167,139,250,.16); --cyan-t:rgba(125,211,252,.13);
-    --grn-t:rgba(34,197,94,.18); --red-t:rgba(239,68,68,.18); --amb-t:rgba(245,158,11,.18);
-    --navy:#0E1526; --navy2:#1A2340;
+    --bg:#0C121E; --card:#161F30; --ink:#E9EEF7; --mut:#93A2BB; --line:#26324A;
+    --teal:#2FC7B6; --teal-d:#25A99A; --cyan:#5FB6DA; --pur:#A394E6; --amb:#D9A63E;
+    --grn:#35C07E; --red:#E8635F;
+    --teal-t:rgba(47,199,182,.13); --pur-t:rgba(163,148,230,.15); --cyan-t:rgba(95,182,218,.13);
+    --grn-t:rgba(53,192,126,.16); --red-t:rgba(232,99,95,.16); --amb-t:rgba(217,166,62,.16);
+    --navy:#101827; --navy2:#1B2740;
     --sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
     --sh2:0 2px 6px rgba(0,0,0,.45),0 16px 44px rgba(0,0,0,.5);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0B1120; --card:#141D33; --ink:#EDF2FB; --mut:#93A3BF; --line:#24304C;
-  --teal:#2DD4BF; --teal-d:#14B8A6; --cyan:#7DD3FC; --pur:#A78BFA;
-  --teal-t:rgba(45,212,191,.14); --pur-t:rgba(167,139,250,.16); --cyan-t:rgba(125,211,252,.13);
-  --grn-t:rgba(34,197,94,.18); --red-t:rgba(239,68,68,.18); --amb-t:rgba(245,158,11,.18);
-  --navy:#0E1526; --navy2:#1A2340;
+  --bg:#0C121E; --card:#161F30; --ink:#E9EEF7; --mut:#93A2BB; --line:#26324A;
+  --teal:#2FC7B6; --teal-d:#25A99A; --cyan:#5FB6DA; --pur:#A394E6; --amb:#D9A63E;
+  --grn:#35C07E; --red:#E8635F;
+  --teal-t:rgba(47,199,182,.13); --pur-t:rgba(163,148,230,.15); --cyan-t:rgba(95,182,218,.13);
+  --grn-t:rgba(53,192,126,.16); --red-t:rgba(232,99,95,.16); --amb-t:rgba(217,166,62,.16);
+  --navy:#101827; --navy2:#1B2740;
   --sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   --sh2:0 2px 6px rgba(0,0,0,.45),0 16px 44px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  font-family:var(--font-body),system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 input{font:inherit;color:inherit}
 a{color:inherit;text-decoration:none}
-h1,h2,h3{margin:0;text-wrap:balance;line-height:1.15}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.12;font-family:var(--font-display),Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.01em}
 ::selection{background:var(--teal-t)}
 svg.lucide{vertical-align:-0.15em;display:inline-block;flex:none}
 svg.lucide-inline{display:inline;vertical-align:-0.12em;margin:0 .1em}

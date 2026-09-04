@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ProfileProvider } from "@/lib/profile";
+import { AuthProvider } from "@/lib/auth-client";
 import { NavBar } from "@/components/NavBar";
 import { Pwa } from "@/components/Pwa";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+// Refined academic pairing: Fraunces (serif display) + Inter (UI/body).
+const fraunces = Fraunces({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-display", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
   title: "SIIT PREP",
@@ -23,13 +29,15 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
-        <ProfileProvider>
-          <NavBar />
-          <main><div className="wrap">{children}</div></main>
-          <Pwa />
-        </ProfileProvider>
+        <AuthProvider>
+          <ProfileProvider>
+            <NavBar />
+            <main><div className="wrap">{children}</div></main>
+            <Pwa />
+          </ProfileProvider>
+        </AuthProvider>
       </body>
     </html>
   );

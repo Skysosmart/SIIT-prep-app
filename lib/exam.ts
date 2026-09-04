@@ -17,10 +17,11 @@ export type ExamSection = {
   minutes: number;
 };
 
+// Real OSP structure: three sequential sections, each with its own 1-hour timer.
 export const EXAM_SECTIONS: ExamSection[] = [
-  { id: "math", name: "Mathematics", topics: ["set","alg","fun","geo","trg","seq","prb","sta","mat","cpx","vec","cal"], count: 25, minutes: 40 },
-  { id: "phys", name: "Physics",     topics: ["mec","ele","wav","thm","mod"], count: 20, minutes: 30 },
-  { id: "eng",  name: "English",     topics: ["gra","voc","err","rea"], count: 25, minutes: 30 },
+  { id: "math", name: "Mathematics", topics: ["set","alg","fun","geo","trg","seq","prb","sta","mat","cpx","vec","cal"], count: 45, minutes: 60 },
+  { id: "phys", name: "Physics",     topics: ["mec","ele","wav","thm","mod"], count: 30, minutes: 60 },
+  { id: "eng",  name: "English",     topics: ["gra","voc","err","rea"], count: 75, minutes: 60 },
 ];
 
 export const EXAM_TOTAL_MIN = EXAM_SECTIONS.reduce((s, x) => s + x.minutes, 0);

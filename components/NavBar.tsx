@@ -27,7 +27,7 @@ export function NavBar() {
   return (
     <nav className="top">
       <div className="nav-in">
-        <Link href="/" className="logo"><span className="mark">∑</span>SIIT Math Arena</Link>
+        <Link href="/" className="logo"><span className="mark">∑</span>SIIT PREP</Link>
         <div className="nav-links">
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href} className={`nav-a${active(l.href) ? " on" : ""}`}>{l.label}</Link>
