@@ -10,7 +10,7 @@ import { TopicChip, DiffTag, SearchIcon } from "@/components/bits";
 export default function Practice() {
   const { p } = useProfile();
   const [q, setQ] = useState("");
-  const [subject, setSubject] = useState<"math" | "eng">("math");
+  const [subject, setSubject] = useState<"math" | "phys" | "eng">("math");
   const [diff, setDiff] = useState("All");
 
   const list = TOPICS.filter((t) =>
@@ -26,6 +26,7 @@ export default function Practice() {
       <p className="sub">Untimed practice with instant feedback. For the real thing, try the <Link href="/exam" style={{ color: "var(--teal-d)", fontWeight: 700 }}>timed mock exam</Link>.</p>
       <div className="subject-tabs">
         <button className={`subject-tab${subject === "math" ? " on" : ""}`} onClick={() => setSubject("math")}>Mathematics</button>
+        <button className={`subject-tab${subject === "phys" ? " on" : ""}`} onClick={() => setSubject("phys")}>Physics</button>
         <button className={`subject-tab${subject === "eng" ? " on" : ""}`} onClick={() => setSubject("eng")}>English</button>
       </div>
       <div className="filters">

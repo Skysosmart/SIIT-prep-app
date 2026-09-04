@@ -398,9 +398,10 @@ const BASE_QUESTIONS: Question[] = [
 
 import { PACK_QUESTIONS } from "./packs";
 import { ENGLISH_QUESTIONS } from "./english";
+import { PHYSICS_QUESTIONS } from "./physics";
 import { TOPICS, type Subject } from "./topics";
 
-export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PACK_QUESTIONS, ...ENGLISH_QUESTIONS];
+export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PACK_QUESTIONS, ...ENGLISH_QUESTIONS, ...PHYSICS_QUESTIONS];
 
 export const questionsForTopic = (topic: TopicId) =>
   QUESTIONS.filter((q) => q.topic === topic);

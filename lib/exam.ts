@@ -7,8 +7,10 @@ import type { TopicId } from "./topics";
  * multiple choice, answer any order, flag for review, no feedback until
  * the whole paper is submitted. Original questions in the real format.
  */
+export type SectionId = "math" | "eng" | "phys";
+
 export type ExamSection = {
-  id: "math" | "eng";
+  id: SectionId;
   name: string;
   topics: TopicId[];
   count: number;
@@ -17,6 +19,7 @@ export type ExamSection = {
 
 export const EXAM_SECTIONS: ExamSection[] = [
   { id: "math", name: "Mathematics", topics: ["set","alg","fun","geo","trg","seq","prb","sta","mat","cpx","vec","cal"], count: 25, minutes: 40 },
+  { id: "phys", name: "Physics",     topics: ["mec","ele","wav","thm","mod"], count: 20, minutes: 30 },
   { id: "eng",  name: "English",     topics: ["gra","voc","err","rea"], count: 25, minutes: 30 },
 ];
 
@@ -27,7 +30,7 @@ export type ExamQuestion = {
   q: Question;
   order: number[];      // shuffled choice order
   correctAt: number;    // index in `order` of the correct answer
-  section: "math" | "eng";
+  section: SectionId;
 };
 
 /** Build a fresh randomized paper: N questions per section, choices shuffled. */
@@ -51,7 +54,7 @@ export type ExamResult = {
   date: string;
   total: number;
   correct: number;
-  perSection: { id: "math" | "eng"; name: string; correct: number; total: number }[];
+  perSection: { id: SectionId; name: string; correct: number; total: number }[];
   answers: { qid: number; picked: number; correct: boolean }[]; // picked = choice index, -1 = blank
   timeSec: number;
 };

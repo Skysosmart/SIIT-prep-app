@@ -1,9 +1,10 @@
 export type TopicId =
   | "set" | "alg" | "fun" | "geo" | "trg" | "seq"
   | "prb" | "sta" | "mat" | "cpx" | "vec" | "cal"
-  | "gra" | "voc" | "err" | "rea";
+  | "gra" | "voc" | "err" | "rea"
+  | "mec" | "ele" | "wav" | "thm" | "mod";
 
-export type Subject = "math" | "eng";
+export type Subject = "math" | "eng" | "phys";
 
 export type Topic = {
   id: TopicId;
@@ -34,6 +35,12 @@ export const TOPICS: Topic[] = [
   { id: "voc", name: "Vocabulary",         glyph: "abc",   color: "#84CC16", diff: "Medium", core: true,  subject: "eng" },
   { id: "err", name: "Error Spotting",     glyph: "A–D",   color: "#D946EF", diff: "Hard",   core: false, subject: "eng" },
   { id: "rea", name: "Reading",            glyph: "¶",     color: "#0891B2", diff: "Medium", core: true,  subject: "eng" },
+  // ── Physics ────────────────────────────────────────────────────
+  { id: "mec", name: "Mechanics",          glyph: "F=ma",  color: "#EF4444", diff: "Medium", core: true,  subject: "phys" },
+  { id: "ele", name: "Electricity",        glyph: "V=IR",  color: "#EAB308", diff: "Medium", core: true,  subject: "phys" },
+  { id: "wav", name: "Waves & Optics",     glyph: "λƒ",    color: "#22D3EE", diff: "Medium", core: true,  subject: "phys" },
+  { id: "thm", name: "Thermal Physics",    glyph: "ΔQ",    color: "#FB923C", diff: "Medium", core: false, subject: "phys" },
+  { id: "mod", name: "Modern Physics",     glyph: "E=hf",  color: "#A78BFA", diff: "Hard",   core: false, subject: "phys" },
 ];
 
 export const topicById = (id: string): Topic =>

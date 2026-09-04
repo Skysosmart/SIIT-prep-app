@@ -45,10 +45,10 @@ export default function Home() {
         <span className="float" style={{ bottom: "16%", right: "22%", fontSize: "1.8rem" }}>sin²θ + cos²θ = 1</span>
         <span className="float" style={{ top: "55%", right: "6%", fontSize: "1.5rem" }}>Δ = b² − 4ac</span>
         <span className="kicker">SIIT / OSP entrance-exam prep</span>
-        <h1>Ace the SIIT exam. <span className="accent">Math &amp; English.</span></h1>
+        <h1>Ace the SIIT exam. <span className="accent">Math · Physics · English.</span></h1>
         <p>
-          A full OSP-style mock exam plus {QUESTIONS.length} practice questions across {TOPICS.length} topics
-          in both sections. Sit the timed paper, then drill your weak spots until they&apos;re a reflex.
+          A full OSP-style mock exam across all three exam subjects, plus {QUESTIONS.length} practice
+          questions in {TOPICS.length} topics. Sit the timed paper, then drill your weak spots until they&apos;re a reflex.
         </p>
         <div className="cta">
           <Link href="/exam" className="btn btn-p btn-big">Take Mock Exam</Link>
@@ -83,10 +83,10 @@ export default function Home() {
         </>
       )}
 
-      {(["math", "eng"] as const).map((subj) => (
+      {([["math","Mathematics topics"],["phys","Physics topics"],["eng","English topics"]] as const).map(([subj, heading]) => (
         <div key={subj}>
           <div className="sec-h">
-            <h2>{subj === "math" ? "Mathematics topics" : "English topics"}</h2>
+            <h2>{heading}</h2>
             <Link href="/practice" className="btn btn-g btn-sm">See all</Link>
           </div>
           <div className="grid g3">
