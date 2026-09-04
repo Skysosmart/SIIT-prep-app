@@ -167,6 +167,8 @@ main{padding:32px 0 80px}
 .qtop .qn span{color:var(--mut)}
 .qtop .sc{margin-left:auto;font-weight:700;color:var(--teal-d)}
 .qtop .stk{font-weight:700;color:var(--amb);display:flex;align-items:center;gap:4px}
+.qtop .sndbtn{display:grid;place-items:center;padding:6px;border-radius:9px;color:var(--mut)}
+.qtop .sndbtn:hover{background:var(--teal-t);color:var(--ink)}
 .flame{display:inline-block}
 .flame.hot{animation:flick .5s ease infinite alternate}
 @keyframes flick{from{transform:scale(1) rotate(-3deg)}to{transform:scale(1.22) rotate(3deg)}}

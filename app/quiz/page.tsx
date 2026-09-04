@@ -6,7 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
-import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft } from "lucide-react";
+import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft, Volume2, VolumeX } from "lucide-react";
+import { playCorrect, playWrong, soundOn, setSoundOn } from "@/lib/sound";
 import { useProfile, type QuizSummary } from "@/lib/profile";
 import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
 import { Tex } from "@/components/Tex";
@@ -33,6 +34,9 @@ function QuizInner() {
   const [stage, setStage] = useState<"lobby" | "play">("lobby");
   const [mode, setMode] = useState<Mode>("mixed");
   const [diff, setDiff] = useState<Diff>("med");
+  const [snd, setSnd] = useState(true);
+  useEffect(() => setSnd(soundOn()), []);
+  const toggleSnd = () => { setSoundOn(!snd); setSnd(!snd); };
 
   const [qs, setQs] = useState<PlayQ[]>([]);
   const [i, setI] = useState(0);
@@ -95,12 +99,14 @@ function QuizInner() {
     const ok = pos === cur.correctAt;
     results.current.push({ qid: cur.q.id, ok, pickedIdx: pos < 0 ? -1 : cur.order[pos] });
     if (ok) {
+      playCorrect(streak + 1);
       const pts = scoreFor(timeLeft, timeTotal.current, streak);
       setLastPts(pts);
       setScore((s) => s + pts);
       setXp((x) => x + xpFor(pts));
       setStreak((s) => { const n = s + 1; setBest((b) => Math.max(b, n)); return n; });
     } else {
+      playWrong();
       setStreak(0);
     }
     setPicked(pos);
@@ -224,6 +230,9 @@ function QuizInner() {
         <span className="qn">Question {i + 1}<span>/{qs.length}</span></span>
         <span className="stk"><span className={`flame${streak >= 3 ? " hot" : ""}`}><StreakFlame size={17} /></span>{streak}</span>
         <span className="sc">{score.toLocaleString()} pts</span>
+        <button className="sndbtn" onClick={toggleSnd} aria-label={snd ? "Mute sounds" : "Unmute sounds"}>
+          {snd ? <Volume2 size={17} /> : <VolumeX size={17} />}
+        </button>
       </div>
       <div className={`tbar${frac < 0.3 ? " low" : ""}`}><span style={{ width: `${100 * frac}%` }} /></div>
       <div className="qbox">
