@@ -391,7 +391,7 @@ export const PACK_QUESTIONS: Question[] = [
   P(2054,"vec","calc",4,"Find the magnitude of $(2,-3,6)$.",
     ["$9$","$49$","$5$","$6$","$7$","$8$"],"Vector magnitude","$\\sqrt{4+9+36}=7$."),
   P(2055,"vec","calc",5,"Find $(2,1,-1)\\cdot(3,-2,4)$.",
-    ["$4$","$8$","$2$","$-4$","$-2$","$0$"],"Dot product","$6-2-4=0$ — the vectors are perpendicular."),
+    ["$4$","$8$","$2$","$-4$","$-2$","$0$"],"Dot product","$6-2-4=0$ - the vectors are perpendicular."),
   P(2056,"vec","calc",2,"Find a unit vector in the direction of $(8,15)$.",
     ["$(17,17)$","$(8,15)$","$\\left(\\dfrac{8}{17},\\dfrac{15}{17}\\right)$","$\\left(\\dfrac{8}{23},\\dfrac{15}{23}\\right)$","$\\left(\\dfrac{1}{2},\\dfrac{1}{2}\\right)$","$\\left(\\dfrac{15}{17},\\dfrac{8}{17}\\right)$"],"Unit vector","$|(8,15)|=17$; divide both components."),
   P(2057,"prb","calc",2,"Evaluate $\\binom{10}{3}$.",

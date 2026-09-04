@@ -169,7 +169,7 @@ function QuizInner() {
           <span className="kicker">Daily Challenge · {dailyLabel(today)}</span>
           <h2 style={{ fontSize: "1.7rem", margin: "6px 0 4px" }}>Today&apos;s 10</h2>
           <p className="sub" style={{ margin: "10px auto 0" }}>
-            One question from each of 10 topics — the same set for every player today.
+            One question from each of 10 topics - the same set for every player today.
           </p>
           <div className="lobby-facts">
             <span><b>{bank.length}</b> questions</span>
@@ -182,7 +182,7 @@ function QuizInner() {
                 Completed today ✓ · <StreakFlame size={13} /> {p.daily.streak}-day streak
               </span>
               <span style={{ display: "block", color: "var(--mut)", fontSize: ".85rem", marginTop: 10 }}>
-                This run is just practice — the bonus comes back tomorrow.
+                This run is just practice - the bonus comes back tomorrow.
               </span>
             </p>
           ) : (
@@ -281,7 +281,7 @@ function QuizInner() {
             <div className="row">
               {ok
                 ? <span className="xp-pop">+{lastPts} pts · +{xpFor(lastPts)} XP</span>
-                : <span style={{ color: "var(--mut)", fontSize: ".85rem" }}>No points — you&apos;ll get it next time.</span>}
+                : <span style={{ color: "var(--mut)", fontSize: ".85rem" }}>No points - you&apos;ll get it next time.</span>}
               <button className="btn btn-p" onClick={next}>{i + 1 >= qs.length ? "See results" : "Next question"} <ChevronRight size={17} /></button>
             </div>
           </div>

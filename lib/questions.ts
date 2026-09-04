@@ -30,11 +30,11 @@ const Q = (
 const BASE_QUESTIONS: Question[] = [
   // ── 1. Sets & Logic (Q1–12) ─────────────────────────────────────────────
   Q(1,"set","calc",20,"core",3,"If $n(A)=5$, how many elements are in $\\mathcal{P}(A)$?",
-    ["$10$","$16$","$25$","$32$"],"Power set size","$|\\mathcal{P}(A)|=2^n=2^5=32$ — each element is in or out."),
+    ["$10$","$16$","$25$","$32$"],"Power set size","$|\\mathcal{P}(A)|=2^n=2^5=32$ - each element is in or out."),
   Q(2,"set","recall",20,"core",1,"Which identity is correct for set difference $A-B$?",
     ["$A\\cup B'$","$A\\cap B'$","$A'\\cap B$","$A'\\cup B$"],"Set difference","$A-B$ keeps elements of $A$ that are not in $B$: $A\\cap B'$."),
   Q(3,"set","calc",30,"core",1,"If $n(A)=18$, $n(B)=14$, and $n(A\\cap B)=6$, find $n(A\\cup B)$.",
-    ["$20$","$26$","$32$","$38$"],"Inclusion–exclusion","$n(A\\cup B)=18+14-6=26$ — subtract the double-counted overlap."),
+    ["$20$","$26$","$32$","$38$"],"Inclusion–exclusion","$n(A\\cup B)=18+14-6=26$ - subtract the double-counted overlap."),
   Q(4,"set","recall",20,"core",1,"Which is De Morgan's law for $(A\\cup B)'$?",
     ["$A'\\cup B'$","$A'\\cap B'$","$A\\cap B$","$A\\cup B$"],"De Morgan's laws","Complement flips union to intersection: $(A\\cup B)'=A'\\cap B'$."),
   Q(5,"set","calc",20,"core",1,"If $n(A)=4$ and $n(B)=3$, what is $n(A\\times B)$?",
@@ -42,7 +42,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(6,"set","recall",20,"core",1,"If $A\\cup B=A$, which statement must be true?",
     ["$A\\subseteq B$","$B\\subseteq A$","$A=B=\\varnothing$","$A\\cap B=\\varnothing$"],"Subset from union","The union adds nothing new, so every element of $B$ is already in $A$."),
   Q(7,"set","recall",20,"core",1,"Which statement is logically equivalent to $p\\Rightarrow q$?",
-    ["$p\\vee q$","$\\neg p\\vee q$","$p\\wedge\\neg q$","$\\neg p\\wedge q$"],"Implication as disjunction","$p\\Rightarrow q\\equiv\\neg p\\vee q$ — false only when $p$ is true and $q$ false."),
+    ["$p\\vee q$","$\\neg p\\vee q$","$p\\wedge\\neg q$","$\\neg p\\wedge q$"],"Implication as disjunction","$p\\Rightarrow q\\equiv\\neg p\\vee q$ - false only when $p$ is true and $q$ false."),
   Q(8,"set","recall",20,"core",1,"When is $p\\Rightarrow q$ false?",
     ["Only when $p=T,\\,q=T$","Only when $p=T,\\,q=F$","Only when $p=F,\\,q=T$","Only when $p=F,\\,q=F$"],"Truth table of implication","An implication fails only when a true premise leads to a false conclusion."),
   Q(9,"set","recall",20,"core",2,"Which is equivalent to the contrapositive of $p\\Rightarrow q$?",
@@ -50,7 +50,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(10,"set","recall",20,"core",2,"Negate $\\forall x\\,P(x)$.",
     ["$\\forall x\\,\\neg P(x)$","$\\exists x\\,P(x)$","$\\exists x\\,\\neg P(x)$","$\\neg\\exists x\\,\\neg P(x)$"],"Quantifier negation","\"Not all\" means \"there exists one that fails\": $\\exists x\\,\\neg P(x)$."),
   Q(11,"set","recall",20,"core",1,"Which is always true?",
-    ["$p\\wedge\\neg p$","$p\\vee\\neg p$","$p\\Rightarrow\\neg p$","$p\\Leftrightarrow\\neg p$"],"Law of excluded middle","$p\\vee\\neg p$ is a tautology — one of the two must hold."),
+    ["$p\\wedge\\neg p$","$p\\vee\\neg p$","$p\\Rightarrow\\neg p$","$p\\Leftrightarrow\\neg p$"],"Law of excluded middle","$p\\vee\\neg p$ is a tautology - one of the two must hold."),
   Q(12,"set","recall",30,"core",1,"For three sets, why is $n(A\\cap B\\cap C)$ added back in inclusion–exclusion?",
     ["It was never counted","It was subtracted too many times","It is always zero","It equals the universal set"],"Inclusion–exclusion (3 sets)","The triple overlap gets subtracted three times by the pairwise terms, so it must be restored once."),
 
@@ -60,15 +60,15 @@ const BASE_QUESTIONS: Question[] = [
   Q(14,"alg","recall",20,"core",2,"Factor $a^2-b^2$.",
     ["$(a-b)^2$","$(a+b)^2$","$(a-b)(a+b)$","$(a-b)(a^2+ab+b^2)$"],"Difference of squares","Multiply back to check: $(a-b)(a+b)=a^2-b^2$."),
   Q(15,"alg","recall",20,"core",0,"Factor $a^3-b^3$.",
-    ["$(a-b)(a^2+ab+b^2)$","$(a+b)(a^2-ab+b^2)$","$(a-b)^3$","$(a-b)(a^2-ab+b^2)$"],"Difference of cubes","Difference of cubes: $a^3-b^3=(a-b)(a^2+ab+b^2)$ — note the $+ab$."),
+    ["$(a-b)(a^2+ab+b^2)$","$(a+b)(a^2-ab+b^2)$","$(a-b)^3$","$(a-b)(a^2-ab+b^2)$"],"Difference of cubes","Difference of cubes: $a^3-b^3=(a-b)(a^2+ab+b^2)$ - note the $+ab$."),
   Q(16,"alg","recall",30,"core",1,"What is the quadratic formula for $ax^2+bx+c=0$?",
     ["$\\dfrac{b\\pm\\sqrt{b^2-4ac}}{2a}$","$\\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}$","$\\dfrac{-b\\pm\\sqrt{b^2+4ac}}{a}$","$\\dfrac{-b\\pm\\sqrt{4ac-b^2}}{2a}$"],"Quadratic formula","Memorize the signs: $x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}$."),
   Q(17,"alg","recall",20,"core",1,"For $ax^2+bx+c=0$, what does $\\Delta=0$ mean?",
-    ["No real roots","One repeated real root","Two distinct real roots","Infinitely many roots"],"Discriminant","$\\Delta=b^2-4ac=0$ makes the $\\pm\\sqrt{\\Delta}$ term vanish — one repeated root."),
+    ["No real roots","One repeated real root","Two distinct real roots","Infinitely many roots"],"Discriminant","$\\Delta=b^2-4ac=0$ makes the $\\pm\\sqrt{\\Delta}$ term vanish - one repeated root."),
   Q(18,"alg","calc",30,"core",2,"Find the axis of symmetry of $y=2x^2-8x+1$.",
     ["$x=-2$","$x=1$","$x=2$","$x=4$"],"Axis of symmetry","$x=\\frac{-b}{2a}=\\frac{8}{4}=2$."),
   Q(19,"alg","calc",30,"core",2,"If roots of $2x^2-7x+3=0$ are $r_1,r_2$, find $r_1+r_2$.",
-    ["$-\\dfrac{7}{2}$","$\\dfrac{3}{2}$","$\\dfrac{7}{2}$","$3$"],"Vieta's formulas","Sum of roots $=-\\frac{b}{a}=\\frac{7}{2}$ — no need to solve."),
+    ["$-\\dfrac{7}{2}$","$\\dfrac{3}{2}$","$\\dfrac{7}{2}$","$3$"],"Vieta's formulas","Sum of roots $=-\\frac{b}{a}=\\frac{7}{2}$ - no need to solve."),
   Q(20,"alg","calc",30,"core",0,"If roots of $3x^2+5x-2=0$ are $r_1,r_2$, find $r_1r_2$.",
     ["$-\\dfrac{2}{3}$","$\\dfrac{2}{3}$","$-\\dfrac{5}{3}$","$\\dfrac{5}{3}$"],"Vieta's formulas","Product of roots $=\\frac{c}{a}=-\\frac{2}{3}$."),
   Q(21,"alg","recall",20,"core",2,"If $P(x)$ is divided by $x-3$, which value gives the remainder?",
@@ -124,7 +124,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(41,"alg","recall",20,"core",1,"What is $\\log_a(a^x)$?",
     ["$a$","$x$","$1$","$\\log_a x$"],"Log inverse property","Log base $a$ undoes $a^{(\\cdot)}$, leaving the exponent $x$."),
   Q(42,"alg","recall",20,"core",1,"Which is the change-of-base formula for $\\log_b x$?",
-    ["$\\dfrac{\\ln b}{\\ln x}$","$\\dfrac{\\ln x}{\\ln b}$","$\\ln x-\\ln b$","$\\ln(xb)$"],"Change of base","$\\log_b x=\\frac{\\ln x}{\\ln b}$ — the argument goes on top."),
+    ["$\\dfrac{\\ln b}{\\ln x}$","$\\dfrac{\\ln x}{\\ln b}$","$\\ln x-\\ln b$","$\\ln(xb)$"],"Change of base","$\\log_b x=\\frac{\\ln x}{\\ln b}$ - the argument goes on top."),
 
   // ── 8. Growth (Q43–44) ─────────────────────────────────────────────────
   Q(43,"alg","recall",20,"extra",2,"Which formula represents continuous compounding?",
@@ -140,11 +140,11 @@ const BASE_QUESTIONS: Question[] = [
   Q(47,"fun","calc",20,"core",1,"What restriction applies to $f(x)=\\dfrac{1}{x-5}$?",
     ["$x\\ne 0$","$x\\ne 5$","$x>5$","$x\\ge 5$"],"Domain (rational)","The denominator can't be zero: $x-5\\ne 0$."),
   Q(48,"fun","calc",20,"core",1,"What is the domain condition for $\\sqrt{2x-6}$?",
-    ["$2x-6>0$","$2x-6\\ge 0$","$2x-6\\ne 0$","$2x-6\\le 0$"],"Domain (root)","The radicand must be non-negative — zero is allowed under a square root."),
+    ["$2x-6>0$","$2x-6\\ge 0$","$2x-6\\ne 0$","$2x-6\\le 0$"],"Domain (root)","The radicand must be non-negative - zero is allowed under a square root."),
   Q(49,"fun","calc",20,"core",1,"What is the domain condition for $\\log(x+4)$?",
-    ["$x+4\\ge 0$","$x+4>0$","$x+4\\ne 0$","$x+4<0$"],"Domain (log)","Logs need a strictly positive argument — zero is not allowed."),
+    ["$x+4\\ge 0$","$x+4>0$","$x+4\\ne 0$","$x+4<0$"],"Domain (log)","Logs need a strictly positive argument - zero is not allowed."),
   Q(50,"fun","recall",20,"extra",1,"What does $y=f(x-3)$ do to the graph of $y=f(x)$?",
-    ["Shift left 3","Shift right 3","Shift up 3","Shift down 3"],"Graph translation","Subtracting inside the argument shifts the graph right — opposite of intuition."),
+    ["Shift left 3","Shift right 3","Shift up 3","Shift down 3"],"Graph translation","Subtracting inside the argument shifts the graph right - opposite of intuition."),
   Q(51,"fun","recall",20,"core",1,"Which formula gives average rate of change from $x=a$ to $x=b$?",
     ["$\\dfrac{f(a)+f(b)}{a+b}$","$\\dfrac{f(b)-f(a)}{b-a}$","$f'(a)$","$f(b)-f(a)$"],"Average rate of change","It's the slope of the secant line between the two points."),
 
@@ -152,7 +152,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(52,"geo","calc",20,"core",1,"Find the slope through $(1,2)$ and $(5,10)$.",
     ["$1$","$2$","$4$","$8$"],"Slope formula","$m=\\frac{10-2}{5-1}=\\frac{8}{4}=2$."),
   Q(53,"geo","calc",20,"core",1,"Find the distance between $(0,0)$ and $(3,4)$.",
-    ["$4$","$5$","$6$","$7$"],"Distance formula","$d=\\sqrt{3^2+4^2}=5$ — the classic 3-4-5 triangle."),
+    ["$4$","$5$","$6$","$7$"],"Distance formula","$d=\\sqrt{3^2+4^2}=5$ - the classic 3-4-5 triangle."),
   Q(54,"geo","calc",20,"core",0,"Find the midpoint of $(2,6)$ and $(8,10)$.",
     ["$(5,8)$","$(6,8)$","$(5,16)$","$(10,16)$"],"Midpoint formula","Average each coordinate: $\\left(\\frac{2+8}{2},\\frac{6+10}{2}\\right)=(5,8)$."),
   Q(55,"geo","calc",20,"core",3,"If a line has slope $2$, what is the slope of a perpendicular line?",
@@ -164,7 +164,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(57,"geo","calc",20,"core",2,"What is the center of $(x-4)^2+(y+2)^2=25$?",
     ["$(4,2)$","$(-4,2)$","$(4,-2)$","$(-4,-2)$"],"Circle equation","Signs flip: $(x-h)^2+(y-k)^2=r^2$ has center $(h,k)=(4,-2)$."),
   Q(58,"geo","recall",20,"core",2,"For $(x-h)^2+(y-k)^2=r^2$, what does $r$ represent?",
-    ["Slope","Diameter","Radius","Area"],"Circle equation","$r$ is the radius — the right side is $r^2$, not $r$."),
+    ["Slope","Diameter","Radius","Area"],"Circle equation","$r$ is the radius - the right side is $r^2$, not $r$."),
 
   // ── 12. Geometry (Q59–64) ──────────────────────────────────────────────
   Q(59,"geo","calc",20,"core",0,"Area of a triangle with base $10$ and height $6$?",
@@ -186,7 +186,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(66,"trg","calc",20,"core",1,"What is $\\sin 30°$?",
     ["$0$","$\\dfrac{1}{2}$","$\\dfrac{\\sqrt{2}}{2}$","$\\dfrac{\\sqrt{3}}{2}$"],"Special angles","From the 30-60-90 triangle: $\\sin 30°=\\frac{1}{2}$."),
   Q(67,"trg","calc",20,"core",0,"What is $\\cos 60°$?",
-    ["$\\dfrac{1}{2}$","$\\dfrac{\\sqrt{2}}{2}$","$\\dfrac{\\sqrt{3}}{2}$","$1$"],"Special angles","$\\cos 60°=\\sin 30°=\\frac{1}{2}$ — cofunctions of complementary angles."),
+    ["$\\dfrac{1}{2}$","$\\dfrac{\\sqrt{2}}{2}$","$\\dfrac{\\sqrt{3}}{2}$","$1$"],"Special angles","$\\cos 60°=\\sin 30°=\\frac{1}{2}$ - cofunctions of complementary angles."),
   Q(68,"trg","calc",20,"core",2,"What is $\\tan 45°$?",
     ["$0$","$\\dfrac{1}{2}$","$1$","$\\sqrt{3}$"],"Special angles","At $45°$ sine equals cosine, so their ratio is 1."),
   Q(69,"trg","recall",20,"core",1,"Which identity is correct?",
@@ -200,15 +200,15 @@ const BASE_QUESTIONS: Question[] = [
   Q(73,"trg","recall",20,"extra",0,"If $\\theta$ is in radians, what is arc length?",
     ["$s=r\\theta$","$s=\\pi r^2$","$s=2\\pi r$","$s=\\dfrac{1}{2}r^2\\theta$"],"Arc length","Radians make it simple: $s=r\\theta$."),
   Q(74,"trg","recall",20,"extra",1,"If $\\theta$ is in radians, what is sector area?",
-    ["$r\\theta$","$\\dfrac{1}{2}r^2\\theta$","$\\pi r^2$","$2\\pi r\\theta$"],"Sector area","$A=\\frac{1}{2}r^2\\theta$ — like $\\pi r^2$ scaled by $\\frac{\\theta}{2\\pi}$."),
+    ["$r\\theta$","$\\dfrac{1}{2}r^2\\theta$","$\\pi r^2$","$2\\pi r\\theta$"],"Sector area","$A=\\frac{1}{2}r^2\\theta$ - like $\\pi r^2$ scaled by $\\frac{\\theta}{2\\pi}$."),
   Q(75,"trg","recall",30,"extra",2,"Law of Cosines for side $c$?",
-    ["$c^2=a^2+b^2+2ab\\cos C$","$c=a+b-2ab\\cos C$","$c^2=a^2+b^2-2ab\\cos C$","$c^2=a^2-b^2$"],"Law of Cosines","Generalizes Pythagoras — at $C=90°$ the cosine term vanishes."),
+    ["$c^2=a^2+b^2+2ab\\cos C$","$c=a+b-2ab\\cos C$","$c^2=a^2+b^2-2ab\\cos C$","$c^2=a^2-b^2$"],"Law of Cosines","Generalizes Pythagoras - at $C=90°$ the cosine term vanishes."),
   Q(76,"trg","recall",20,"extra",1,"Triangle area using sides $a,b$ and included angle $C$?",
-    ["$ab\\sin C$","$\\dfrac{1}{2}ab\\sin C$","$\\dfrac{1}{2}ab\\cos C$","$a+b+c$"],"Trig area formula","$A=\\frac{1}{2}ab\\sin C$ — half the parallelogram."),
+    ["$ab\\sin C$","$\\dfrac{1}{2}ab\\sin C$","$\\dfrac{1}{2}ab\\cos C$","$a+b+c$"],"Trig area formula","$A=\\frac{1}{2}ab\\sin C$ - half the parallelogram."),
   Q(77,"trg","calc",30,"extra",0,"What is the period of $y=\\sin(3x)$?",
-    ["$\\dfrac{2\\pi}{3}$","$3\\pi$","$\\dfrac{\\pi}{3}$","$6\\pi$"],"Period","Period $=\\frac{2\\pi}{|b|}=\\frac{2\\pi}{3}$ — larger $b$ squeezes the wave."),
+    ["$\\dfrac{2\\pi}{3}$","$3\\pi$","$\\dfrac{\\pi}{3}$","$6\\pi$"],"Period","Period $=\\frac{2\\pi}{|b|}=\\frac{2\\pi}{3}$ - larger $b$ squeezes the wave."),
   Q(78,"trg","calc",20,"extra",3,"What is the amplitude of $y=-5\\cos(2x)+1$?",
-    ["$-5$","$1$","$2$","$5$"],"Amplitude","Amplitude is $|a|=|-5|=5$ — always positive."),
+    ["$-5$","$1$","$2$","$5$"],"Amplitude","Amplitude is $|a|=|-5|=5$ - always positive."),
 
   // ── 14. Sequences (Q79–83) ─────────────────────────────────────────────
   Q(79,"seq","recall",20,"core",1,"For an arithmetic sequence, $a_n=\\,?$",
@@ -216,7 +216,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(80,"seq","recall",20,"core",0,"For an arithmetic series, $S_n=\\,?$",
     ["$\\dfrac{n}{2}(a_1+a_n)$","$a_1r^{n-1}$","$\\dfrac{a_1}{1-r}$","$n(a_1+d)$"],"Arithmetic series sum","Average of first and last term, times the count."),
   Q(81,"seq","recall",20,"core",1,"For a geometric sequence, $a_n=\\,?$",
-    ["$a_1+(n-1)d$","$a_1r^{n-1}$","$a_1r^n$","$\\dfrac{a_1}{1-r}$"],"Geometric nth term","Multiply by $r$ a total of $n-1$ times — the exponent is $n-1$, not $n$."),
+    ["$a_1+(n-1)d$","$a_1r^{n-1}$","$a_1r^n$","$\\dfrac{a_1}{1-r}$"],"Geometric nth term","Multiply by $r$ a total of $n-1$ times - the exponent is $n-1$, not $n$."),
   Q(82,"seq","recall",20,"core",1,"When does an infinite geometric series converge?",
     ["$r>1$","$|r|<1$","$r=1$","$r<-1$"],"Geometric convergence","Terms must shrink: $|r|<1$."),
   Q(83,"seq","calc",30,"core",2,"If $a_1=3$ and $r=\\dfrac{1}{2}$, find $S_\\infty$.",
@@ -230,7 +230,7 @@ const BASE_QUESTIONS: Question[] = [
 
   // ── 16. Counting (Q86–90) ──────────────────────────────────────────────
   Q(86,"prb","recall",20,"core",1,"What is $0!\\,$?",
-    ["$0$","$1$","Undefined","$-1$"],"Factorial","By definition $0!=1$ — there is one way to arrange nothing."),
+    ["$0$","$1$","Undefined","$-1$"],"Factorial","By definition $0!=1$ - there is one way to arrange nothing."),
   Q(87,"prb","recall",20,"core",1,"Which formula is permutation $_nP_r$?",
     ["$\\dfrac{n!}{r!(n-r)!}$","$\\dfrac{n!}{(n-r)!}$","$\\dfrac{r!}{n!}$","$n^r$"],"Permutations","Order matters, so no $r!$ in the denominator."),
   Q(88,"prb","recall",20,"core",0,"Which formula is combination $_nC_r$?",
@@ -238,7 +238,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(89,"prb","calc",20,"core",2,"How many arrangements of the letters in MATH?",
     ["$4$","$12$","$24$","$16$"],"Permutations","4 distinct letters: $4!=24$."),
   Q(90,"prb","calc",30,"core",1,"How many distinct arrangements of AABC?",
-    ["$24$","$12$","$8$","$6$"],"Permutations with repetition","$\\frac{4!}{2!}=12$ — divide out the identical A's."),
+    ["$24$","$12$","$8$","$6$"],"Permutations with repetition","$\\frac{4!}{2!}=12$ - divide out the identical A's."),
 
   // ── 17. Probability (Q91–94) ───────────────────────────────────────────
   Q(91,"prb","recall",20,"core",1,"What is $P(A^c)$?",
@@ -248,7 +248,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(93,"prb","recall",20,"core",1,"What is $P(A|B)$?",
     ["$\\dfrac{P(A\\cup B)}{P(B)}$","$\\dfrac{P(A\\cap B)}{P(B)}$","$P(A)P(B)$","$P(A)+P(B)$"],"Conditional probability","Restrict the sample space to $B$: divide the joint probability by $P(B)$."),
   Q(94,"prb","calc",30,"core",1,"If $P(A)=0.4$, $P(B)=0.5$, $P(A\\cap B)=0.2$, find $P(A\\cup B)$.",
-    ["$0.3$","$0.7$","$0.9$","$1.1$"],"Addition rule","$0.4+0.5-0.2=0.7$ — subtract the overlap."),
+    ["$0.3$","$0.7$","$0.9$","$1.1$"],"Addition rule","$0.4+0.5-0.2=0.7$ - subtract the overlap."),
 
   // ── 18. Binomial (Q95–96) ──────────────────────────────────────────────
   Q(95,"prb","recall",20,"extra",0,"For $X\\sim B(n,p)$, what is $E(X)$?",
@@ -268,7 +268,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(101,"sta","calc",20,"extra",2,"What is the mid-range of $3$ and $15$?",
     ["$6$","$8$","$9$","$12$"],"Mid-range","Average of the extremes: $(3+15)/2=9$."),
   Q(102,"sta","recall",20,"extra",1,"Which quartile equals the median?",
-    ["$Q_1$","$Q_2$","$Q_3$","$Q_4$"],"Quartiles","The median splits the data in half — that's $Q_2$."),
+    ["$Q_1$","$Q_2$","$Q_3$","$Q_4$"],"Quartiles","The median splits the data in half - that's $Q_2$."),
   Q(103,"sta","recall",20,"extra",1,"What is $IQR$?",
     ["$Q_1+Q_3$","$Q_3-Q_1$","$Q_2-Q_1$","$Q_3/Q_1$"],"Interquartile range","The middle 50% spread: $Q_3-Q_1$."),
   Q(104,"sta","recall",20,"extra",0,"Which is the lower outlier fence?",
@@ -286,7 +286,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(110,"sta","recall",20,"extra",1,"Geometric mean of $a,b$?",
     ["$\\dfrac{a+b}{2}$","$\\sqrt{ab}$","$\\dfrac{2}{1/a+1/b}$","$ab$"],"Geometric mean","$\\sqrt{ab}$; the fraction with reciprocals is the harmonic mean."),
   Q(111,"sta","recall",30,"extra",2,"Harmonic mean of $x_1,\\dots,x_n$?",
-    ["$\\dfrac{\\sum x}{n}$","$\\sqrt[n]{\\prod x_i}$","$\\dfrac{n}{\\sum 1/x_i}$","$\\sum x_i^2$"],"Harmonic mean","Count over the sum of reciprocals — used for average rates."),
+    ["$\\dfrac{\\sum x}{n}$","$\\sqrt[n]{\\prod x_i}$","$\\dfrac{n}{\\sum 1/x_i}$","$\\sum x_i^2$"],"Harmonic mean","Count over the sum of reciprocals - used for average rates."),
   Q(112,"sta","recall",20,"extra",1,"Expected value of a discrete random variable is?",
     ["$\\sum P(x)$","$\\sum xP(x)$","$\\sum x^2$","$1-P(x)$"],"Expected value","Weight each outcome by its probability: $E(X)=\\sum xP(x)$."),
 
@@ -312,7 +312,7 @@ const BASE_QUESTIONS: Question[] = [
 
   // ── 22. Vectors (Q121–126) ─────────────────────────────────────────────
   Q(121,"vec","calc",20,"core",2,"Magnitude of $\\langle 3,4\\rangle$?",
-    ["$3$","$4$","$5$","$7$"],"Vector magnitude","$|\\vec v|=\\sqrt{3^2+4^2}=5$ — Pythagoras in component form."),
+    ["$3$","$4$","$5$","$7$"],"Vector magnitude","$|\\vec v|=\\sqrt{3^2+4^2}=5$ - Pythagoras in component form."),
   Q(122,"vec","recall",20,"core",1,"Unit vector in direction of $\\vec{v}$?",
     ["$|\\vec{v}|\\vec{v}$","$\\dfrac{\\vec{v}}{|\\vec{v}|}$","$\\dfrac{|\\vec{v}|}{\\vec{v}}$","$\\vec{v}^2$"],"Unit vector","Divide the vector by its own length to normalize it."),
   Q(123,"vec","calc",20,"extra",2,"Dot product $\\langle 1,2\\rangle\\cdot\\langle 3,4\\rangle$?",
@@ -320,7 +320,7 @@ const BASE_QUESTIONS: Question[] = [
   Q(124,"vec","recall",20,"extra",0,"Two nonzero vectors are perpendicular when?",
     ["$\\vec{a}\\cdot\\vec{b}=0$","$\\vec{a}\\times\\vec{b}=0$","$|\\vec{a}|=|\\vec{b}|$","$\\vec{a}=\\vec{b}$"],"Perpendicularity test","$\\cos 90°=0$, so the dot product vanishes."),
   Q(125,"vec","recall",20,"core",1,"Magnitude of cross product is?",
-    ["$|a||b|\\cos\\theta$","$|a||b|\\sin\\theta$","$|a|+|b|$","$|a|-|b|$"],"Cross product magnitude","$|\\vec a\\times\\vec b|=|a||b|\\sin\\theta$ — the parallelogram area."),
+    ["$|a||b|\\cos\\theta$","$|a||b|\\sin\\theta$","$|a|+|b|$","$|a|-|b|$"],"Cross product magnitude","$|\\vec a\\times\\vec b|=|a||b|\\sin\\theta$ - the parallelogram area."),
   Q(126,"vec","recall",20,"extra",1,"Area of triangle formed by vectors $\\vec{a},\\vec{b}$?",
     ["$|\\vec{a}\\times\\vec{b}|$","$\\dfrac{1}{2}|\\vec{a}\\times\\vec{b}|$","$\\vec{a}\\cdot\\vec{b}$","$\\dfrac{1}{2}\\vec{a}\\cdot\\vec{b}$"],"Triangle area (vectors)","Half the parallelogram spanned by the two vectors."),
 
@@ -338,11 +338,11 @@ const BASE_QUESTIONS: Question[] = [
 
   // ── 24. Derivatives (Q132–139) ─────────────────────────────────────────
   Q(132,"cal","recall",30,"core",0,"Definition of $f'(x)$?",
-    ["$\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$","$\\dfrac{f(x+h)+f(x)}{h}$","$\\int f(x)\\,dx$","$f(x+1)-f(x)$"],"Derivative definition","The limit of the difference quotient — instantaneous rate of change."),
+    ["$\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$","$\\dfrac{f(x+h)+f(x)}{h}$","$\\int f(x)\\,dx$","$f(x+1)-f(x)$"],"Derivative definition","The limit of the difference quotient - instantaneous rate of change."),
   Q(133,"cal","calc",20,"core",0,"$\\dfrac{d}{dx}(x^7)=\\,?$",
     ["$7x^6$","$x^6$","$7x^7$","$6x^7$"],"Power rule","Bring the exponent down, reduce it by one."),
   Q(134,"cal","calc",20,"core",2,"$\\dfrac{d}{dx}(5)=\\,?$",
-    ["$5$","$1$","$0$","$x$"],"Constant rule","Constants don't change — their rate of change is 0."),
+    ["$5$","$1$","$0$","$x$"],"Constant rule","Constants don't change - their rate of change is 0."),
   Q(135,"cal","recall",20,"extra",1,"Product rule?",
     ["$(fg)'=f'g'$","$(fg)'=f'g+fg'$","$(fg)'=f+g$","$(fg)'=fg$"],"Product rule","Differentiate one factor at a time and add."),
   Q(136,"cal","recall",20,"extra",1,"Chain rule for $f(g(x))$?",
@@ -356,19 +356,19 @@ const BASE_QUESTIONS: Question[] = [
 
   // ── 25. Integration (Q140–144) ─────────────────────────────────────────
   Q(140,"cal","recall",20,"core",1,"$\\int x^n\\,dx$ for $n\\ne -1$?",
-    ["$nx^{n-1}+C$","$\\dfrac{x^{n+1}}{n+1}+C$","$x^{n+1}+C$","$\\ln|x|+C$"],"Power rule (integrals)","Raise the exponent by one and divide by it — the reverse of differentiating."),
+    ["$nx^{n-1}+C$","$\\dfrac{x^{n+1}}{n+1}+C$","$x^{n+1}+C$","$\\ln|x|+C$"],"Power rule (integrals)","Raise the exponent by one and divide by it - the reverse of differentiating."),
   Q(141,"cal","recall",20,"extra",1,"$\\int\\dfrac{1}{x}\\,dx=\\,?$",
     ["$\\dfrac{1}{x^2}+C$","$\\ln|x|+C$","$e^x+C$","$x+C$"],"Log integral","The missing $n=-1$ case of the power rule."),
   Q(142,"cal","recall",20,"core",1,"$\\int\\cos x\\,dx=\\,?$",
     ["$-\\sin x+C$","$\\sin x+C$","$\\cos x+C$","$-\\cos x+C$"],"Trig integrals","The antiderivative of cosine is sine (check by differentiating)."),
   Q(143,"cal","recall",20,"core",1,"$\\int\\sin x\\,dx=\\,?$",
-    ["$\\cos x+C$","$-\\cos x+C$","$\\sin x+C$","$-\\sin x+C$"],"Trig integrals","$(-\\cos x)'=\\sin x$ — the minus sign lives here."),
+    ["$\\cos x+C$","$-\\cos x+C$","$\\sin x+C$","$-\\sin x+C$"],"Trig integrals","$(-\\cos x)'=\\sin x$ - the minus sign lives here."),
   Q(144,"cal","recall",30,"core",1,"Fundamental Theorem: $\\int_a^b f(x)\\,dx=\\,?$",
     ["$F(a)+F(b)$","$F(b)-F(a)$","$f(b)-f(a)$","$F(a)-F(b)$"],"Fundamental Theorem of Calculus","Evaluate the antiderivative at the ends: upper minus lower."),
 
   // ── Custom fill-in-the-blank questions (ids 201+) ──────────────────────
   Q(201,"set","fill",20,"core",0,"Complete: a set with $n$ elements has how many subsets? $\\;|\\mathcal{P}(S)|=2^{\\boxed{?}}$",
-    ["$n$","$n-1$","$n^2$","$2n$"],"Power set size","Each element is in or out — two choices each, so $2^n$ subsets."),
+    ["$n$","$n-1$","$n^2$","$2n$"],"Power set size","Each element is in or out - two choices each, so $2^n$ subsets."),
   Q(202,"alg","fill",20,"core",0,"Complete the expansion: $(a+b)^2=a^2+\\boxed{?}+b^2$",
     ["$2ab$","$ab$","$a^2b^2$","$2a+2b$"],"Binomial square","The middle term doubles the cross product."),
   Q(203,"alg","fill",30,"core",0,"Complete the quadratic formula: $x=\\dfrac{-b\\pm\\sqrt{\\boxed{?}}}{2a}$",

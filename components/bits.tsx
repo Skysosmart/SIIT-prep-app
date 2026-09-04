@@ -13,7 +13,7 @@ export const DiffTag = ({ d }: { d: string }) => {
 
 export const SearchIcon = () => <Search size={16} aria-hidden="true" />;
 
-/** Streak flame — filled Lucide flame in the app's amber. */
+/** Streak flame - filled Lucide flame in the app's amber. */
 export const StreakFlame = ({ size = 18 }: { size?: number }) => (
   <Flame size={size} fill="currentColor" strokeWidth={1.5} aria-hidden="true" style={{ color: "var(--amb)" }} />
 );

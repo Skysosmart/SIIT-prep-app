@@ -72,7 +72,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     try {
       const raw = localStorage.getItem(KEY);
       if (raw) setP({ ...EMPTY, ...JSON.parse(raw) });
-    } catch { /* corrupted or unavailable storage — start fresh */ }
+    } catch { /* corrupted or unavailable storage - start fresh */ }
     setReady(true);
   }, []);
 

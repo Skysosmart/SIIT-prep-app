@@ -1,4 +1,4 @@
-/** Tiny Web Audio sound effects — synthesized, no audio files, offline-friendly. */
+/** Tiny Web Audio sound effects - synthesized, no audio files, offline-friendly. */
 
 let ctx: AudioContext | null = null;
 const KEY = "siit-sound";

@@ -33,9 +33,9 @@ export default function Dashboard() {
       </div>
       <div className="dash-g" style={{ marginTop: 16 }}>
         <div className="card">
-          <b>Accuracy — recent quizzes</b>
+          <b>Accuracy - recent quizzes</b>
           {hist.length === 0 ? (
-            <p className="empty" style={{ margin: "14px 0 0" }}>No quizzes yet — your progress chart will grow here.</p>
+            <p className="empty" style={{ margin: "14px 0 0" }}>No quizzes yet - your progress chart will grow here.</p>
           ) : (
             <svg viewBox={`0 0 ${W} ${H + 24}`} style={{ width: "100%", marginTop: 12 }} role="img" aria-label="Bar chart of recent quiz accuracy">
               {[25, 50, 75, 100].map((g) => (
@@ -81,7 +81,7 @@ export default function Dashboard() {
               {p.daily.last === localToday()
                 ? <>Done today ✓ · <StreakFlame size={14} /> {p.daily.streak}-day streak. Next set at midnight.</>
                 : p.daily.streak > 0
-                  ? <><StreakFlame size={14} /> {p.daily.streak}-day streak on the line — today&apos;s set is waiting (+{DAILY_BONUS_XP} XP).</>
+                  ? <><StreakFlame size={14} /> {p.daily.streak}-day streak on the line - today&apos;s set is waiting (+{DAILY_BONUS_XP} XP).</>
                   : <>10 questions across 10 topics, same for everyone. +{DAILY_BONUS_XP} XP on completion.</>}
             </p>
             {p.daily.last !== localToday() && (
@@ -107,15 +107,15 @@ export default function Dashboard() {
             <b>Recommended practice</b>
             <p style={{ fontSize: ".88rem", color: "var(--mut)", margin: "8px 0 14px" }}>
               {p.quizzes
-                ? `Your ${weakest[0].name} accuracy is lowest — a Formula Recall run is the fastest way up.`
-                : `Start with ${weakest[0].name} — a short Formula Recall run is the easiest way in.`}
+                ? `Your ${weakest[0].name} accuracy is lowest - a Formula Recall run is the fastest way up.`
+                : `Start with ${weakest[0].name} - a short Formula Recall run is the easiest way in.`}
             </p>
             <Link href={`/quiz?topic=${weakest[0].id}`} className="btn btn-pur btn-sm">Practice {weakest[0].name}</Link>
           </div>
           <div className="card">
             <b>Next rank</b>
             <p style={{ fontSize: ".88rem", color: "var(--mut)", margin: "8px 0 10px" }}>
-              {next ? `${(next - p.xp).toLocaleString()} XP to ${rank(next)}` : "Top rank reached — defend it!"}
+              {next ? `${(next - p.xp).toLocaleString()} XP to ${rank(next)}` : "Top rank reached - defend it!"}
             </p>
             <div className="pbar">
               <span style={{ width: `${Math.min(100, (100 * p.xp) / 3000)}%`, background: "linear-gradient(90deg, var(--pur), var(--cyan))" }} />

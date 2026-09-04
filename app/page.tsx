@@ -19,8 +19,8 @@ function DailyBanner() {
         <b>Daily Challenge · {dailyLabel(today)}</b>
         <span className="db-sub">
           {done
-            ? <>Completed today ✓ · <StreakFlame size={14} /> {p.daily.streak}-day streak — come back tomorrow for the next set.</>
-            : <>10 questions, 10 topics — the same set for everyone. Finish it for +{DAILY_BONUS_XP} bonus XP.</>}
+            ? <>Completed today ✓ · <StreakFlame size={14} /> {p.daily.streak}-day streak - come back tomorrow for the next set.</>
+            : <>10 questions, 10 topics - the same set for everyone. Finish it for +{DAILY_BONUS_XP} bonus XP.</>}
         </span>
       </div>
       <Link href="/quiz?daily=1" className={`btn btn-sm ${done ? "btn-g" : "btn-pur"}`}>
@@ -47,7 +47,7 @@ export default function Home() {
         <span className="kicker">SIIT entrance-exam practice</span>
         <h1>Master SIIT Math. <span className="accent">One formula at a time.</span></h1>
         <p>
-          Timed formula quizzes built from a real SIIT question bank — {QUESTIONS.length} questions
+          Timed formula quizzes built from a real SIIT question bank - {QUESTIONS.length} questions
           across {TOPICS.length} topics. Race the clock, keep your streak alive, and turn every
           formula into a reflex.
         </p>

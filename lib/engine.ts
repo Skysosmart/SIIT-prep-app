@@ -7,7 +7,7 @@ export const MODES: { id: Mode; name: string; desc: string }[] = [
   { id: "recall", name: "Formula Recall", desc: "Spot the correct formula among lookalikes" },
   { id: "fill",   name: "Fill the Missing Formula", desc: "Complete the blanked-out part" },
   { id: "calc",   name: "Calculation", desc: "Apply the formula to a quick computation" },
-  { id: "mixed",  name: "Mixed Mode", desc: "Everything, shuffled — exam style" },
+  { id: "mixed",  name: "Mixed Mode", desc: "Everything, shuffled - exam style" },
 ];
 
 // Difficulty scales each question's PDF timer (20s or 30s base).

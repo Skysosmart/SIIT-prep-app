@@ -24,7 +24,7 @@ export default function Review() {
       <div className="view" style={{ textAlign: "center" }}>
         <h2>No mistakes to review</h2>
         <p className="sub" style={{ margin: "12px auto 20px" }}>
-          {s ? "Perfect round — nothing to fix here." : "Play a quiz first, then come back to review what you missed."}
+          {s ? "Perfect round - nothing to fix here." : "Play a quiz first, then come back to review what you missed."}
         </p>
         <Link href="/practice" className="btn btn-p">Practice a topic</Link>
       </div>

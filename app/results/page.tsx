@@ -23,7 +23,7 @@ function shareText(s: QuizSummary, topicName: string): string {
   const grid = s.results.map((r) => (r.ok ? "🟩" : "🟥")).join("");
   const acc = Math.round((100 * s.right) / s.total);
   return [
-    `SIIT Math Arena — ${topicName}`,
+    `SIIT Math Arena - ${topicName}`,
     `${grid} ${s.right}/${s.total} (${acc}%)`,
     `Best streak ${s.bestStreak} · +${s.xp} XP`,
     `Beat my score: ${SITE_URL}`,
@@ -40,7 +40,7 @@ export default function Results() {
     if (!s) return;
     const text = shareText(s, s.topic === "daily" ? "Daily Challenge" : topicById(s.topic).name);
     if (navigator.share) {
-      try { await navigator.share({ text }); return; } catch { /* user cancelled — fall through */ }
+      try { await navigator.share({ text }); return; } catch { /* user cancelled - fall through */ }
     }
     try {
       await navigator.clipboard.writeText(text);
@@ -59,7 +59,7 @@ export default function Results() {
     return (
       <div className="view" style={{ textAlign: "center" }}>
         <h2>No quiz finished yet</h2>
-        <p className="sub" style={{ margin: "12px auto 20px" }}>Play a quiz first — your results will show up here.</p>
+        <p className="sub" style={{ margin: "12px auto 20px" }}>Play a quiz first - your results will show up here.</p>
         <Link href="/practice" className="btn btn-p">Start practicing</Link>
       </div>
     );

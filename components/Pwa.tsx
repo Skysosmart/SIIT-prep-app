@@ -8,7 +8,7 @@ export function Pwa() {
     if ("serviceWorker" in navigator) {
       const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
       navigator.serviceWorker.register(`${base}/sw.js`).catch(() => {
-        /* offline support is progressive enhancement — ignore failures */
+        /* offline support is progressive enhancement - ignore failures */
       });
     }
   }, []);

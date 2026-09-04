@@ -50,7 +50,7 @@ export default function Leaderboard() {
       <div className="card" style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
         <Share2 size={20} style={{ color: "var(--pur)", flex: "none" }} aria-hidden="true" />
         <p style={{ margin: 0, fontSize: ".92rem", color: "var(--mut)", flex: 1, minWidth: 220 }}>
-          Want real rivals here? Finish a quiz and hit <b style={{ color: "var(--ink)" }}>Share Score</b> —
+          Want real rivals here? Finish a quiz and hit <b style={{ color: "var(--ink)" }}>Share Score</b> -
           friends who beat you can send their grids right back.
         </p>
         <Link href="/practice" className="btn btn-p btn-sm">Play a quiz</Link>
