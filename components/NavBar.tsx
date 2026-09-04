@@ -7,6 +7,7 @@ import { useProfile } from "@/lib/profile";
 
 const LINKS = [
   { href: "/", label: "Home" },
+  { href: "/exam", label: "Mock Exam" },
   { href: "/practice", label: "Practice" },
   { href: "/flashcards", label: "Flashcards" },
   { href: "/library", label: "Formula Library" },
@@ -19,6 +20,7 @@ export function NavBar() {
   const { p } = useProfile();
   const active = (href: string) => {
     if (href === "/") return path === "/";
+    if (href === "/exam") return path.startsWith("/exam");
     if (href === "/practice") return ["/practice", "/quiz", "/results", "/review"].some((s) => path.startsWith(s));
     return path.startsWith(href);
   };

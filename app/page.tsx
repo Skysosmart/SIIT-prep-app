@@ -44,16 +44,15 @@ export default function Home() {
         <span className="float" style={{ top: "14%", right: "8%", fontSize: "2.6rem" }}>∫ eˣ dx</span>
         <span className="float" style={{ bottom: "16%", right: "22%", fontSize: "1.8rem" }}>sin²θ + cos²θ = 1</span>
         <span className="float" style={{ top: "55%", right: "6%", fontSize: "1.5rem" }}>Δ = b² − 4ac</span>
-        <span className="kicker">SIIT entrance-exam practice</span>
-        <h1>Master SIIT Math. <span className="accent">One formula at a time.</span></h1>
+        <span className="kicker">SIIT / OSP entrance-exam prep</span>
+        <h1>Ace the SIIT exam. <span className="accent">Math &amp; English.</span></h1>
         <p>
-          Timed formula quizzes built from a real SIIT question bank - {QUESTIONS.length} questions
-          across {TOPICS.length} topics. Race the clock, keep your streak alive, and turn every
-          formula into a reflex.
+          A full OSP-style mock exam plus {QUESTIONS.length} practice questions across {TOPICS.length} topics
+          in both sections. Sit the timed paper, then drill your weak spots until they&apos;re a reflex.
         </p>
         <div className="cta">
-          <Link href="/practice" className="btn btn-p btn-big">Start Quiz</Link>
-          <Link href="/library" className="btn btn-hero btn-big">Review Formulas</Link>
+          <Link href="/exam" className="btn btn-p btn-big">Take Mock Exam</Link>
+          <Link href="/practice" className="btn btn-hero btn-big">Practice by Topic</Link>
         </div>
       </section>
 
@@ -84,18 +83,25 @@ export default function Home() {
         </>
       )}
 
-      <div className="sec-h"><h2>Pick a topic</h2><Link href="/practice" className="btn btn-g btn-sm">See all</Link></div>
-      <div className="grid g3">
-        {TOPICS.map((t) => (
-          <Link key={t.id} href={`/quiz?topic=${t.id}`} className="card hov" style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <TopicChip t={t} />
-            <div style={{ minWidth: 0 }}>
-              <b>{t.name}</b>
-              <div style={{ fontSize: ".82rem", color: "var(--mut)" }}>{questionsForTopic(t.id).length} questions · {t.diff}</div>
-            </div>
-          </Link>
-        ))}
-      </div>
+      {(["math", "eng"] as const).map((subj) => (
+        <div key={subj}>
+          <div className="sec-h">
+            <h2>{subj === "math" ? "Mathematics topics" : "English topics"}</h2>
+            <Link href="/practice" className="btn btn-g btn-sm">See all</Link>
+          </div>
+          <div className="grid g3">
+            {TOPICS.filter((t) => t.subject === subj).map((t) => (
+              <Link key={t.id} href={`/quiz?topic=${t.id}`} className="card hov" style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <TopicChip t={t} />
+                <div style={{ minWidth: 0 }}>
+                  <b>{t.name}</b>
+                  <div style={{ fontSize: ".82rem", color: "var(--mut)" }}>{questionsForTopic(t.id).length} questions · {t.diff}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -10,28 +10,29 @@ import { TopicChip, DiffTag, SearchIcon } from "@/components/bits";
 export default function Practice() {
   const { p } = useProfile();
   const [q, setQ] = useState("");
-  const [scope, setScope] = useState("All");
+  const [subject, setSubject] = useState<"math" | "eng">("math");
   const [diff, setDiff] = useState("All");
 
   const list = TOPICS.filter((t) =>
-    (scope === "All" || (scope === "Core") === t.core) &&
+    t.subject === subject &&
     (diff === "All" || t.diff === diff) &&
     (!q.trim() || t.name.toLowerCase().includes(q.trim().toLowerCase())),
   );
 
   return (
     <div className="view">
-      <span className="kicker">Practice</span>
-      <h2 style={{ fontSize: "1.8rem", marginTop: 6 }}>Choose your practice test</h2>
-      <p className="sub">Every topic maps to a section of the SIIT entrance exam. Progress reflects your best accuracy per topic.</p>
+      <span className="kicker">Practice by topic</span>
+      <h2 style={{ fontSize: "1.8rem", marginTop: 6 }}>Drill a single topic</h2>
+      <p className="sub">Untimed practice with instant feedback. For the real thing, try the <Link href="/exam" style={{ color: "var(--teal-d)", fontWeight: 700 }}>timed mock exam</Link>.</p>
+      <div className="subject-tabs">
+        <button className={`subject-tab${subject === "math" ? " on" : ""}`} onClick={() => setSubject("math")}>Mathematics</button>
+        <button className={`subject-tab${subject === "eng" ? " on" : ""}`} onClick={() => setSubject("eng")}>English</button>
+      </div>
       <div className="filters">
         <div className="search">
           <SearchIcon />
           <input type="search" placeholder="Search topics…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search topics" />
         </div>
-        {["All", "Core", "Extra"].map((f) => (
-          <button key={f} className={`chip${scope === f ? " on" : ""}`} onClick={() => setScope(f)}>{f}</button>
-        ))}
         {["All", "Easy", "Medium", "Hard"].map((f) => (
           <button key={f} className={`chip${diff === f ? " on" : ""}`} onClick={() => setDiff(f)}>{f}</button>
         ))}

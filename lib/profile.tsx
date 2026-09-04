@@ -19,13 +19,17 @@ export type Profile = {
   hist: QuizRecord[];
   daily: { last: string | null; streak: number }; // daily-challenge completions
   flash: string[];             // formula names mastered in flashcard mode
+  exams: ExamHistory[];        // completed mock exams
 };
+
+export type ExamHistory = { date: string; correct: number; total: number; timeSec: number };
 
 const EMPTY: Profile = {
   xp: 0, quizzes: 0, answered: 0, correct: 0,
   streakDays: 0, lastPlayed: null, favs: [], prog: {}, hist: [],
   daily: { last: null, streak: 0 },
   flash: [],
+  exams: [],
 };
 
 const KEY = "siit-math-arena-profile";
@@ -55,6 +59,7 @@ type Ctx = {
   toggleFav: (name: string) => void;
   markFlash: (name: string, known: boolean) => void;
   resetFlash: () => void;
+  recordExam: (r: { correct: number; total: number; timeSec: number }) => void;
 };
 
 const ProfileCtx = createContext<Ctx | null>(null);
@@ -115,8 +120,21 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 
   const resetFlash = () => save({ ...p, flash: [] });
 
+  const recordExam = (r: { correct: number; total: number; timeSec: number }) => {
+    const today = localToday();
+    // an exam earns XP too: 5 per correct answer
+    save({
+      ...p,
+      xp: p.xp + r.correct * 5,
+      streakDays: p.lastPlayed === today ? p.streakDays
+        : p.lastPlayed === localYesterday() ? p.streakDays + 1 : 1,
+      lastPlayed: today,
+      exams: [{ date: today, correct: r.correct, total: r.total, timeSec: r.timeSec }, ...p.exams].slice(0, 20),
+    });
+  };
+
   return (
-    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav, markFlash, resetFlash }}>
+    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav, markFlash, resetFlash, recordExam }}>
       {children}
     </ProfileCtx.Provider>
   );

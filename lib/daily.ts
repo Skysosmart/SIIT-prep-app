@@ -22,6 +22,7 @@ export const DAILY_TOPIC: Topic = {
   color: "linear-gradient(135deg,#8B5CF6,#38BDF8)",
   diff: "Medium",
   core: true,
+  subject: "math",
 };
 
 // Deterministic PRNG so every player gets the same daily set.

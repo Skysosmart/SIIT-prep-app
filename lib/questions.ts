@@ -17,8 +17,9 @@ export type Question = {
   q: string;                  // question text ($..$ for math)
   choices: string[];          // 4 choices (original bank) or 6 (practice packs)
   answer: number;             // index into choices
-  formula: string;            // name of the underlying formula/idea
+  formula: string;            // name of the underlying formula/idea/concept
   explain: string;
+  passage?: string;           // reading-comprehension passage shown above the question
 };
 
 const Q = (
@@ -396,8 +397,15 @@ const BASE_QUESTIONS: Question[] = [
 ];
 
 import { PACK_QUESTIONS } from "./packs";
+import { ENGLISH_QUESTIONS } from "./english";
+import { TOPICS, type Subject } from "./topics";
 
-export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PACK_QUESTIONS];
+export const QUESTIONS: Question[] = [...BASE_QUESTIONS, ...PACK_QUESTIONS, ...ENGLISH_QUESTIONS];
 
 export const questionsForTopic = (topic: TopicId) =>
   QUESTIONS.filter((q) => q.topic === topic);
+
+const SUBJECT_OF = new Map<TopicId, Subject>(TOPICS.map((t) => [t.id, t.subject]));
+
+export const questionsForSubject = (subject: Subject) =>
+  QUESTIONS.filter((q) => SUBJECT_OF.get(q.topic) === subject);
