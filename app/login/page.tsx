@@ -97,7 +97,7 @@ function LoginInner() {
           </button>
         </p>
         <p style={{ textAlign: "center", marginTop: 4 }}>
-          <Link href="/" className="sub" style={{ fontSize: ".85rem" }}>Continue without an account</Link>
+          <Link href="/welcome" className="sub" style={{ fontSize: ".85rem" }}>← Back to intro</Link>
         </p>
       </div>
     </div>

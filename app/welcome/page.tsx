@@ -3,79 +3,93 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { GraduationCap, Timer, Layers, BookOpen, LineChart, Trophy, ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useAuth } from "@/lib/auth-client";
-import { QUESTIONS } from "@/lib/questions";
-import { TOPICS } from "@/lib/topics";
+import { EXAM_SECTIONS } from "@/lib/exam";
+import { Tex } from "@/components/Tex";
 
-const SEEN_KEY = "siit-seen-welcome";
-
-const FEATURES = [
-  { icon: Timer, title: "Full mock exam", body: "A timed OSP-style paper: three sequential sections (Math, Physics, English), each on its own one-hour clock." },
-  { icon: GraduationCap, title: "All three subjects", body: `${QUESTIONS.length}+ practice questions across ${TOPICS.length} topics, from algebra and calculus to mechanics, optics, grammar, and reading.` },
-  { icon: Layers, title: "Flashcards", body: "Master every formula with spaced-repetition flip cards for both Math and Physics." },
-  { icon: BookOpen, title: "Formula library", body: "Every formula you need, LaTeX-rendered, with when-to-use notes and worked examples." },
-  { icon: LineChart, title: "Progress that follows you", body: "XP, streaks, exam results, and mastery sync to your account across every device." },
-  { icon: Trophy, title: "Compete & stay sharp", body: "Daily challenges, a live leaderboard, and score sharing to keep the momentum going." },
-];
+const YEAR = 2027; // SIIT/OSP admission cycle referenced on the exam header
 
 export default function Welcome() {
   const router = useRouter();
   const { user, ready } = useAuth();
-
-  // already logged in? skip straight to the app
   useEffect(() => { if (ready && user) router.replace("/"); }, [ready, user, router]);
 
-  const enterAsGuest = () => {
-    try { localStorage.setItem(SEEN_KEY, "1"); } catch { /* ignore */ }
-    router.push("/");
-  };
-  const markSeen = () => { try { localStorage.setItem(SEEN_KEY, "1"); } catch { /* ignore */ } };
-
   return (
-    <div className="view welcome">
-      <section className="wl-hero">
-        <span className="wl-badge"><span className="wl-mark">∑</span> SIIT PREP</span>
-        <h1>Get into SIIT.<br /><span className="accent">One focused session at a time.</span></h1>
-        <p>
-          The complete prep platform for the SIIT / OSP entrance exam - a realistic timed mock exam,
-          {" "}{QUESTIONS.length}+ original practice questions, flashcards, and a formula library for
-          Mathematics, Physics, and English.
-        </p>
-        <div className="wl-cta">
-          <Link href="/login?mode=signup" className="btn btn-p btn-big" onClick={markSeen}>Create free account <ArrowRight size={18} /></Link>
-          <Link href="/login" className="btn btn-hero btn-big" onClick={markSeen}>Sign in</Link>
+    <div className="view wl">
+      {/* exam-booklet header strip */}
+      <header className="wl-head">
+        <span className="wl-inst"><span className="wl-sigma">∑</span> SIIT PREP</span>
+        <span className="wl-code">OSP ENTRANCE EXAMINATION · PRACTICE EDITION · {YEAR}</span>
+      </header>
+
+      <section className="wl-top">
+        <div className="wl-left">
+          <h1>Sit the SIIT<br />entrance exam<br />before you sit it.</h1>
+          <p>
+            A faithful practice edition of the OSP paper: three timed sections, {" "}
+            original questions in the real format, and the tools to close every gap
+            between now and exam day.
+          </p>
+          <div className="wl-cta">
+            <Link href="/login?mode=signup" className="btn btn-p btn-big">Register to begin <ArrowRight size={18} /></Link>
+            <Link href="/login" className="btn btn-line btn-big">I have an account</Link>
+          </div>
+          <p className="wl-note">Registration is free. Your progress is saved to your candidate account.</p>
         </div>
-        <button className="wl-guest" onClick={enterAsGuest}>or explore without an account</button>
+
+        {/* specimen question card, styled like the real exam */}
+        <aside className="wl-specimen" aria-label="Specimen question">
+          <div className="wl-spec-head">
+            <span>SPECIMEN · MATHEMATICS</span><span>Q1</span>
+          </div>
+          <div className="wl-spec-q">Which expression gives the roots of <Tex s="$ax^2+bx+c=0$" />?</div>
+          <ol className="wl-spec-opts">
+            <li><span>A</span><Tex s="$x=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$" /></li>
+            <li className="pick"><span>B</span><Tex s="$x=\dfrac{-b\pm\sqrt{b^2+4ac}}{2a}$" /></li>
+            <li><span>C</span><Tex s="$x=\dfrac{b\pm\sqrt{b^2-4ac}}{2a}$" /></li>
+            <li><span>D</span><Tex s="$x=\dfrac{-b\pm\sqrt{4ac-b^2}}{2a}$" /></li>
+          </ol>
+          <div className="wl-spec-foot">Answer, then move on — no feedback until you submit.</div>
+        </aside>
       </section>
 
-      <div className="wl-stats">
-        <div><b>{QUESTIONS.length}+</b><span>practice questions</span></div>
-        <div><b>3</b><span>exam subjects</span></div>
-        <div><b>{TOPICS.length}</b><span>topics covered</span></div>
-        <div><b>150</b><span>question mock exam</span></div>
-      </div>
+      {/* exam structure, as a real contents/instructions table */}
+      <section className="wl-paper">
+        <h2>The paper</h2>
+        <table className="wl-struct">
+          <thead>
+            <tr><th>#</th><th>Section</th><th>Questions</th><th>Time</th></tr>
+          </thead>
+          <tbody>
+            {EXAM_SECTIONS.map((s, i) => (
+              <tr key={s.id}>
+                <td className="wl-num">{i + 1}</td>
+                <td>{s.name}</td>
+                <td>{s.count}</td>
+                <td>{s.minutes} min</td>
+              </tr>
+            ))}
+            <tr className="wl-total">
+              <td></td><td>Full paper</td>
+              <td>{EXAM_SECTIONS.reduce((a, s) => a + s.count, 0)}</td>
+              <td>{EXAM_SECTIONS.reduce((a, s) => a + s.minutes, 0)} min</td>
+            </tr>
+          </tbody>
+        </table>
+        <p className="wl-also">
+          Beyond the mock paper: topic-by-topic practice with instant feedback, formula
+          flashcards for Maths and Physics, a searchable formula library, daily challenges,
+          and a class leaderboard — all tracked in your account.
+        </p>
+      </section>
 
-      <h2 className="wl-h2">Everything you need to be exam-ready</h2>
-      <div className="wl-features">
-        {FEATURES.map((f) => (
-          <div className="wl-feature" key={f.title}>
-            <span className="wl-ficon"><f.icon size={22} /></span>
-            <b>{f.title}</b>
-            <p>{f.body}</p>
-          </div>
-        ))}
-      </div>
-
-      <section className="wl-final">
-        <h2>Ready to start?</h2>
-        <p>Create a free account to save your progress and pick up where you left off on any device.</p>
-        <ul className="wl-perks">
-          <li><Check size={16} /> Free forever</li>
-          <li><Check size={16} /> Progress synced everywhere</li>
-          <li><Check size={16} /> No card required</li>
-        </ul>
-        <Link href="/login?mode=signup" className="btn btn-p btn-big" onClick={markSeen}>Create your account <ArrowRight size={18} /></Link>
+      <section className="wl-enter">
+        <div>
+          <b>Ready when you are.</b>
+          <span>Create a candidate account to start the paper and keep your progress.</span>
+        </div>
+        <Link href="/login?mode=signup" className="btn btn-p btn-big">Register to begin <ArrowRight size={18} /></Link>
       </section>
     </div>
   );

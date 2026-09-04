@@ -4,6 +4,7 @@ import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ProfileProvider } from "@/lib/profile";
 import { AuthProvider } from "@/lib/auth-client";
+import { AuthGate } from "@/components/AuthGate";
 import { NavBar } from "@/components/NavBar";
 import { Pwa } from "@/components/Pwa";
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           <ProfileProvider>
             <NavBar />
-            <main><div className="wrap">{children}</div></main>
+            <AuthGate><main><div className="wrap">{children}</div></main></AuthGate>
             <Pwa />
           </ProfileProvider>
         </AuthProvider>

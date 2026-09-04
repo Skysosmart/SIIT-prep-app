@@ -19,7 +19,10 @@ const LINKS = [
 export function NavBar() {
   const path = usePathname();
   const { p } = useProfile();
-  const { user, hasBackend } = useAuth();
+  const { user, hasBackend, ready } = useAuth();
+
+  // On the gated site, hide the app nav until the user is signed in.
+  if (hasBackend && ready && !user) return null;
   const active = (href: string) => {
     if (href === "/") return path === "/";
     if (href === "/exam") return path.startsWith("/exam");

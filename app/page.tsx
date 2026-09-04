@@ -1,31 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { TOPICS } from "@/lib/topics";
 import { QUESTIONS, questionsForTopic } from "@/lib/questions";
 import { useProfile } from "@/lib/profile";
-import { useAuth } from "@/lib/auth-client";
 import { localToday, dailyLabel, DAILY_BONUS_XP } from "@/lib/daily";
 import { Star, ChevronRight } from "lucide-react";
 import { TopicChip, StreakFlame } from "@/components/bits";
-
-/** First-time, signed-out visitors see the welcome page before the app. */
-function useWelcomeGate() {
-  const router = useRouter();
-  const { user, ready, hasBackend } = useAuth();
-  const [checked, setChecked] = useState(false);
-  useEffect(() => {
-    if (!hasBackend) { setChecked(true); return; }   // static mirror: no gate
-    if (!ready) return;
-    let seen = false;
-    try { seen = localStorage.getItem("siit-seen-welcome") === "1"; } catch { /* ignore */ }
-    if (!user && !seen) router.replace("/welcome");
-    else setChecked(true);
-  }, [user, ready, hasBackend, router]);
-  return checked;
-}
 
 function DailyBanner() {
   const { p } = useProfile();
@@ -51,15 +32,11 @@ function DailyBanner() {
 
 export default function Home() {
   const { p } = useProfile();
-  const gateReady = useWelcomeGate();
   const acc = p.answered ? Math.round((100 * p.correct) / p.answered) : 0;
   const cont = TOPICS
     .filter((t) => (p.prog[t.id] ?? 0) > 0 && (p.prog[t.id] ?? 0) < 100)
     .sort((a, b) => (p.prog[b.id] ?? 0) - (p.prog[a.id] ?? 0))
     .slice(0, 3);
-
-  // hold render until the gate decides (avoids a flash of the app before redirect)
-  if (!gateReady) return <div className="view" style={{ minHeight: "60vh" }} />;
 
   return (
     <div className="view">
