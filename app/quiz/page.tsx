@@ -7,7 +7,7 @@ import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
 import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft, Volume2, VolumeX } from "lucide-react";
-import { playCorrect, playWrong, soundOn, setSoundOn } from "@/lib/sound";
+import { playCorrect, playWrong, playTick, soundOn, setSoundOn } from "@/lib/sound";
 import { useProfile, type QuizSummary } from "@/lib/profile";
 import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
 import { Tex } from "@/components/Tex";
@@ -53,6 +53,7 @@ function QuizInner() {
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeTotal = useRef(1);
   const answeredRef = useRef(false);
+  const lastTickSec = useRef(-1);
 
   const stopTimer = () => { if (timer.current) { clearInterval(timer.current); timer.current = null; } };
   useEffect(() => stopTimer, []);
@@ -70,8 +71,20 @@ function QuizInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, stage]);
 
+  // countdown tick: once per second while the bar is in the red zone
+  useEffect(() => {
+    if (stage !== "play" || answeredRef.current || timeLeft <= 0) return;
+    const frac = timeLeft / timeTotal.current;
+    const sec = Math.ceil(timeLeft);
+    if (frac < 0.3 && sec !== lastTickSec.current) {
+      lastTickSec.current = sec;
+      playTick(timeLeft <= 3);
+    }
+  }, [timeLeft, stage]);
+
   function beginQuestion(total: number) {
     answeredRef.current = false;
+    lastTickSec.current = -1;
     timeTotal.current = total;
     setTimeLeft(total);
     setPicked(null);

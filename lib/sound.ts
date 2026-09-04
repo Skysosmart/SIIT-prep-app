@@ -41,6 +41,13 @@ export function playCorrect(streak = 1): void {
   if (streak >= 3) tone(c, 1046.5, t + 0.18, 0.2, "triangle", 0.16); // C6
 }
 
+/** Soft clock tick for the countdown; `urgent` raises the pitch for the last seconds. */
+export function playTick(urgent = false): void {
+  if (!soundOn()) return;
+  const c = ac(); if (!c) return;
+  tone(c, urgent ? 1318.5 : 880, c.currentTime, 0.05, "square", 0.055);
+}
+
 /** Short descending buzz. */
 export function playWrong(): void {
   if (!soundOn()) return;
