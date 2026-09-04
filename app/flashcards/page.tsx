@@ -98,7 +98,10 @@ export default function Flashcards() {
             You&apos;ve mastered {cat === "All" ? "every formula" : `all of ${cat}`}. Review again any time.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <button className="btn btn-p" onClick={() => { resetFlash(); setRound((r) => r + 1); setI(0); }}>
+            <button className="btn btn-p" onClick={() => {
+              if (!window.confirm("Reset your flashcard mastery for all decks?")) return;
+              resetFlash(); setRound((r) => r + 1); setI(0);
+            }}>
               <RefreshCw size={16} /> Restart all decks
             </button>
             <Link href="/practice" className="btn btn-g">Take a quiz <ChevronRight size={16} /></Link>
@@ -132,6 +135,9 @@ export default function Flashcards() {
             <button className="btn btn-p" disabled={!flipped} onClick={() => advance(true)}>
               <Check size={17} /> Got it
             </button>
+          </div>
+          <div style={{ fontSize: ".8rem", color: "var(--mut)", marginTop: 10, minHeight: "1.2em" }}>
+            {flipped ? "Be honest - did you know it?" : "Flip the card to rate yourself"}
           </div>
           <div className="pbar" style={{ maxWidth: 420, margin: "18px auto 0" }}>
             <span style={{ width: `${(100 * masteredInCat) / Math.max(1, pool.length)}%` }} />

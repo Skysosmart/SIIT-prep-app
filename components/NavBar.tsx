@@ -26,10 +26,14 @@ export function NavBar() {
     <nav className="top">
       <div className="nav-in">
         <Link href="/" className="logo"><span className="mark">∑</span>SIIT Math Arena</Link>
-        {LINKS.map((l) => (
-          <Link key={l.href} href={l.href} className={`nav-a${active(l.href) ? " on" : ""}`}>{l.label}</Link>
-        ))}
-        <span className="xp-pill"><Gem size={14} aria-hidden="true" /> {p.xp.toLocaleString()} XP</span>
+        <div className="nav-links">
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className={`nav-a${active(l.href) ? " on" : ""}`}>{l.label}</Link>
+          ))}
+        </div>
+        <Link href="/dashboard" className="xp-pill" title="View your profile">
+          <Gem size={14} aria-hidden="true" /> {p.xp.toLocaleString()} XP
+        </Link>
       </div>
     </nav>
   );

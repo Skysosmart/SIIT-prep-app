@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Share2, Trophy, RefreshCw, Users } from "lucide-react";
+import { Share2, Trophy, RefreshCw, Users, Pencil } from "lucide-react";
 import { useProfile, rank } from "@/lib/profile";
 import { StreakFlame } from "@/components/bits";
 import { hasBackend, fetchScores, submitScore, playerId, playerName, setPlayerName, type ScoreRow } from "@/lib/leaderboard";
@@ -22,6 +22,7 @@ export default function Leaderboard() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const [myId, setMyId] = useState("");
+  const [editing, setEditing] = useState(false);
 
   const refresh = useCallback(async (submitFirst: boolean, asName: string) => {
     setBusy(true);
@@ -49,6 +50,7 @@ export default function Leaderboard() {
     if (n.length < 2) { setErr("Pick a name with at least 2 characters."); return; }
     setPlayerName(n);
     setName(n);
+    setEditing(false);
     await refresh(true, n);
   };
 
@@ -101,10 +103,10 @@ export default function Leaderboard() {
       </div>
       <p className="sub">Everyone playing SIIT PREP, ranked by XP. Your score syncs when you open this page.</p>
 
-      {!name && (
+      {(!name || editing) && (
         <div className="card" style={{ margin: "20px 0", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
           <Users size={20} style={{ color: "var(--teal-d)", flex: "none" }} aria-hidden="true" />
-          <span style={{ fontWeight: 700 }}>Join the board:</span>
+          <span style={{ fontWeight: 700 }}>{editing ? "Change nickname:" : "Join the board:"}</span>
           <input
             className="name-input"
             placeholder="Your nickname…"
@@ -114,7 +116,10 @@ export default function Leaderboard() {
             onKeyDown={(e) => e.key === "Enter" && join()}
             aria-label="Nickname"
           />
-          <button className="btn btn-p btn-sm" onClick={join} disabled={busy}>Join with {p.xp.toLocaleString()} XP</button>
+          <button className="btn btn-p btn-sm" onClick={join} disabled={busy}>
+            {editing ? "Save name" : `Join with ${p.xp.toLocaleString()} XP`}
+          </button>
+          {editing && <button className="btn btn-g btn-sm" onClick={() => setEditing(false)}>Cancel</button>}
         </div>
       )}
 
@@ -177,7 +182,12 @@ export default function Leaderboard() {
         <Share2 size={20} style={{ color: "var(--pur)", flex: "none" }} aria-hidden="true" />
         <p style={{ margin: 0, fontSize: ".92rem", color: "var(--mut)", flex: 1, minWidth: 220 }}>
           {name
-            ? <>Playing as <b style={{ color: "var(--ink)" }}>{name}</b> · {acc}% accuracy. Send friends the site link so they can join the board.</>
+            ? <>Playing as <b style={{ color: "var(--ink)" }}>{name}</b>{" "}
+                <button className="fav" style={{ fontSize: "inherit", padding: "1px 5px" }} title="Change nickname"
+                  onClick={() => { setDraft(name); setEditing(true); }} aria-label="Change nickname">
+                  <Pencil size={13} />
+                </button>{" "}
+                · {acc}% accuracy. Send friends the site link so they can join the board.</>
             : "Scores sync from this device under your nickname. Send friends the site link so they can join."}
         </p>
         <Link href="/practice" className="btn btn-p btn-sm">Play a quiz</Link>

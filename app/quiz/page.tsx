@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
-import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft, Volume2, VolumeX } from "lucide-react";
+import { Triangle, Diamond, Circle, Square, Pentagon, Hexagon, ChevronRight, ArrowLeft, Volume2, VolumeX, X } from "lucide-react";
 import { playCorrect, playWrong, playTick, soundOn, setSoundOn } from "@/lib/sound";
 import { useProfile, type QuizSummary } from "@/lib/profile";
 import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
@@ -123,14 +123,23 @@ function QuizInner() {
       setStreak(0);
     }
     setPicked(pos);
+    // on phones the feedback appears below the fold - bring it into view
+    setTimeout(() => document.querySelector(".fb")?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 80);
   }
 
   function next() {
     if (picked === null) return;
+    window.scrollTo({ top: 0 });
     if (i + 1 >= qs.length) { finish(); return; }
     const nextIdx = i + 1;
     setI(nextIdx);
     beginQuestion(Math.round(qs[nextIdx].q.timer * DIFFS[diff].scale));
+  }
+
+  function quit() {
+    if (!window.confirm("Quit this quiz? Your progress in this round won't be saved.")) return;
+    stopTimer();
+    router.push(daily ? "/" : "/practice");
   }
 
   function finish() {
@@ -246,6 +255,9 @@ function QuizInner() {
         <button className="sndbtn" onClick={toggleSnd} aria-label={snd ? "Mute sounds" : "Unmute sounds"}>
           {snd ? <Volume2 size={17} /> : <VolumeX size={17} />}
         </button>
+        <button className="sndbtn" onClick={quit} aria-label="Quit quiz" title="Quit quiz">
+          <X size={17} />
+        </button>
       </div>
       <div className={`tbar${frac < 0.3 ? " low" : ""}`}><span style={{ width: `${100 * frac}%` }} /></div>
       <div className="qbox">
@@ -282,7 +294,10 @@ function QuizInner() {
               {ok
                 ? <span className="xp-pop">+{lastPts} pts · +{xpFor(lastPts)} XP</span>
                 : <span style={{ color: "var(--mut)", fontSize: ".85rem" }}>No points - you&apos;ll get it next time.</span>}
-              <button className="btn btn-p" onClick={next}>{i + 1 >= qs.length ? "See results" : "Next question"} <ChevronRight size={17} /></button>
+              <button className="btn btn-p" onClick={next}>
+                {i + 1 >= qs.length ? "See results" : "Next question"} <ChevronRight size={17} />
+                <span className="key-hint">Enter</span>
+              </button>
             </div>
           </div>
         )}
