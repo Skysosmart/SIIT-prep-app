@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Target, ChevronRight } from "lucide-react";
+import { StreakFlame } from "@/components/bits";
 import { topicById } from "@/lib/topics";
 import { QUESTIONS } from "@/lib/questions";
 import { useProfile, rank, type QuizSummary } from "@/lib/profile";
@@ -74,7 +76,7 @@ export default function Results() {
       </div>
       <div className="res-stats">
         <div className="stat"><span className="lb">Time spent</span><div className="v">{mm}:{ss}</div></div>
-        <div className="stat flame"><span className="lb">Best streak</span><div className="v">🔥 {s.bestStreak}</div></div>
+        <div className="stat flame"><span className="lb">Best streak</span><div className="v"><StreakFlame size={24} /> {s.bestStreak}</div></div>
         <div className="stat">
           <span className="lb">XP earned</span>
           <div className="v" style={{ color: "var(--pur)" }}>+{s.xp}</div>
@@ -105,14 +107,14 @@ export default function Results() {
               <p style={{ fontSize: ".85rem", color: "var(--mut)", marginBottom: 0 }}>Find each one in the Formula Library, then retry.</p>
             </>
           ) : (
-            <p style={{ color: "var(--mut)", fontSize: ".9rem" }}>Nothing! You nailed every formula this round. 🎯</p>
+            <p style={{ color: "var(--mut)", fontSize: ".9rem" }}>Nothing! You nailed every formula this round. <Target size={15} style={{ color: "var(--grn)" }} aria-hidden="true" /></p>
           )}
         </div>
       </div>
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
         <Link href={retryHref} className="btn btn-p">Retry Quiz</Link>
         {wrongFormulas.length > 0 && <Link href="/review" className="btn btn-pur">Review Mistakes</Link>}
-        <Link href="/practice" className="btn btn-g">Next Topic ▸</Link>
+        <Link href="/practice" className="btn btn-g">Next Topic <ChevronRight size={17} /></Link>
       </div>
     </div>
   );

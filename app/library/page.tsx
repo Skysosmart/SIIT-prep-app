@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Star } from "lucide-react";
 import { FORMULAS, LIB_CATS } from "@/lib/formulas";
 import { useProfile } from "@/lib/profile";
 import { Tex } from "@/components/Tex";
@@ -31,7 +32,7 @@ export default function Library() {
       <div className="lib">
         <aside className="side">
           <button className={cat === "All" ? "on" : ""} onClick={() => setCat("All")}>All formulas</button>
-          <button className={cat === "★" ? "on" : ""} onClick={() => setCat("★")}>★ Favorites</button>
+          <button className={cat === "★" ? "on" : ""} onClick={() => setCat("★")}><Star size={13} fill="currentColor" aria-hidden="true" /> Favorites</button>
           {LIB_CATS.map((c) => (
             <button key={c} className={cat === c ? "on" : ""} onClick={() => setCat(c)}>{c}</button>
           ))}
@@ -53,7 +54,7 @@ export default function Library() {
                   </div>
                   <button className={`fav${fav ? " on" : ""}`} onClick={() => toggleFav(f.name)}
                     aria-label={`${fav ? "Remove from" : "Add to"} favorites`}>
-                    {fav ? "★" : "☆"}
+                    <Star size={19} fill={fav ? "currentColor" : "none"} aria-hidden="true" />
                   </button>
                 </div>
                 <div className="fm"><Tex s={f.tex} block /></div>

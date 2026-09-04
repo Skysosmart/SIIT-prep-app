@@ -1,3 +1,4 @@
+import { Flame, Search } from "lucide-react";
 import type { Topic } from "@/lib/topics";
 
 export const TopicChip = ({ t }: { t: Topic }) => (
@@ -10,8 +11,9 @@ export const DiffTag = ({ d }: { d: string }) => {
   return <span className={`tag ${cls}`}>{label}</span>;
 };
 
-export const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-    <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
-  </svg>
+export const SearchIcon = () => <Search size={16} aria-hidden="true" />;
+
+/** Streak flame — filled Lucide flame in the app's amber. */
+export const StreakFlame = ({ size = 18 }: { size?: number }) => (
+  <Flame size={size} fill="currentColor" strokeWidth={1.5} aria-hidden="true" style={{ color: "var(--amb)" }} />
 );

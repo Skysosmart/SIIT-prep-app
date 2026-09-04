@@ -6,14 +6,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
+import { Triangle, Diamond, Circle, Square, ChevronRight, ArrowLeft } from "lucide-react";
 import { useProfile, type QuizSummary } from "@/lib/profile";
 import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
 import { Tex } from "@/components/Tex";
-import { TopicChip } from "@/components/bits";
+import { TopicChip, StreakFlame } from "@/components/bits";
 
 type PlayQ = { q: Question; order: number[]; correctAt: number };
 
-const GLYPHS = ["△", "◇", "○", "□"];
+const GLYPHS = [Triangle, Diamond, Circle, Square];
 const TICK_MS = 100;
 
 const kindLabel = (k: Question["kind"]) =>
@@ -157,7 +158,7 @@ function QuizInner() {
           {dailyDone ? (
             <p style={{ margin: "6px 0 20px" }}>
               <span className="tag easy" style={{ fontSize: ".82rem", padding: "6px 14px" }}>
-                Completed today ✓ · 🔥 {p.daily.streak}-day streak
+                Completed today ✓ · <StreakFlame size={13} /> {p.daily.streak}-day streak
               </span>
               <span style={{ display: "block", color: "var(--mut)", fontSize: ".85rem", marginTop: 10 }}>
                 This run is just practice — the bonus comes back tomorrow.
@@ -168,8 +169,8 @@ function QuizInner() {
               Finish for +{DAILY_BONUS_XP} bonus XP and to keep your daily-challenge streak alive.
             </p>
           )}
-          <button className="btn btn-pur btn-big" onClick={start}>Start Today&apos;s Challenge ▸</button>
-          <div style={{ marginTop: 14 }}><Link href="/" className="btn btn-g btn-sm">← Back home</Link></div>
+          <button className="btn btn-pur btn-big" onClick={start}>Start Today&apos;s Challenge <ChevronRight size={20} /></button>
+          <div style={{ marginTop: 14 }}><Link href="/" className="btn btn-g btn-sm"><ArrowLeft size={15} /> Back home</Link></div>
         </div>
       </div>
     );
@@ -203,8 +204,8 @@ function QuizInner() {
               </button>
             ))}
           </div>
-          <button className="btn btn-p btn-big" onClick={start}>Start Game ▸</button>
-          <div style={{ marginTop: 14 }}><Link href="/practice" className="btn btn-g btn-sm">← Back to topics</Link></div>
+          <button className="btn btn-p btn-big" onClick={start}>Start Game <ChevronRight size={20} /></button>
+          <div style={{ marginTop: 14 }}><Link href="/practice" className="btn btn-g btn-sm"><ArrowLeft size={15} /> Back to topics</Link></div>
         </div>
       </div>
     );
@@ -219,7 +220,7 @@ function QuizInner() {
     <div className="view qshell">
       <div className="qtop">
         <span className="qn">Question {i + 1}<span>/{qs.length}</span></span>
-        <span className="stk"><span className={`flame${streak >= 3 ? " hot" : ""}`}>🔥</span>{streak}</span>
+        <span className="stk"><span className={`flame${streak >= 3 ? " hot" : ""}`}><StreakFlame size={17} /></span>{streak}</span>
         <span className="sc">{score.toLocaleString()} pts</span>
       </div>
       <div className={`tbar${frac < 0.3 ? " low" : ""}`}><span style={{ width: `${100 * frac}%` }} /></div>
@@ -228,6 +229,7 @@ function QuizInner() {
         <div className="qt qm"><Tex s={q.q} /></div>
         <div className="answers">
           {cur.order.map((choiceIdx, pos) => {
+            const Glyph = GLYPHS[pos];
             let cls = `ans c${pos}`;
             if (picked !== null) {
               if (pos === cur.correctAt) cls += " hit";
@@ -236,7 +238,7 @@ function QuizInner() {
             }
             return (
               <button key={pos} className={cls} disabled={picked !== null} onClick={() => answer(pos)}>
-                <span className="glyph">{GLYPHS[pos]}</span>
+                <span className="glyph"><Glyph size={16} fill="currentColor" aria-hidden="true" /></span>
                 <span className="body"><Tex s={q.choices[choiceIdx]} /></span>
                 <span className="key">{pos + 1}</span>
               </button>
@@ -246,7 +248,9 @@ function QuizInner() {
         {picked !== null && (
           <div className={`fb ${ok ? "ok" : "no"}`}>
             <div className="verdict">
-              {ok ? <>Correct! {streak >= 3 ? `🔥 ${streak} in a row!` : ""}</> : picked === -1 ? "Time's up!" : "Not quite."}
+              {ok
+                ? <>Correct! {streak >= 3 && <><StreakFlame size={15} /> {streak} in a row!</>}</>
+                : picked === -1 ? "Time's up!" : "Not quite."}
             </div>
             <div className="cf">{q.formula}: <Tex s={q.choices[q.answer]} /></div>
             <div className="ex">{q.explain && <Tex s={q.explain} />}</div>
@@ -254,7 +258,7 @@ function QuizInner() {
               {ok
                 ? <span className="xp-pop">+{lastPts} pts · +{xpFor(lastPts)} XP</span>
                 : <span style={{ color: "var(--mut)", fontSize: ".85rem" }}>No points — you&apos;ll get it next time.</span>}
-              <button className="btn btn-p" onClick={next}>{i + 1 >= qs.length ? "See results" : "Next question"} ▸</button>
+              <button className="btn btn-p" onClick={next}>{i + 1 >= qs.length ? "See results" : "Next question"} <ChevronRight size={17} /></button>
             </div>
           </div>
         )}

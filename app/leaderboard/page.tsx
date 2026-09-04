@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useProfile } from "@/lib/profile";
+import { StreakFlame } from "@/components/bits";
 
 const AV = ["#14B8A6", "#38BDF8", "#8B5CF6", "#F59E0B", "#EF4444", "#10B981", "#0EA5E9", "#F472B6"];
 
@@ -79,7 +80,7 @@ export default function Leaderboard() {
                 </td>
                 <td>{r.xp.toLocaleString()}</td>
                 <td>{r.q}</td>
-                <td>🔥 {r.s}</td>
+                <td><StreakFlame size={14} /> {r.s}</td>
               </tr>
             ))}
           </tbody>

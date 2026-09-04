@@ -5,7 +5,8 @@ import { TOPICS } from "@/lib/topics";
 import { QUESTIONS, questionsForTopic } from "@/lib/questions";
 import { useProfile } from "@/lib/profile";
 import { localToday, dailyLabel, DAILY_BONUS_XP } from "@/lib/daily";
-import { TopicChip } from "@/components/bits";
+import { Star, ChevronRight } from "lucide-react";
+import { TopicChip, StreakFlame } from "@/components/bits";
 
 function DailyBanner() {
   const { p } = useProfile();
@@ -13,17 +14,17 @@ function DailyBanner() {
   const done = p.daily.last === today;
   return (
     <div className="daily-banner">
-      <span className="db-star" aria-hidden="true">★</span>
+      <span className="db-star" aria-hidden="true"><Star size={20} fill="currentColor" /></span>
       <div className="db-body">
         <b>Daily Challenge · {dailyLabel(today)}</b>
         <span className="db-sub">
           {done
-            ? <>Completed today ✓ · 🔥 {p.daily.streak}-day streak — come back tomorrow for the next set.</>
+            ? <>Completed today ✓ · <StreakFlame size={14} /> {p.daily.streak}-day streak — come back tomorrow for the next set.</>
             : <>10 questions, 10 topics — the same set for everyone. Finish it for +{DAILY_BONUS_XP} bonus XP.</>}
         </span>
       </div>
       <Link href="/quiz?daily=1" className={`btn btn-sm ${done ? "btn-g" : "btn-pur"}`}>
-        {done ? "Practice again" : "Play today's 10"}
+        {done ? "Practice again" : "Play today's 10"} <ChevronRight size={15} />
       </Link>
     </div>
   );
@@ -62,7 +63,7 @@ export default function Home() {
         <div className="stat"><span className="lb">Topics</span><div className="v">{TOPICS.length}</div></div>
         <div className="stat"><span className="lb">Questions</span><div className="v">{QUESTIONS.length}<small> in bank</small></div></div>
         <div className="stat"><span className="lb">Best Score</span><div className="v">{acc}<small>% accuracy</small></div></div>
-        <div className="stat flame"><span className="lb">Current Streak</span><div className="v">🔥 {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
+        <div className="stat flame"><span className="lb">Current Streak</span><div className="v"><StreakFlame size={24} /> {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
       </div>
 
       {cont.length > 0 && (

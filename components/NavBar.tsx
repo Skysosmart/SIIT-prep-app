@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Gem } from "lucide-react";
 import { useProfile } from "@/lib/profile";
 
 const LINKS = [
@@ -27,7 +28,7 @@ export function NavBar() {
         {LINKS.map((l) => (
           <Link key={l.href} href={l.href} className={`nav-a${active(l.href) ? " on" : ""}`}>{l.label}</Link>
         ))}
-        <span className="xp-pill">◆ {p.xp.toLocaleString()} XP</span>
+        <span className="xp-pill"><Gem size={14} aria-hidden="true" /> {p.xp.toLocaleString()} XP</span>
       </div>
     </nav>
   );

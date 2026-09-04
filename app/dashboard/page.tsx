@@ -4,7 +4,8 @@ import Link from "next/link";
 import { TOPICS, topicById } from "@/lib/topics";
 import { useProfile, rank, nextRankAt } from "@/lib/profile";
 import { localToday, DAILY_BONUS_XP } from "@/lib/daily";
-import { TopicChip } from "@/components/bits";
+import { Star, Sparkles } from "lucide-react";
+import { TopicChip, StreakFlame } from "@/components/bits";
 
 export default function Dashboard() {
   const { p } = useProfile();
@@ -19,13 +20,13 @@ export default function Dashboard() {
   return (
     <div className="view">
       <span className="kicker">Student dashboard</span>
-      <h2 style={{ fontSize: "1.8rem", margin: "6px 0 4px" }}>Welcome back, challenger 👋</h2>
+      <h2 style={{ fontSize: "1.8rem", margin: "6px 0 4px" }}>Welcome back, challenger <Sparkles size={22} style={{ color: "var(--amb)" }} aria-hidden="true" /></h2>
       <p className="sub">
         You&apos;re a <b style={{ color: "var(--pur)" }}>{rank(p.xp)}</b> with {p.xp.toLocaleString()} XP.
         {p.quizzes ? " Keep the streak alive." : " Play your first quiz to start climbing."}
       </p>
       <div className="stats">
-        <div className="stat flame"><span className="lb">Daily streak</span><div className="v">🔥 {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
+        <div className="stat flame"><span className="lb">Daily streak</span><div className="v"><StreakFlame size={24} /> {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
         <div className="stat"><span className="lb">Overall accuracy</span><div className="v">{acc}<small>%</small></div></div>
         <div className="stat"><span className="lb">Questions answered</span><div className="v">{p.answered.toLocaleString()}</div></div>
         <div className="stat"><span className="lb">Topics mastered</span><div className="v">{mastered}<small> / {TOPICS.length}</small></div></div>
@@ -62,7 +63,7 @@ export default function Dashboard() {
                 <tbody>
                   {p.hist.slice(0, 6).map((r, i) => (
                     <tr key={i}>
-                      <td>{r.topic === "daily" ? "★ Daily Challenge" : topicById(r.topic).name}</td>
+                      <td>{r.topic === "daily" ? <><Star size={13} fill="var(--pur)" style={{ color: "var(--pur)" }} aria-hidden="true" /> Daily Challenge</> : topicById(r.topic).name}</td>
                       <td>{r.score}</td>
                       <td><span className={`tag ${r.acc >= 70 ? "easy" : r.acc >= 50 ? "med" : "hard"}`}>{r.acc}%</span></td>
                       <td style={{ color: "var(--mut)" }}>{r.date}</td>
@@ -75,12 +76,12 @@ export default function Dashboard() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <div className="card">
-            <b>★ Daily Challenge</b>
+            <b><Star size={15} fill="var(--pur)" style={{ color: "var(--pur)" }} aria-hidden="true" /> Daily Challenge</b>
             <p style={{ fontSize: ".88rem", color: "var(--mut)", margin: "8px 0 14px" }}>
               {p.daily.last === localToday()
-                ? <>Done today ✓ · 🔥 {p.daily.streak}-day streak. Next set at midnight.</>
+                ? <>Done today ✓ · <StreakFlame size={14} /> {p.daily.streak}-day streak. Next set at midnight.</>
                 : p.daily.streak > 0
-                  ? <>🔥 {p.daily.streak}-day streak on the line — today&apos;s set is waiting (+{DAILY_BONUS_XP} XP).</>
+                  ? <><StreakFlame size={14} /> {p.daily.streak}-day streak on the line — today&apos;s set is waiting (+{DAILY_BONUS_XP} XP).</>
                   : <>10 questions across 10 topics, same for everyone. +{DAILY_BONUS_XP} XP on completion.</>}
             </p>
             {p.daily.last !== localToday() && (
