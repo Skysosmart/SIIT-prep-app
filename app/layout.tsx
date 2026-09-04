@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Sora, Inter } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ProfileProvider } from "@/lib/profile";
@@ -9,8 +9,8 @@ import { Pwa } from "@/components/Pwa";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
-// Refined academic pairing: Fraunces (serif display) + Inter (UI/body).
-const fraunces = Fraunces({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-display", display: "swap" });
+// Bold contemporary pairing: Sora (display headings) + Inter (UI/body).
+const sora = Sora({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-display", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${sora.variable} ${inter.variable}`}>
       <body>
         <AuthProvider>
           <ProfileProvider>
