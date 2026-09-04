@@ -22,7 +22,7 @@ export default function Practice() {
   return (
     <div className="view">
       <span className="kicker">Practice</span>
-      <h2 style={{ fontSize: "1.8rem", marginTop: 6 }}>Choose your battlefield</h2>
+      <h2 style={{ fontSize: "1.8rem", marginTop: 6 }}>Choose your practice test</h2>
       <p className="sub">Every topic maps to a section of the SIIT entrance exam. Progress reflects your best accuracy per topic.</p>
       <div className="filters">
         <div className="search">

@@ -18,6 +18,14 @@ export default function Flashcards() {
   // the deck is shuffled randomly, so render it only on the client to avoid hydration mismatch
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  // when the card changes we snap the flip back instantly - otherwise the next
+  // card's answer side is visible while the un-flip animation plays
+  const [snap, setSnap] = useState(false);
+  useEffect(() => {
+    if (!snap) return;
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setSnap(false)));
+    return () => cancelAnimationFrame(id);
+  }, [snap]);
 
   const pool = useMemo(
     () => FORMULAS.filter((f) => cat === "All" || f.cat === cat),
@@ -37,6 +45,7 @@ export default function Flashcards() {
     if (!card) return;
     markFlash(card.name, known);
     if (!known) setAgainNames((a) => [...new Set([...a, card.name])]);
+    setSnap(true);
     setFlipped(false);
     if (i + 1 >= deck.length) {
       // round over: rebuild the deck from whatever is still unmastered
@@ -59,7 +68,7 @@ export default function Flashcards() {
     return () => window.removeEventListener("keydown", onKey);
   }, [flipped, advance]);
 
-  const pickCat = (c: string) => { setCat(c); setI(0); setFlipped(false); setAgainNames([]); setRound((r) => r + 1); };
+  const pickCat = (c: string) => { setCat(c); setI(0); setSnap(true); setFlipped(false); setAgainNames([]); setRound((r) => r + 1); };
 
   return (
     <div className="view">
@@ -103,7 +112,7 @@ export default function Flashcards() {
             onClick={() => setFlipped((f) => !f)}
             aria-label={flipped ? "Show prompt" : "Reveal formula"}
           >
-            <span className="fc-inner">
+            <span className={`fc-inner${snap ? " snap" : ""}`}>
               <span className="fc-face fc-front">
                 <span className="fc-cat">{card.cat}</span>
                 <span className="fc-name">{card.name}</span>
