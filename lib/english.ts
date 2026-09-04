@@ -130,10 +130,128 @@ export const ENGLISH_QUESTIONS: Question[] = [
   E(3055,"err",0,"Find the error: (A) Me and my brother / (B) went / (C) to the / (D) market.",
     ["A","B","C","D"],"Subject pronoun","The subject should be \"My brother and I\"."),
 
-  // ── Reading Comprehension (3056–3070) ──────────────────────────
+  // ── Grammar, set 2 (3071–3090) ─────────────────────────────────
+  E(3071,"gra",2,"By next June, she ____ here for ten years.",
+    ["will work","works","will have worked","is working"],"Future perfect","A duration completed by a future point uses the future perfect."),
+  E(3072,"gra",1,"It's high time we ____ about the problem.",
+    ["do something","did something","will do something","have done something"],"\"It's high time\" + past","\"It's high time\" is followed by the past subjunctive (did)."),
+  E(3073,"gra",0,"The children were made ____ their homework before dinner.",
+    ["to finish","finish","finishing","finished"],"Passive causative","In the passive, \"make\" takes the to-infinitive: were made to finish."),
+  E(3074,"gra",3,"No sooner had he left ____ it started to rain.",
+    ["when","that","then","than"],"\"No sooner … than\"","The correlative is \"no sooner … than\"."),
+  E(3075,"gra",2,"She would rather you ____ smoke inside.",
+    ["don't","won't","didn't","haven't"],"\"Would rather\" + past","\"Would rather\" about another person uses the past tense (didn't)."),
+  E(3076,"gra",1,"A number of students ____ absent today.",
+    ["is","are","was","has been"],"\"A number of\" agreement","\"A number of\" is plural and takes \"are\" (contrast: \"the number of\" is singular)."),
+  E(3077,"gra",0,"He talks as though he ____ everything.",
+    ["knew","knows","has known","will know"],"\"As though\" + unreal past","\"As though\" for something untrue uses the past (knew)."),
+  E(3078,"gra",3,"Only after the meeting ended ____ the truth.",
+    ["I learned","learned I","I had learned","did I learn"],"Inversion after \"only after\"","A fronted \"only after\" clause inverts subject and auxiliary: did I learn."),
+  E(3079,"gra",2,"The more you practise, ____.",
+    ["you get better","better you get","the better you get","the more better you get"],"Double comparative","The pattern is \"the + comparative …, the + comparative …\"."),
+  E(3080,"gra",1,"I'd rather walk ____ take the bus.",
+    ["to","than","that","then"],"\"Would rather … than\"","\"Would rather\" pairs with \"than\"."),
+  E(3081,"gra",0,"Scarcely had she spoken ____ the crowd fell silent.",
+    ["when","than","then","that"],"\"Scarcely … when\"","The correlative is \"scarcely … when\"."),
+  E(3082,"gra",3,"If you ____ any questions, feel free to ask.",
+    ["will have","had","would have","have"],"Zero/first conditional","A real present possibility uses the present simple (have)."),
+  E(3083,"gra",2,"The house ____ we bought last year needs repairs.",
+    ["who","whom","that","what"],"Relative pronouns","A defining clause about a thing uses \"that\" (or \"which\")."),
+  E(3084,"gra",1,"Rarely ____ such a beautiful sunset.",
+    ["I have seen","have I seen","I saw","did I saw"],"Inversion after \"rarely\"","Fronted \"rarely\" inverts subject and auxiliary: have I seen."),
+  E(3085,"gra",0,"You had better ____ late again.",
+    ["not be","not to be","don't be","not being"],"\"Had better\" + base verb","\"Had better\" takes the bare infinitive; the negative is \"had better not be\"."),
+  E(3086,"gra",2,"She denied ____ the money.",
+    ["to take","take","taking","taken"],"Gerund after \"deny\"","\"Deny\" is followed by a gerund (taking)."),
+  E(3087,"gra",3,"They objected ____ the new rule.",
+    ["against","with","for","to"],"Dependent prepositions","\"Object\" is followed by \"to\"."),
+  E(3088,"gra",1,"Had I known earlier, I ____ differently.",
+    ["would act","would have acted","had acted","will act"],"Inverted third conditional","\"Had I known\" (= if I had known) pairs with \"would have acted\"."),
+  E(3089,"gra",0,"Little ____ that he was being watched.",
+    ["did he know","he knew","he did know","knew he"],"Inversion after \"little\"","Fronted \"little\" inverts subject and auxiliary: did he know."),
+  E(3090,"gra",2,"The teacher insisted that every student ____ present.",
+    ["is","was","be","will be"],"Subjunctive after \"insist\"","\"Insist that\" takes the base-form subjunctive (be)."),
+
+  // ── Vocabulary, set 2 (3091–3110) ──────────────────────────────
+  E(3091,"voc",1,"Choose the word closest in meaning to \"benevolent\".",
+    ["cruel","kind","wealthy","strict"],"Synonyms","\"Benevolent\" means well-meaning and kindly."),
+  E(3092,"voc",2,"Choose the word opposite in meaning to \"diligent\".",
+    ["hardworking","careful","lazy","clever"],"Antonyms","\"Diligent\" (hardworking) is the opposite of \"lazy\"."),
+  E(3093,"voc",0,"His explanation was so ____ that no one could follow it.",
+    ["convoluted","lucid","concise","plain"],"Context clues","\"Convoluted\" means extremely complex, fitting an unfollowable explanation."),
+  E(3094,"voc",3,"To \"alleviate\" pain is to ____ it.",
+    ["increase","cause","hide","relieve"],"Verb meaning","\"Alleviate\" means to make less severe = relieve."),
+  E(3095,"voc",1,"A \"gregarious\" person enjoys ____.",
+    ["being alone","company","silence","reading"],"Word meaning","\"Gregarious\" means sociable and fond of company."),
+  E(3096,"voc",2,"Choose the word closest in meaning to \"candid\".",
+    ["secretive","rude","frank","shy"],"Synonyms","\"Candid\" means truthful and straightforward = frank."),
+  E(3097,"voc",0,"The politician's speech was full of ____ promises that meant nothing.",
+    ["hollow","sincere","binding","modest"],"Context clues","\"Hollow\" promises are empty and meaningless."),
+  E(3098,"voc",3,"To be \"resilient\" is to ____.",
+    ["give up easily","stay weak","avoid change","recover quickly"],"Word meaning","\"Resilient\" means able to recover quickly from difficulties."),
+  E(3099,"voc",1,"Choose the word opposite in meaning to \"expand\".",
+    ["grow","contract","stretch","widen"],"Antonyms","\"Contract\" (shrink) is the opposite of \"expand\"."),
+  E(3100,"voc",2,"A \"tentative\" plan is one that is ____.",
+    ["final","detailed","not yet definite","approved"],"Word meaning","\"Tentative\" means provisional, not yet confirmed."),
+  E(3101,"voc",0,"The detective remained ____ despite the confusing evidence.",
+    ["composed","frantic","careless","confused"],"Positive connotation","\"Composed\" (calm and self-controlled) fits a capable detective."),
+  E(3102,"voc",3,"To \"scrutinise\" a document is to ____ it.",
+    ["ignore","sign","copy","examine closely"],"Verb meaning","\"Scrutinise\" means to examine in close detail."),
+  E(3103,"voc",1,"Choose the word closest in meaning to \"abundant\".",
+    ["rare","plentiful","expensive","hidden"],"Synonyms","\"Abundant\" means existing in large quantities = plentiful."),
+  E(3104,"voc",2,"His \"arrogant\" attitude made him few friends. \"Arrogant\" means ____.",
+    ["humble","generous","overly proud","quiet"],"Word meaning","\"Arrogant\" means having an exaggerated sense of self-importance."),
+  E(3105,"voc",0,"The evidence was too ____ to convict anyone.",
+    ["flimsy","solid","conclusive","strong"],"Context clues","\"Flimsy\" evidence is weak and insubstantial."),
+  E(3106,"voc",3,"To \"comply\" with a rule is to ____ it.",
+    ["break","question","ignore","obey"],"Verb meaning","\"Comply\" means to act in accordance with a rule = obey."),
+  E(3107,"voc",1,"A \"vast\" desert is ____.",
+    ["small","enormous","fertile","crowded"],"Word meaning","\"Vast\" means immense in size."),
+  E(3108,"voc",2,"Choose the word opposite in meaning to \"generous\".",
+    ["kind","giving","stingy","warm"],"Antonyms","\"Stingy\" (unwilling to give) is the opposite of \"generous\"."),
+  E(3109,"voc",0,"The new evidence was ____ in solving the case.",
+    ["pivotal","trivial","useless","minor"],"Positive context","\"Pivotal\" means of crucial importance."),
+  E(3110,"voc",3,"To be \"reluctant\" is to be ____.",
+    ["eager","willing","excited","unwilling"],"Word meaning","\"Reluctant\" means unwilling and hesitant."),
+
+  // ── Error Spotting, set 2 (3111–3125) ──────────────────────────
+  E(3111,"err",2,"Find the error: (A) There is / (B) many reasons / (C) why the plan / (D) failed.",
+    ["A","B","C","D"],"Subject–verb agreement","With plural \"reasons\", it should be \"There are\"."),
+  E(3112,"err",1,"Find the error: (A) He is one / (B) of the most brilliant / (C) student in / (D) the class.",
+    ["A","B","C","D"],"\"One of the\" + plural","\"One of the most brilliant\" needs a plural noun: \"students\"."),
+  E(3113,"err",0,"Find the error: (A) Being a hot day, / (B) we decided / (C) to stay / (D) indoors.",
+    ["A","B","C","D"],"Dangling modifier","\"Being a hot day\" cannot describe \"we\"; use \"It being a hot day\"."),
+  E(3114,"err",3,"Find the error: (A) She sings / (B) more sweetly / (C) than / (D) any singer in the choir.",
+    ["A","B","C","D"],"Comparison logic","She is in the choir, so it must be \"any other singer\"."),
+  E(3115,"err",2,"Find the error: (A) Neither he / (B) nor his friends / (C) was / (D) invited.",
+    ["A","B","C","D"],"Proximity agreement","The verb agrees with the nearer subject \"friends\": \"were\"."),
+  E(3116,"err",1,"Find the error: (A) The jury / (B) were unanimous / (C) in its / (D) verdict.",
+    ["A","B","C","D"],"Collective noun consistency","\"Were\" treats the jury as plural, so use \"their\", not \"its\" - the error is the mismatch at (B)/(C); mark (B)."),
+  E(3117,"err",0,"Find the error: (A) Each boys / (B) was given / (C) a prize / (D) at the ceremony.",
+    ["A","B","C","D"],"\"Each\" + singular","\"Each\" is followed by a singular noun: \"Each boy\"."),
+  E(3118,"err",3,"Find the error: (A) I prefer / (B) tea / (C) more than / (D) coffee.",
+    ["A","B","C","D"],"\"Prefer … to\"","\"Prefer\" is followed by \"to\", not \"more than\"."),
+  E(3119,"err",2,"Find the error: (A) The scenery / (B) here are / (C) more beautiful / (D) than in the city.",
+    ["A","B","C","D"],"Uncountable agreement","\"Scenery\" is uncountable: \"is\", not \"are\"."),
+  E(3120,"err",1,"Find the error: (A) He returned / (B) back home / (C) after / (D) a long journey.",
+    ["A","B","C","D"],"Redundancy","\"Returned\" already implies \"back\"; \"returned back\" is redundant."),
+  E(3121,"err",0,"Find the error: (A) Everyone / (B) have completed / (C) the / (D) assignment.",
+    ["A","B","C","D"],"Indefinite pronoun agreement","\"Everyone\" is singular: \"has completed\"."),
+  E(3122,"err",3,"Find the error: (A) She is senior / (B) than me / (C) by two / (D) years.",
+    ["A","B","C","D"],"\"Senior to\"","\"Senior\" takes \"to\": \"senior to me\"."),
+  E(3123,"err",2,"Find the error: (A) The list of / (B) items / (C) were / (D) very long.",
+    ["A","B","C","D"],"Agreement with head noun","The subject is \"list\" (singular): \"was\"."),
+  E(3124,"err",1,"Find the error: (A) He gave / (B) me an advice / (C) that I / (D) never forgot.",
+    ["A","B","C","D"],"Uncountable nouns","\"Advice\" is uncountable: \"a piece of advice\", not \"an advice\"."),
+  E(3125,"err",0,"Find the error: (A) Neither of the / (B) two proposals / (C) were / (D) accepted.",
+    ["A","B","C","D"],"\"Neither of\" agreement","\"Neither of\" takes a singular verb: \"was\"."),
+
+  // ── Reading Comprehension ──────────────────────────────────────
   ...readingSet1(),
   ...readingSet2(),
   ...readingSet3(),
+  ...readingSet4(),
+  ...readingSet5(),
 ];
 
 function readingSet1(): Question[] {
@@ -185,6 +303,58 @@ function readingSet2(): Question[] {
     E(3065,"rea",2,"Supporters valued the approach because it developed skills that ____.",
       ["helped students pass exams","were easy to grade","employers wanted","reduced teacher workload"],
       "Inference","Supporters said the skills were exactly what employers wanted.", p),
+  ];
+}
+
+function readingSet4(): Question[] {
+  const p =
+    "Electric vehicles are often praised as a clean alternative to petrol cars, but their true impact depends on how their electricity is generated. " +
+    "In a country powered mainly by coal, charging an electric car can produce almost as much carbon as burning fuel directly. " +
+    "Where electricity comes from wind, solar, or hydropower, however, the same car becomes dramatically cleaner over its lifetime. " +
+    "Manufacturing the battery also carries an environmental cost, one that is repaid only after the vehicle has been driven for several years. " +
+    "The lesson is that a technology is only as green as the system that supports it.";
+  return [
+    E(3126,"rea",1,"The main point of the passage is that electric vehicles ____.",
+      ["are always clean","are only as clean as their electricity source","are worse than petrol cars","cannot be recycled"],
+      "Main idea","The passage argues an EV's cleanliness depends on how its electricity is generated.", p),
+    E(3127,"rea",0,"In a coal-powered country, charging an electric car ____.",
+      ["can produce nearly as much carbon as burning fuel","produces no carbon","is always cleaner","is impossible"],
+      "Detail","The text says charging can produce almost as much carbon as burning fuel directly.", p),
+    E(3128,"rea",2,"The environmental cost of the battery is repaid ____.",
+      ["immediately","never","after several years of driving","only in sunny countries"],
+      "Detail","Battery manufacturing cost is repaid only after several years of driving.", p),
+    E(3129,"rea",3,"The phrase \"only as green as the system that supports it\" suggests that ____.",
+      ["all systems are equal","electric cars are useless","batteries never wear out","context determines benefit"],
+      "Inference","The line means the surrounding system determines how beneficial the technology is.", p),
+    E(3130,"rea",1,"The author's attitude toward electric vehicles is best described as ____.",
+      ["entirely negative","balanced and conditional","uncritically enthusiastic","indifferent"],
+      "Tone","The author weighs pros and cons, making the view balanced and conditional.", p),
+  ];
+}
+
+function readingSet5(): Question[] {
+  const p =
+    "For centuries, mapmakers filled the unknown edges of their charts with sea monsters and warnings. " +
+    "These images were not merely decorative; they marked the limits of reliable knowledge and cautioned sailors against straying too far. " +
+    "As exploration advanced, the monsters retreated and blank spaces filled with coastlines and currents. " +
+    "Yet historians note that the maps never became truly empty of imagination, for every projection distorts the round Earth in some way. " +
+    "A map, in the end, is an argument about what matters, not a perfect mirror of the world.";
+  return [
+    E(3131,"rea",2,"According to the passage, sea monsters on old maps mainly ____.",
+      ["decorated the borders","frightened children","marked the limits of knowledge","showed real animals"],
+      "Detail","The images marked the limits of reliable knowledge and warned sailors.", p),
+    E(3132,"rea",0,"As exploration advanced, the monsters ____.",
+      ["retreated","multiplied","stayed the same","moved to the centre"],
+      "Detail","The passage says the monsters retreated as blank spaces filled in.", p),
+    E(3133,"rea",3,"Why does the author say maps never became \"truly empty of imagination\"?",
+      ["Sailors liked the art","Monsters returned","Maps were never finished","Every projection distorts the Earth"],
+      "Inference","Because every flat projection distorts the round Earth, some interpretation remains.", p),
+    E(3134,"rea",1,"The statement that a map is \"an argument about what matters\" means a map ____.",
+      ["is always wrong","reflects choices about what to show","cannot be trusted","is purely decorative"],
+      "Author's purpose","It means mapmakers choose what to emphasise, so a map reflects priorities.", p),
+    E(3135,"rea",2,"The passage is mainly concerned with ____.",
+      ["how to draw sea monsters","the dangers of sailing","what maps reveal about knowledge and choice","the shape of the Earth"],
+      "Main idea","The passage explores what maps reveal about the limits of knowledge and human choices.", p),
   ];
 }
 
