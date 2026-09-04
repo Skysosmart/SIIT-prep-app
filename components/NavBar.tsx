@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Gem } from "lucide-react";
+import { Gem, LogIn } from "lucide-react";
 import { useProfile } from "@/lib/profile";
+import { useAuth } from "@/lib/auth-client";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -18,6 +19,7 @@ const LINKS = [
 export function NavBar() {
   const path = usePathname();
   const { p } = useProfile();
+  const { user, hasBackend } = useAuth();
   const active = (href: string) => {
     if (href === "/") return path === "/";
     if (href === "/exam") return path.startsWith("/exam");
@@ -36,6 +38,10 @@ export function NavBar() {
         <Link href="/dashboard" className="xp-pill" title="View your profile">
           <Gem size={14} aria-hidden="true" /> {p.xp.toLocaleString()} XP
         </Link>
+        {hasBackend && (user
+          ? <Link href="/dashboard" className="nav-user" title={user.email}><span className="nav-avatar">{user.name[0]?.toUpperCase()}</span></Link>
+          : <Link href="/login" className="nav-a" style={{ display: "flex", alignItems: "center", gap: 5 }}><LogIn size={15} /> Sign in</Link>
+        )}
       </div>
     </nav>
   );

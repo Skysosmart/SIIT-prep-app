@@ -152,6 +152,27 @@ main{padding:32px 0 80px}
 .pbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .pbar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--cyan));transition:width .6s ease}
 
+/* ---------- auth ---------- */
+.auth-wrap{max-width:440px;margin:24px auto 0}
+.auth-card{padding:34px 30px}
+.auth-mark{width:52px;height:52px;border-radius:15px;margin:0 auto 14px;display:grid;place-items:center;color:#fff;
+  font-family:Georgia,serif;font-style:italic;font-size:1.5rem;font-weight:700;
+  background:linear-gradient(135deg,var(--teal),var(--cyan) 55%,var(--pur))}
+.auth-form{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.auth-field{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--mut)}
+.auth-field:focus-within{border-color:var(--teal)}
+.auth-field input{border:0;outline:0;background:none;width:100%;font-size:.95rem;color:var(--ink)}
+.auth-google{width:100%;background:var(--card);border-color:var(--line)}
+.auth-google:hover{border-color:var(--teal)}
+.auth-or{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:.82rem;margin:16px 0}
+.auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.auth-err{background:var(--red-t);border:1px solid var(--red);color:var(--red);border-radius:10px;padding:9px 12px;font-size:.88rem;margin:2px 0}
+.auth-switch{text-align:center;margin:18px 0 0;font-size:.9rem;color:var(--mut)}
+.auth-switch button{color:var(--teal-d);font-weight:700}
+.auth-switch button:hover{text-decoration:underline}
+.nav-user{display:flex;align-items:center;gap:8px}
+.nav-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--pur));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+
 /* ---------- subject tabs ---------- */
 .subject-tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:5px;gap:5px;margin:16px 0 4px}
 .subject-tab{padding:9px 24px;border-radius:9px;font-weight:700;font-size:.95rem;color:var(--mut)}

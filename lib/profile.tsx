@@ -1,8 +1,9 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { TopicId } from "./topics";
 import { localToday, localYesterday } from "./daily";
+import { useAuth } from "./auth-client";
 
 export type QuizTopic = TopicId | "daily";
 export type QuizRecord = { topic: QuizTopic; score: string; acc: number; date: string };
@@ -69,9 +70,42 @@ export function rank(xp: number): string {
 }
 export const nextRankAt = (xp: number) => (xp < 500 ? 500 : xp < 1500 ? 1500 : xp < 3000 ? 3000 : null);
 
+/** Combine two profiles keeping the best of each (used to merge device + account). */
+export function mergeProfiles(a: Profile, b: Profile): Profile {
+  const uniqBy = <T,>(arr: T[], key: (t: T) => string) => {
+    const seen = new Set<string>();
+    return arr.filter((x) => { const k = key(x); if (seen.has(k)) return false; seen.add(k); return true; });
+  };
+  const prog: Profile["prog"] = { ...a.prog };
+  for (const [k, v] of Object.entries(b.prog)) {
+    const id = k as TopicId;
+    prog[id] = Math.max(prog[id] ?? 0, v ?? 0);
+  }
+  const newer = (b.lastPlayed ?? "") >= (a.lastPlayed ?? "") ? b : a;
+  return {
+    xp: Math.max(a.xp, b.xp),
+    quizzes: Math.max(a.quizzes, b.quizzes),
+    answered: Math.max(a.answered, b.answered),
+    correct: Math.max(a.correct, b.correct),
+    streakDays: Math.max(a.streakDays, b.streakDays),
+    lastPlayed: newer.lastPlayed,
+    favs: [...new Set([...a.favs, ...b.favs])],
+    flash: [...new Set([...a.flash, ...b.flash])],
+    prog,
+    daily: (b.daily.last ?? "") >= (a.daily.last ?? "")
+      ? { last: b.daily.last, streak: Math.max(a.daily.streak, b.daily.streak) }
+      : { last: a.daily.last, streak: Math.max(a.daily.streak, b.daily.streak) },
+    hist: uniqBy([...b.hist, ...a.hist], (h) => `${h.date}|${h.topic}|${h.score}`).slice(0, 12),
+    exams: uniqBy([...b.exams, ...a.exams], (e) => `${e.date}|${e.correct}|${e.total}|${e.timeSec}`).slice(0, 20),
+  };
+}
+
 export function ProfileProvider({ children }: { children: ReactNode }) {
+  const { user, ready: authReady } = useAuth();
   const [p, setP] = useState<Profile>(EMPTY);
   const [ready, setReady] = useState(false);
+  const pushTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastUserId = useRef<string | null>(null);
 
   useEffect(() => {
     try {
@@ -81,10 +115,44 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     setReady(true);
   }, []);
 
+  // debounced push of the current profile to the server (when signed in)
+  const pushToServer = (next: Profile) => {
+    if (!user) return;
+    if (pushTimer.current) clearTimeout(pushTimer.current);
+    pushTimer.current = setTimeout(() => {
+      void fetch("/api/progress", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: next }),
+      }).catch(() => { /* offline - localStorage still holds it */ });
+    }, 800);
+  };
+
   const save = (next: Profile) => {
     setP(next);
     try { localStorage.setItem(KEY, JSON.stringify(next)); } catch { /* storage full/blocked */ }
+    pushToServer(next);
   };
+
+  // on login: pull the account profile, merge with local, save the union
+  useEffect(() => {
+    if (!authReady || !ready) return;
+    if (user && lastUserId.current !== user.id) {
+      lastUserId.current = user.id;
+      (async () => {
+        try {
+          const res = await fetch("/api/progress", { cache: "no-store" });
+          if (!res.ok) return;
+          const server = ((await res.json()) as { data: Profile | null }).data;
+          const merged = server ? mergeProfiles(p, { ...EMPTY, ...server }) : p;
+          save(merged);
+        } catch { /* keep local */ }
+      })();
+    } else if (!user) {
+      lastUserId.current = null;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, authReady, ready]);
 
   const finishQuiz = (s: QuizSummary) => {
     const today = localToday();

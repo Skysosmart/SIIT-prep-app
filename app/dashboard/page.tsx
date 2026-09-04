@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { TOPICS, topicById } from "@/lib/topics";
 import { useProfile, rank, nextRankAt } from "@/lib/profile";
+import { useAuth } from "@/lib/auth-client";
 import { localToday, DAILY_BONUS_XP } from "@/lib/daily";
-import { Star, Sparkles } from "lucide-react";
+import { Star, Sparkles, LogOut, LogIn, Check } from "lucide-react";
 import { TopicChip, StreakFlame } from "@/components/bits";
 
 export default function Dashboard() {
   const { p } = useProfile();
+  const { user, hasBackend, logout } = useAuth();
   const acc = p.answered ? Math.round((100 * p.correct) / p.answered) : 0;
   const mastered = TOPICS.filter((t) => (p.prog[t.id] ?? 0) >= 70).length;
   const weakest = TOPICS.slice().sort((a, b) => (p.prog[a.id] ?? 0) - (p.prog[b.id] ?? 0)).slice(0, 3);
@@ -25,6 +27,31 @@ export default function Dashboard() {
         You&apos;re a <b style={{ color: "var(--pur)" }}>{rank(p.xp)}</b> with {p.xp.toLocaleString()} XP.
         {p.quizzes ? " Keep the streak alive." : " Play your first quiz to start climbing."}
       </p>
+
+      {hasBackend && (
+        <div className="card" style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", marginTop: 8 }}>
+          {user ? (
+            <>
+              <span className="nav-avatar" style={{ width: 38, height: 38, fontSize: "1rem" }}>{user.name[0]?.toUpperCase()}</span>
+              <div style={{ flex: 1, minWidth: 180 }}>
+                <b>{user.name}</b>
+                <div style={{ fontSize: ".82rem", color: "var(--mut)" }}>{user.email}</div>
+              </div>
+              <span className="tag easy" style={{ fontSize: ".78rem" }}><Check size={13} /> Progress synced</span>
+              <button className="btn btn-g btn-sm" onClick={() => logout()}><LogOut size={15} /> Sign out</button>
+            </>
+          ) : (
+            <>
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <b>Save your progress</b>
+                <div style={{ fontSize: ".85rem", color: "var(--mut)" }}>Sign in to sync XP, streaks, and results across all your devices.</div>
+              </div>
+              <Link href="/login" className="btn btn-p btn-sm"><LogIn size={15} /> Sign in / Sign up</Link>
+            </>
+          )}
+        </div>
+      )}
+
       <div className="stats">
         <div className="stat flame"><span className="lb">Daily streak</span><div className="v"><StreakFlame size={24} /> {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
         <div className="stat"><span className="lb">Overall accuracy</span><div className="v">{acc}<small>%</small></div></div>
