@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Target, ChevronRight } from "lucide-react";
+import { Target, ChevronRight, Share2, Check } from "lucide-react";
 import { StreakFlame } from "@/components/bits";
 import { topicById } from "@/lib/topics";
 import { QUESTIONS } from "@/lib/questions";
@@ -17,10 +17,37 @@ function readLastQuiz(): QuizSummary | null {
   } catch { return null; }
 }
 
+const SITE_URL = "https://siit-prep.zarutech.dev";
+
+function shareText(s: QuizSummary, topicName: string): string {
+  const grid = s.results.map((r) => (r.ok ? "🟩" : "🟥")).join("");
+  const acc = Math.round((100 * s.right) / s.total);
+  return [
+    `SIIT Math Arena — ${topicName}`,
+    `${grid} ${s.right}/${s.total} (${acc}%)`,
+    `Best streak ${s.bestStreak} · +${s.xp} XP`,
+    `Beat my score: ${SITE_URL}`,
+  ].join("\n");
+}
+
 export default function Results() {
   const { p } = useProfile();
   const [s, setS] = useState<QuizSummary | null>(null);
   const [ringOn, setRingOn] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const share = async () => {
+    if (!s) return;
+    const text = shareText(s, s.topic === "daily" ? "Daily Challenge" : topicById(s.topic).name);
+    if (navigator.share) {
+      try { await navigator.share({ text }); return; } catch { /* user cancelled — fall through */ }
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable */ }
+  };
 
   useEffect(() => {
     setS(readLastQuiz());
@@ -114,6 +141,9 @@ export default function Results() {
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
         <Link href={retryHref} className="btn btn-p">Retry Quiz</Link>
         {wrongFormulas.length > 0 && <Link href="/review" className="btn btn-pur">Review Mistakes</Link>}
+        <button className="btn btn-g" onClick={share}>
+          {copied ? <><Check size={16} /> Copied!</> : <><Share2 size={16} /> Share Score</>}
+        </button>
         <Link href="/practice" className="btn btn-g">Next Topic <ChevronRight size={17} /></Link>
       </div>
     </div>
