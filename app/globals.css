@@ -293,6 +293,10 @@ tr.me td{background:var(--teal-t);font-weight:700}
 .tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
 .tabs button{padding:7px 18px;border-radius:9px;font-weight:700;font-size:.88rem;color:var(--mut)}
 .tabs button.on{background:var(--teal);color:#06281F}
+.name-input{flex:1;min-width:160px;background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:9px 14px;font-size:.95rem;outline:none}
+.name-input:focus{border-color:var(--teal)}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- dashboard ---------- */
 .dash-g{display:grid;grid-template-columns:2fr 1fr;gap:16px}

@@ -1,6 +1,6 @@
 {
-  "name": "SIIT Math Arena",
-  "short_name": "Math Arena",
+  "name": "SIIT PREP",
+  "short_name": "SIIT PREP",
   "description": "Timed formula quizzes, flashcards, and a formula library for SIIT entrance-exam math prep.",
   "start_url": "./",
   "scope": "./",

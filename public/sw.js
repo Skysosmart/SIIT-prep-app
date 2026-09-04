@@ -1,5 +1,5 @@
 /* SIIT Math Arena service worker — offline support for the installed app. */
-const CACHE = "siit-arena-v1";
+const CACHE = "siit-arena-v2";
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
