@@ -18,12 +18,14 @@ export type Profile = {
   prog: Partial<Record<TopicId, number>>; // best accuracy % per topic
   hist: QuizRecord[];
   daily: { last: string | null; streak: number }; // daily-challenge completions
+  flash: string[];             // formula names mastered in flashcard mode
 };
 
 const EMPTY: Profile = {
   xp: 0, quizzes: 0, answered: 0, correct: 0,
   streakDays: 0, lastPlayed: null, favs: [], prog: {}, hist: [],
   daily: { last: null, streak: 0 },
+  flash: [],
 };
 
 const KEY = "siit-math-arena-profile";
@@ -51,6 +53,8 @@ type Ctx = {
   ready: boolean;
   finishQuiz: (s: QuizSummary) => void;
   toggleFav: (name: string) => void;
+  markFlash: (name: string, known: boolean) => void;
+  resetFlash: () => void;
 };
 
 const ProfileCtx = createContext<Ctx | null>(null);
@@ -106,8 +110,13 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   const toggleFav = (name: string) =>
     save({ ...p, favs: p.favs.includes(name) ? p.favs.filter((f) => f !== name) : [...p.favs, name] });
 
+  const markFlash = (name: string, known: boolean) =>
+    save({ ...p, flash: known ? [...new Set([...p.flash, name])] : p.flash.filter((f) => f !== name) });
+
+  const resetFlash = () => save({ ...p, flash: [] });
+
   return (
-    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav }}>
+    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav, markFlash, resetFlash }}>
       {children}
     </ProfileCtx.Provider>
   );

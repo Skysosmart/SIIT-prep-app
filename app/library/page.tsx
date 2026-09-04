@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Star } from "lucide-react";
 import { FORMULAS, LIB_CATS } from "@/lib/formulas";
@@ -22,7 +23,10 @@ export default function Library() {
     <div className="view">
       <span className="kicker">Formula Library</span>
       <h2 style={{ fontSize: "1.8rem", margin: "6px 0 4px" }}>Every formula, one page</h2>
-      <p className="sub">Browse by category or search. Star the ones you keep forgetting.</p>
+      <p className="sub">
+        Browse by category or search. Star the ones you keep forgetting — or drill them as{" "}
+        <Link href="/flashcards" style={{ color: "var(--teal-d)", fontWeight: 700 }}>flashcards</Link>.
+      </p>
       <div className="filters">
         <div className="search" style={{ maxWidth: 420 }}>
           <SearchIcon />

@@ -8,6 +8,7 @@ import { useProfile } from "@/lib/profile";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/practice", label: "Practice" },
+  { href: "/flashcards", label: "Flashcards" },
   { href: "/library", label: "Formula Library" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/dashboard", label: "Profile" },
