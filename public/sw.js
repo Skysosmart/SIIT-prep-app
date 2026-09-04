@@ -1,5 +1,5 @@
 /* SIIT Math Arena service worker — offline support for the installed app. */
-const CACHE = "siit-arena-v2";
+const CACHE = "siit-arena-v3";
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
@@ -18,6 +18,7 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== "GET" || url.origin !== location.origin) return;
+  if (url.pathname.startsWith("/api/")) return; // leaderboard data must stay live
   e.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(e.request);

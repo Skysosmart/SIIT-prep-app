@@ -20,21 +20,20 @@ Pushing to `main` builds a static export and publishes it to GitHub Pages via
 
 Live site: https://skysosmart.github.io/SIIT-prep-app/
 
-## Shared leaderboard (Supabase)
+## Shared leaderboard (Neon Postgres)
 
-The leaderboard can sync scores between players. One-time setup:
+The Vercel deployment runs `/api/scores` (Next API route + `pg`) against a
+Neon database. One-time setup:
 
-1. Create a free project at https://supabase.com → **New project**.
-2. Open **SQL Editor**, paste the contents of `supabase/schema.sql`, and run it.
-3. Grab **Project Settings → API**: the Project URL and the `anon` public key.
-4. Add both as environment variables wherever the site builds:
-   - **Vercel**: Project → Settings → Environment Variables →
-     `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`, then redeploy.
-   - **GitHub Pages**: repo Settings → Secrets and variables → Actions → add the
-     same two names as repository secrets.
+1. Create a free database at https://neon.tech and copy the connection string.
+2. **Vercel** → Project → Settings → Environment Variables → add
+   `DATABASE_URL` = that connection string → Redeploy.
+3. Done - the API creates the `scores` table automatically
+   (schema also in `db/schema.sql`). Never commit the connection string.
 
-Without the variables the leaderboard falls back to a local-only view.
-Players pick a nickname on the Leaderboard page; scores upsert per device.
+Players pick a nickname on the Leaderboard page; stats upsert per device.
+The GitHub Pages build is fully static (the workflow strips `app/api`), so
+its leaderboard falls back to a local-only view and links to the main site.
 
 ## Stack
 

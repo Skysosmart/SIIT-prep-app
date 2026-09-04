@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Share2, Trophy, RefreshCw, Users } from "lucide-react";
 import { useProfile, rank } from "@/lib/profile";
 import { StreakFlame } from "@/components/bits";
-import { hasSupabase, fetchScores, submitScore, playerId, playerName, setPlayerName, type ScoreRow } from "@/lib/leaderboard";
+import { hasBackend, fetchScores, submitScore, playerId, playerName, setPlayerName, type ScoreRow } from "@/lib/leaderboard";
 
 const AV = ["#14B8A6", "#38BDF8", "#8B5CF6", "#F59E0B", "#EF4444", "#10B981", "#0EA5E9", "#F472B6"];
 const PODIUM_H = [164, 132, 110];
@@ -37,7 +37,7 @@ export default function Leaderboard() {
   }, [p]);
 
   useEffect(() => {
-    if (!hasSupabase() || !ready) return;
+    if (!hasBackend() || !ready) return;
     const n = playerName();
     setName(n);
     setMyId(playerId());
@@ -52,8 +52,8 @@ export default function Leaderboard() {
     await refresh(true, n);
   };
 
-  /* ── No backend configured: local-only view ─────────────────────────── */
-  if (!hasSupabase()) {
+  /* ── No backend on this build: local-only view ──────────────────────── */
+  if (!hasBackend()) {
     return (
       <div className="view">
         <span className="kicker">Leaderboard</span>
@@ -77,9 +77,9 @@ export default function Leaderboard() {
         <div className="card" style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
           <Share2 size={20} style={{ color: "var(--pur)", flex: "none" }} aria-hidden="true" />
           <p style={{ margin: 0, fontSize: ".92rem", color: "var(--mut)", flex: 1, minWidth: 220 }}>
-            This build has no Supabase keys, so the shared leaderboard is off. Add
-            <code> NEXT_PUBLIC_SUPABASE_URL</code> and <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> at
-            build time to turn it on (see supabase/schema.sql).
+            This static build has no leaderboard server. Visit the main site at{" "}
+            <a href="https://siit-prep.zarutech.dev/leaderboard/" style={{ color: "var(--teal-d)", fontWeight: 700 }}>siit-prep.zarutech.dev</a>{" "}
+            for the shared rankings.
           </p>
           <Link href="/practice" className="btn btn-p btn-sm">Play a quiz</Link>
         </div>
@@ -99,7 +99,7 @@ export default function Leaderboard() {
           <RefreshCw size={14} className={busy ? "spin" : undefined} /> Refresh
         </button>
       </div>
-      <p className="sub">Everyone playing SIIT Math Arena, ranked by XP. Your score syncs when you open this page.</p>
+      <p className="sub">Everyone playing SIIT PREP, ranked by XP. Your score syncs when you open this page.</p>
 
       {!name && (
         <div className="card" style={{ margin: "20px 0", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>

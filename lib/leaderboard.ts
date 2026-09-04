@@ -1,21 +1,11 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Profile } from "./profile";
 
 /**
- * Shared leaderboard backed by Supabase. Works only when the site is built
- * with NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY; without
- * them the leaderboard page falls back to the local-only view.
+ * Shared leaderboard client. Talks to /api/scores, which exists only on
+ * server deployments (Vercel + Neon). Static GitHub Pages builds set
+ * NEXT_PUBLIC_HAS_API="" and fall back to the local-only view.
  */
-const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const KEY_ = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
-
-export const hasSupabase = (): boolean => URL_.length > 0 && KEY_.length > 0;
-
-let client: SupabaseClient | null = null;
-function sb(): SupabaseClient {
-  client ??= createClient(URL_, KEY_);
-  return client;
-}
+export const hasBackend = (): boolean => process.env.NEXT_PUBLIC_HAS_API === "1";
 
 export type ScoreRow = {
   player_id: string;
@@ -50,27 +40,31 @@ export function setPlayerName(name: string): void {
   try { localStorage.setItem(NAME_KEY, name); } catch { /* ignore */ }
 }
 
-export async function fetchScores(limit = 50): Promise<ScoreRow[]> {
-  const { data, error } = await sb()
-    .from("scores")
-    .select("*")
-    .order("xp", { ascending: false })
-    .limit(limit);
-  if (error) throw new Error(error.message);
-  return (data ?? []) as ScoreRow[];
+async function parseError(res: Response): Promise<string> {
+  try { return ((await res.json()) as { error?: string }).error ?? `Request failed (${res.status}).`; }
+  catch { return `Request failed (${res.status}).`; }
+}
+
+export async function fetchScores(): Promise<ScoreRow[]> {
+  const res = await fetch("/api/scores", { cache: "no-store" });
+  if (!res.ok) throw new Error(await parseError(res));
+  return ((await res.json()) as { rows: ScoreRow[] }).rows;
 }
 
 /** Upsert this player's current stats under their saved nickname. */
 export async function submitScore(name: string, p: Profile): Promise<void> {
   const accuracy = p.answered ? Math.round((100 * p.correct) / p.answered) : 0;
-  const { error } = await sb().from("scores").upsert({
-    player_id: playerId(),
-    name: name.trim().slice(0, 20),
-    xp: p.xp,
-    quizzes: p.quizzes,
-    accuracy,
-    streak: p.streakDays,
-    updated_at: new Date().toISOString(),
+  const res = await fetch("/api/scores", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      playerId: playerId(),
+      name,
+      xp: p.xp,
+      quizzes: p.quizzes,
+      accuracy,
+      streak: p.streakDays,
+    }),
   });
-  if (error) throw new Error(error.message);
+  if (!res.ok) throw new Error(await parseError(res));
 }
