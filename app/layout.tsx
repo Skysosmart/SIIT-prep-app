@@ -8,7 +8,7 @@ import { Pwa } from "@/components/Pwa";
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
-  title: "SIIT Math Arena",
+  title: "SIIT PREP",
   description: "Master SIIT math one formula at a time - timed formula quizzes, a formula library, and score tracking for SIIT entrance-exam prep.",
   manifest: `${base}/manifest.webmanifest`,
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Math Arena" },
