@@ -4,7 +4,30 @@ import Link from "next/link";
 import { TOPICS } from "@/lib/topics";
 import { QUESTIONS, questionsForTopic } from "@/lib/questions";
 import { useProfile } from "@/lib/profile";
+import { localToday, dailyLabel, DAILY_BONUS_XP } from "@/lib/daily";
 import { TopicChip } from "@/components/bits";
+
+function DailyBanner() {
+  const { p } = useProfile();
+  const today = localToday();
+  const done = p.daily.last === today;
+  return (
+    <div className="daily-banner">
+      <span className="db-star" aria-hidden="true">★</span>
+      <div className="db-body">
+        <b>Daily Challenge · {dailyLabel(today)}</b>
+        <span className="db-sub">
+          {done
+            ? <>Completed today ✓ · 🔥 {p.daily.streak}-day streak — come back tomorrow for the next set.</>
+            : <>10 questions, 10 topics — the same set for everyone. Finish it for +{DAILY_BONUS_XP} bonus XP.</>}
+        </span>
+      </div>
+      <Link href="/quiz?daily=1" className={`btn btn-sm ${done ? "btn-g" : "btn-pur"}`}>
+        {done ? "Practice again" : "Play today's 10"}
+      </Link>
+    </div>
+  );
+}
 
 export default function Home() {
   const { p } = useProfile();
@@ -32,6 +55,8 @@ export default function Home() {
           <Link href="/library" className="btn btn-hero btn-big">Review Formulas</Link>
         </div>
       </section>
+
+      <DailyBanner />
 
       <div className="stats">
         <div className="stat"><span className="lb">Topics</span><div className="v">{TOPICS.length}</div></div>

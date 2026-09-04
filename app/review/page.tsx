@@ -31,11 +31,13 @@ export default function Review() {
     );
   }
 
-  const topic = topicById(s.topic);
+  const isDaily = s.topic === "daily";
+  const topicName = isDaily ? "Daily Challenge" : topicById(s.topic).name;
+  const retryHref = isDaily ? "/quiz/?daily=1" : `/quiz?topic=${s.topic}`;
 
   return (
     <div className="view rv">
-      <span className="kicker">Review mistakes · {topic.name}</span>
+      <span className="kicker">Review mistakes · {topicName}</span>
       <h2 style={{ fontSize: "1.8rem", margin: "6px 0 20px" }}>{wrong.length} to master</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {wrong.map((r, idx) => {
@@ -64,7 +66,7 @@ export default function Review() {
         })}
       </div>
       <div style={{ textAlign: "center", marginTop: 26 }}>
-        <Link href={`/quiz?topic=${s.topic}`} className="btn btn-p">Retry Quiz</Link>
+        <Link href={retryHref} className="btn btn-p">Retry Quiz</Link>
       </div>
     </div>
   );

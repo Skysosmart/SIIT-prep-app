@@ -7,6 +7,7 @@ import { topicById } from "@/lib/topics";
 import { questionsForTopic, type Question } from "@/lib/questions";
 import { MODES, DIFFS, type Mode, type Diff, shuffle, scoreFor, xpFor, pickQuestions } from "@/lib/engine";
 import { useProfile, type QuizSummary } from "@/lib/profile";
+import { dailyQuestions, dailyLabel, localToday, DAILY_TOPIC, DAILY_BONUS_XP } from "@/lib/daily";
 import { Tex } from "@/components/Tex";
 import { TopicChip } from "@/components/bits";
 
@@ -21,9 +22,12 @@ const kindLabel = (k: Question["kind"]) =>
 function QuizInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const { finishQuiz } = useProfile();
-  const topic = topicById(params.get("topic") ?? "alg");
-  const bank = questionsForTopic(topic.id);
+  const { p, finishQuiz } = useProfile();
+  const daily = params.get("daily") === "1";
+  const today = localToday();
+  const topic = daily ? DAILY_TOPIC : topicById(params.get("topic") ?? "alg");
+  const bank = daily ? dailyQuestions(today) : questionsForTopic(topic.id);
+  const dailyDone = daily && p.daily.last === today;
 
   const [stage, setStage] = useState<"lobby" | "play">("lobby");
   const [mode, setMode] = useState<Mode>("mixed");
@@ -70,7 +74,8 @@ function QuizInner() {
   }
 
   function start() {
-    const play = pickQuestions(bank, mode).map((q) => {
+    const picked = daily ? shuffle(bank) : pickQuestions(bank, mode);
+    const play = picked.map((q) => {
       const order = shuffle([0, 1, 2, 3]);
       return { q, order, correctAt: order.indexOf(q.answer) };
     });
@@ -110,8 +115,10 @@ function QuizInner() {
 
   function finish() {
     const right = results.current.filter((r) => r.ok).length;
+    const bonus = daily && !dailyDone ? DAILY_BONUS_XP : 0;
     const summary: QuizSummary = {
-      topic: topic.id, right, total: qs.length, xp, score, bestStreak: best,
+      topic: daily ? "daily" : topic.id, right, total: qs.length,
+      xp: xp + bonus, bonus, score, bestStreak: best,
       timeSec: Math.round((performance.now() - t0.current) / 1000),
       results: results.current, mode, diff,
     };
@@ -131,6 +138,42 @@ function QuizInner() {
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage, picked, i, qs, streak, timeLeft]);
+
+  if (stage === "lobby" && daily) {
+    return (
+      <div className="view lobby">
+        <div className="card">
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}><TopicChip t={topic} /></div>
+          <span className="kicker">Daily Challenge · {dailyLabel(today)}</span>
+          <h2 style={{ fontSize: "1.7rem", margin: "6px 0 4px" }}>Today&apos;s 10</h2>
+          <p className="sub" style={{ margin: "10px auto 0" }}>
+            One question from each of 10 topics — the same set for every player today.
+          </p>
+          <div className="lobby-facts">
+            <span><b>{bank.length}</b> questions</span>
+            <span><b>10</b> topics</span>
+            <span>Bonus <b>+{DAILY_BONUS_XP} XP</b></span>
+          </div>
+          {dailyDone ? (
+            <p style={{ margin: "6px 0 20px" }}>
+              <span className="tag easy" style={{ fontSize: ".82rem", padding: "6px 14px" }}>
+                Completed today ✓ · 🔥 {p.daily.streak}-day streak
+              </span>
+              <span style={{ display: "block", color: "var(--mut)", fontSize: ".85rem", marginTop: 10 }}>
+                This run is just practice — the bonus comes back tomorrow.
+              </span>
+            </p>
+          ) : (
+            <p style={{ color: "var(--mut)", fontSize: ".88rem", margin: "6px 0 20px" }}>
+              Finish for +{DAILY_BONUS_XP} bonus XP and to keep your daily-challenge streak alive.
+            </p>
+          )}
+          <button className="btn btn-pur btn-big" onClick={start}>Start Today&apos;s Challenge ▸</button>
+          <div style={{ marginTop: 14 }}><Link href="/" className="btn btn-g btn-sm">← Back home</Link></div>
+        </div>
+      </div>
+    );
+  }
 
   if (stage === "lobby") {
     const n = mode === "mixed" ? Math.min(10, bank.length) : Math.min(10, Math.max(4, bank.filter((q) => q.kind === mode).length));
@@ -181,7 +224,7 @@ function QuizInner() {
       </div>
       <div className={`tbar${frac < 0.3 ? " low" : ""}`}><span style={{ width: `${100 * frac}%` }} /></div>
       <div className="qbox">
-        <span className="qk">{topic.name} · {kindLabel(q.kind)}</span>
+        <span className="qk">{daily ? topicById(q.topic).name : topic.name} · {kindLabel(q.kind)}</span>
         <div className="qt qm"><Tex s={q.q} /></div>
         <div className="answers">
           {cur.order.map((choiceIdx, pos) => {

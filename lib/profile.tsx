@@ -2,8 +2,10 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { TopicId } from "./topics";
+import { localToday, localYesterday } from "./daily";
 
-export type QuizRecord = { topic: TopicId; score: string; acc: number; date: string };
+export type QuizTopic = TopicId | "daily";
+export type QuizRecord = { topic: QuizTopic; score: string; acc: number; date: string };
 
 export type Profile = {
   xp: number;
@@ -11,24 +13,27 @@ export type Profile = {
   answered: number;
   correct: number;
   streakDays: number;
-  lastPlayed: string | null;   // ISO date (day precision)
+  lastPlayed: string | null;   // local date (day precision)
   favs: string[];              // formula names
   prog: Partial<Record<TopicId, number>>; // best accuracy % per topic
   hist: QuizRecord[];
+  daily: { last: string | null; streak: number }; // daily-challenge completions
 };
 
 const EMPTY: Profile = {
   xp: 0, quizzes: 0, answered: 0, correct: 0,
   streakDays: 0, lastPlayed: null, favs: [], prog: {}, hist: [],
+  daily: { last: null, streak: 0 },
 };
 
 const KEY = "siit-math-arena-profile";
 
 export type QuizSummary = {
-  topic: TopicId;
+  topic: QuizTopic;
   right: number;
   total: number;
-  xp: number;
+  xp: number;               // includes any daily bonus
+  bonus?: number;           // daily first-completion bonus, if earned
   score: number;
   bestStreak: number;
   timeSec: number;
@@ -73,13 +78,17 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   };
 
   const finishQuiz = (s: QuizSummary) => {
-    const today = new Date().toISOString().slice(0, 10);
-    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const today = localToday();
+    const yesterday = localYesterday();
     const streakDays =
       p.lastPlayed === today ? p.streakDays
       : p.lastPlayed === yesterday ? p.streakDays + 1
       : 1;
     const acc = Math.round((100 * s.right) / s.total);
+    const isDaily = s.topic === "daily";
+    const daily = isDaily && (s.bonus ?? 0) > 0
+      ? { last: today, streak: p.daily.last === yesterday ? p.daily.streak + 1 : 1 }
+      : p.daily;
     save({
       ...p,
       xp: p.xp + s.xp,
@@ -88,7 +97,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       correct: p.correct + s.right,
       streakDays,
       lastPlayed: today,
-      prog: { ...p.prog, [s.topic]: Math.max(p.prog[s.topic] ?? 0, acc) },
+      daily,
+      prog: isDaily ? p.prog : { ...p.prog, [s.topic]: Math.max(p.prog[s.topic as TopicId] ?? 0, acc) },
       hist: [{ topic: s.topic, score: `${s.right}/${s.total}`, acc, date: today }, ...p.hist].slice(0, 12),
     });
   };

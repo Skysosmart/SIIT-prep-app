@@ -36,7 +36,9 @@ export default function Results() {
     );
   }
 
-  const topic = topicById(s.topic);
+  const isDaily = s.topic === "daily";
+  const topicName = isDaily ? "Daily Challenge" : topicById(s.topic).name;
+  const retryHref = isDaily ? "/quiz/?daily=1" : `/quiz?topic=${s.topic}`;
   const acc = Math.round((100 * s.right) / s.total);
   const C = 2 * Math.PI * 80;
   const off = C * (1 - acc / 100);
@@ -53,7 +55,7 @@ export default function Results() {
 
   return (
     <div className="view res">
-      <span className="kicker">Quiz complete · {topic.name}</span>
+      <span className="kicker">Quiz complete · {topicName}</span>
       <h2 style={{ fontSize: "2rem", margin: "8px 0 24px" }}>
         {acc >= 80 ? "Outstanding!" : acc >= 60 ? "Solid run!" : "Keep grinding!"}
       </h2>
@@ -73,7 +75,11 @@ export default function Results() {
       <div className="res-stats">
         <div className="stat"><span className="lb">Time spent</span><div className="v">{mm}:{ss}</div></div>
         <div className="stat flame"><span className="lb">Best streak</span><div className="v">🔥 {s.bestStreak}</div></div>
-        <div className="stat"><span className="lb">XP earned</span><div className="v" style={{ color: "var(--pur)" }}>+{s.xp}</div></div>
+        <div className="stat">
+          <span className="lb">XP earned</span>
+          <div className="v" style={{ color: "var(--pur)" }}>+{s.xp}</div>
+          {(s.bonus ?? 0) > 0 && <span className="tag extra" style={{ marginTop: 4, display: "inline-block" }}>incl. +{s.bonus} daily bonus</span>}
+        </div>
         <div className="stat"><span className="lb">Rank</span><div className="v" style={{ fontSize: "1.15rem", lineHeight: 2 }}>{rank(p.xp)}</div></div>
       </div>
       <div className="grid g2" style={{ textAlign: "left" }}>
@@ -104,7 +110,7 @@ export default function Results() {
         </div>
       </div>
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 28 }}>
-        <Link href={`/quiz?topic=${s.topic}`} className="btn btn-p">Retry Quiz</Link>
+        <Link href={retryHref} className="btn btn-p">Retry Quiz</Link>
         {wrongFormulas.length > 0 && <Link href="/review" className="btn btn-pur">Review Mistakes</Link>}
         <Link href="/practice" className="btn btn-g">Next Topic ▸</Link>
       </div>

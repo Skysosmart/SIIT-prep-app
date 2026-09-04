@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { TOPICS, topicById } from "@/lib/topics";
 import { useProfile, rank, nextRankAt } from "@/lib/profile";
+import { localToday, DAILY_BONUS_XP } from "@/lib/daily";
 import { TopicChip } from "@/components/bits";
 
 export default function Dashboard() {
@@ -61,7 +62,7 @@ export default function Dashboard() {
                 <tbody>
                   {p.hist.slice(0, 6).map((r, i) => (
                     <tr key={i}>
-                      <td>{topicById(r.topic).name}</td>
+                      <td>{r.topic === "daily" ? "★ Daily Challenge" : topicById(r.topic).name}</td>
                       <td>{r.score}</td>
                       <td><span className={`tag ${r.acc >= 70 ? "easy" : r.acc >= 50 ? "med" : "hard"}`}>{r.acc}%</span></td>
                       <td style={{ color: "var(--mut)" }}>{r.date}</td>
@@ -73,6 +74,19 @@ export default function Dashboard() {
           )}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div className="card">
+            <b>★ Daily Challenge</b>
+            <p style={{ fontSize: ".88rem", color: "var(--mut)", margin: "8px 0 14px" }}>
+              {p.daily.last === localToday()
+                ? <>Done today ✓ · 🔥 {p.daily.streak}-day streak. Next set at midnight.</>
+                : p.daily.streak > 0
+                  ? <>🔥 {p.daily.streak}-day streak on the line — today&apos;s set is waiting (+{DAILY_BONUS_XP} XP).</>
+                  : <>10 questions across 10 topics, same for everyone. +{DAILY_BONUS_XP} XP on completion.</>}
+            </p>
+            {p.daily.last !== localToday() && (
+              <Link href="/quiz?daily=1" className="btn btn-pur btn-sm">Play today&apos;s 10</Link>
+            )}
+          </div>
           <div className="card">
             <b>Weakest topics</b>
             <div className="mini-list" style={{ marginTop: 14 }}>
