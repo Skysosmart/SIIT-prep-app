@@ -1,3 +1,5 @@
+import { PHYSICS_FORMULAS } from "./physicsFormulas";
+
 export type Formula = {
   cat: string;
   name: string;
@@ -5,13 +7,23 @@ export type Formula = {
   use: string;          // when to use
   example: string;      // short worked example ($..$ allowed)
   diff: "easy" | "med" | "hard";
+  subject?: "math" | "phys"; // defaults to math
 };
 
-export const LIB_CATS = [
+export const MATH_CATS = [
   "Sets & Logic", "Algebra", "Quadratic", "Exponents & Logs", "Functions",
   "Geometry", "Trigonometry", "Sequences", "Probability", "Statistics",
   "Matrices", "Complex Numbers", "Vectors", "Limits", "Derivatives", "Integration",
 ] as const;
+
+export const PHYS_CATS = [
+  "Kinematics", "Forces & Motion", "Energy & Power", "Momentum",
+  "Circular & Rotation", "Gravitation", "SHM & Waves", "Optics",
+  "Thermal & Gases", "Electricity", "Magnetism", "Fluids", "Modern Physics",
+] as const;
+
+// legacy alias (math library page)
+export const LIB_CATS = MATH_CATS;
 
 export const FORMULAS: Formula[] = [
   { cat: "Sets & Logic", name: "De Morgan's Laws", tex: "(A\\cup B)'=A'\\cap B'\\qquad (A\\cap B)'=A'\\cup B'",
@@ -79,3 +91,7 @@ export const FORMULAS: Formula[] = [
   { cat: "Integration", name: "Fundamental Theorem", tex: "\\int_a^b f(x)\\,dx=F(b)-F(a)",
     use: "Evaluating definite integrals from any antiderivative $F$.", example: "$\\int_0^1 2x\\,dx=1^2-0^2=1$", diff: "med" },
 ];
+
+// Math formulas above tag as subject "math" by default.
+export const MATH_FORMULAS: Formula[] = FORMULAS.map((f) => ({ ...f, subject: "math" as const }));
+export const ALL_FORMULAS: Formula[] = [...MATH_FORMULAS, ...PHYSICS_FORMULAS];

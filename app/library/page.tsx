@@ -3,21 +3,26 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Star } from "lucide-react";
-import { FORMULAS, LIB_CATS } from "@/lib/formulas";
+import { ALL_FORMULAS, MATH_CATS, PHYS_CATS } from "@/lib/formulas";
 import { useProfile } from "@/lib/profile";
 import { Tex } from "@/components/Tex";
 import { SearchIcon } from "@/components/bits";
 
 export default function Library() {
   const { p, toggleFav } = useProfile();
+  const [subject, setSubject] = useState<"math" | "phys">("math");
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
 
+  const cats = subject === "math" ? MATH_CATS : PHYS_CATS;
+  const pickSubject = (s: "math" | "phys") => { setSubject(s); setCat("All"); };
+
   const needle = q.trim().toLowerCase();
-  const list = FORMULAS.filter((f) =>
-    (cat === "All" || (cat === "★" ? p.favs.includes(f.name) : f.cat === cat)) &&
-    (!needle || f.name.toLowerCase().includes(needle) || f.cat.toLowerCase().includes(needle)),
-  );
+  const list = ALL_FORMULAS.filter((f) => {
+    const inSubject = (f.subject ?? "math") === subject;
+    const inCat = cat === "All" ? inSubject : cat === "★" ? p.favs.includes(f.name) : (inSubject && f.cat === cat);
+    return inCat && (!needle || f.name.toLowerCase().includes(needle) || f.cat.toLowerCase().includes(needle));
+  });
 
   return (
     <div className="view">
@@ -27,6 +32,10 @@ export default function Library() {
         Browse by category or search. Star the ones you keep forgetting - or drill them as{" "}
         <Link href="/flashcards" style={{ color: "var(--teal-d)", fontWeight: 700 }}>flashcards</Link>.
       </p>
+      <div className="subject-tabs">
+        <button className={`subject-tab${subject === "math" ? " on" : ""}`} onClick={() => pickSubject("math")}>Mathematics</button>
+        <button className={`subject-tab${subject === "phys" ? " on" : ""}`} onClick={() => pickSubject("phys")}>Physics</button>
+      </div>
       <div className="filters">
         <div className="search" style={{ maxWidth: 420 }}>
           <SearchIcon />
@@ -37,7 +46,7 @@ export default function Library() {
         <aside className="side">
           <button className={cat === "All" ? "on" : ""} onClick={() => setCat("All")}>All formulas</button>
           <button className={cat === "★" ? "on" : ""} onClick={() => setCat("★")}><Star size={13} fill="currentColor" aria-hidden="true" /> Favorites</button>
-          {LIB_CATS.map((c) => (
+          {cats.map((c) => (
             <button key={c} className={cat === c ? "on" : ""} onClick={() => setCat(c)}>{c}</button>
           ))}
         </aside>

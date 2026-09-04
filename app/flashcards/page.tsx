@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { RotateCcw, Check, RefreshCw, ChevronRight, Layers } from "lucide-react";
-import { FORMULAS, LIB_CATS } from "@/lib/formulas";
+import { ALL_FORMULAS, MATH_CATS, PHYS_CATS } from "@/lib/formulas";
 import { shuffle } from "@/lib/engine";
 import { useProfile } from "@/lib/profile";
 import { Tex } from "@/components/Tex";
 
 export default function Flashcards() {
   const { p, ready, markFlash, resetFlash } = useProfile();
+  const [subject, setSubject] = useState<"math" | "phys">("math");
   const [cat, setCat] = useState("All");
   const [round, setRound] = useState(0);      // bump to reshuffle
   const [i, setI] = useState(0);
@@ -28,8 +29,8 @@ export default function Flashcards() {
   }, [snap]);
 
   const pool = useMemo(
-    () => FORMULAS.filter((f) => cat === "All" || f.cat === cat),
-    [cat],
+    () => ALL_FORMULAS.filter((f) => (f.subject ?? "math") === subject && (cat === "All" || f.cat === cat)),
+    [cat, subject],
   );
   // deck = unmastered cards, shuffled per round (mastered set frozen at round start)
   const deck = useMemo(() => {
@@ -68,7 +69,9 @@ export default function Flashcards() {
     return () => window.removeEventListener("keydown", onKey);
   }, [flipped, advance]);
 
-  const pickCat = (c: string) => { setCat(c); setI(0); setSnap(true); setFlipped(false); setAgainNames([]); setRound((r) => r + 1); };
+  const reset = () => { setI(0); setSnap(true); setFlipped(false); setAgainNames([]); setRound((r) => r + 1); };
+  const pickCat = (c: string) => { setCat(c); reset(); };
+  const pickSubject = (s: "math" | "phys") => { setSubject(s); setCat("All"); reset(); };
 
   return (
     <div className="view">
@@ -83,8 +86,12 @@ export default function Flashcards() {
         Flip the card, then be honest: <b>Again</b> keeps it in the deck, <b>Got it</b> retires it.
         Space flips · 1 = Again · 2 = Got it.
       </p>
+      <div className="subject-tabs">
+        <button className={`subject-tab${subject === "math" ? " on" : ""}`} onClick={() => pickSubject("math")}>Mathematics</button>
+        <button className={`subject-tab${subject === "phys" ? " on" : ""}`} onClick={() => pickSubject("phys")}>Physics</button>
+      </div>
       <div className="filters">
-        {["All", ...LIB_CATS].map((c) => (
+        {["All", ...(subject === "math" ? MATH_CATS : PHYS_CATS)].map((c) => (
           <button key={c} className={`chip${cat === c ? " on" : ""}`} onClick={() => pickCat(c)}>{c}</button>
         ))}
       </div>
