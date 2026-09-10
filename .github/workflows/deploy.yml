@@ -15,7 +15,54 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Gates the deploy. Until this job existed, the workflow ran `npm run build`
+  # and nothing else, so a broken test suite shipped green.
+  test:
+    name: Tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      # Report both versions rather than hiding the second failure.
+      fail-fast: false
+      matrix:
+        # 22 is what the build below ships on; 24 is what the repo is developed
+        # on. Both are here because `node --test` has already changed behaviour
+        # across a major once - it stopped expanding a bare directory argument,
+        # which silently broke `npm test` while the suite itself was healthy.
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - name: Types
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+
+  # Separate job: this one re-derives the SAT math answers with sympy. It needs
+  # Python AND Node - verify-math.py compiles lib/sat with `npx tsc` and reads
+  # the forms back through `node`, so node_modules must be installed. Nothing
+  # about it is Node-version-specific, so it runs once rather than per matrix.
+  answer-keys:
+    name: SAT answer keys (sympy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: pip install sympy
+      - run: npm run test:math
+
   build:
+    needs: [test, answer-keys]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
