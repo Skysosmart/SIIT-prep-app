@@ -1,0 +1,258 @@
+/**
+ * Digital SAT practice - Form A, Reading and Writing, MODULE 1.
+ *
+ * ALL 27 items and ALL 27 passages are ORIGINAL, written from scratch for this
+ * app. No College Board material, no excerpted or adapted published text.
+ * Passages are 25-150 words, one per question.
+ *
+ * Order is AUTHORED order and is load-bearing: domain blocks in the fixed
+ * sequence Craft and Structure -> Information and Ideas -> Standard English
+ * Conventions -> Expression of Ideas, easiest-to-hardest inside each block.
+ * Do not sort this array, and never shuffle the choices.
+ *
+ * ids 5001-5099. Module 1 is the broad mix: E 9 / M 11 / H 7.
+ */
+
+import type { SatMcq } from "../types";
+import { R, RP } from "./rwFactory";
+
+export const FORM_A_RW_M1: SatMcq[] = [
+  // ── Craft and Structure ────────────────────────────────────────────────
+  R(5001, "craft", "E", 0,
+    "Marine biologist Ratana Suwan spent eleven seasons cataloguing the seagrass meadows of the Andaman coast. Her field notebooks, crowded with sketches and tide tables, grew so detailed that later researchers adopted them as a baseline record. Meadows she once described as ______ are now measured against her observations to track how far they have declined.",
+    "Which choice completes the text with the most logical and precise word or phrase?",
+    ["flourishing", "artificial", "temporary", "imaginary"],
+    "Words in Context",
+    "The meadows serve as the baseline for measuring decline, so they must once have been healthy. \"Flourishing\" captures that. Nothing suggests the meadows were artificial, temporary, or imaginary."),
+
+  R(5002, "craft", "E", 0,
+    "Novelist Kanya Preecha is known for a spare style: her sentences rarely run past a dozen words, and between drafts she prunes adjectives ruthlessly. Critics who prize ornament find the result thin. Her admirers argue that the ______ of her prose is exactly what gives each surviving word its weight.",
+    "Which choice completes the text with the most logical and precise word or phrase?",
+    ["economy", "volume", "decoration", "confusion"],
+    "Words in Context",
+    "The passage describes short sentences and pruned adjectives, so the quality being praised is leanness - \"economy.\" \"Volume\" and \"decoration\" are the opposite of what is described, and \"confusion\" is not praise."),
+
+  RP(5003, "craft", "E", 0,
+    "The Rama VIII Bridge is most often photographed for its single asymmetrical pylon, which leans away from the river's east bank. Engineers chose that form for a practical reason: a symmetrical tower would have required foundations in a densely built neighbourhood. The bridge's distinctive silhouette is, in other words, a by-product of avoiding demolition.",
+    "Which choice best states the main purpose of the text?",
+    ["To explain that a bridge's striking appearance resulted from a practical constraint.",
+     "To argue that the Rama VIII Bridge is the most beautiful bridge in Bangkok.",
+     "To describe the process of building bridge foundations in crowded neighbourhoods.",
+     "To compare symmetrical and asymmetrical bridge designs across Asia."],
+    "Text Structure and Purpose",
+    "The text sets up the striking look, then gives the practical reason behind it. It never ranks the bridge aesthetically, details the foundation process, or compares designs across Asia."),
+
+  R(5004, "craft", "M", 0,
+    "When the national film archive acquired four thousand reels from a defunct studio, archivist Pornchai Dee faced a problem of triage: nitrate stock decays unpredictably, and inspecting every reel would have taken decades. He therefore devised a sampling method that ______ the condition of the whole collection from a few hundred carefully chosen reels.",
+    "Which choice completes the text with the most logical and precise word or phrase?",
+    ["extrapolates", "fabricates", "conceals", "duplicates"],
+    "Words in Context",
+    "Inferring the state of a whole collection from a sample is extrapolation. \"Fabricates\" would mean inventing the finding, \"conceals\" hiding it, and \"duplicates\" copying it - none of which the method does."),
+
+  R(5005, "craft", "M", 0,
+    "It is true that the earliest bicycles were expensive machines, affordable only to the few wealthy enough to treat them as curiosities. Within two decades, however, mass production had cut prices so sharply that clerks and factory workers bought them for commuting, and cycling clubs sprang up in industrial cities across Europe.",
+    "Which choice best describes the function of the first sentence in the text as a whole?",
+    ["It concedes a point that the rest of the text then qualifies.",
+     "It states a conclusion that the rest of the text supports with data.",
+     "It poses a question that the rest of the text answers directly.",
+     "It introduces a term that the rest of the text goes on to define."],
+    "Text Structure and Purpose",
+    "\"It is true that\" signals a concession, and \"however\" in the next sentence turns against it. The sentence is not a conclusion, a question, or a definition."),
+
+  R(5006, "craft", "M", 0,
+    "Text 1: Urban planner Somsak Iam argues that adding lanes to a congested road reliably shortens travel times, since greater capacity lets more vehicles move at once. Text 2: Transport economist Lucia Marren points to induced demand. When a road is widened, drivers who had been avoiding it come back, and within a few years congestion returns to roughly its former level.",
+    "Based on the texts, how would Marren (Text 2) most likely respond to the argument in Text 1?",
+    ["By claiming that the added capacity attracts new traffic that erases the initial gain.",
+     "By agreeing that widening roads is the most effective remedy for congestion.",
+     "By arguing that travel times on urban roads cannot be measured accurately.",
+     "By suggesting that road congestion is not a problem worth addressing."],
+    "Cross-Text Connections",
+    "Marren's induced-demand point is precisely that the benefit is temporary because returning drivers fill the new capacity. She does not agree with Somsak, question measurement, or dismiss congestion."),
+
+  R(5007, "craft", "H", 0,
+    "Historians long treated the guild rolls of medieval Ghent as straightforward employment rosters. Recent scholarship complicates that reading. Because membership conferred legal standing in the city, the rolls may list men who never practised the trade at all - which makes the documents less a census of workers than a ______ of civic privilege.",
+    "Which choice completes the text with the most logical and precise word or phrase?",
+    ["register", "refutation", "parody", "forecast"],
+    "Words in Context",
+    "The sentence contrasts one kind of record (\"a census of workers\") with another, so the missing word must also name a kind of record. \"Register\" does; a refutation, parody, or forecast does not."),
+
+  R(5008, "craft", "H", 0,
+    "Ecologist Dara Nilsen opens her monograph not with data but with an anecdote: a single fig tree in a Sumatran valley, visited over one night by eleven species of bird. Only in the following chapter does she introduce the network models that occupy the rest of the book. The anecdote, she explains later, is meant to keep those models tethered to something a reader can picture.",
+    "Which choice best describes the function of the anecdote in the text?",
+    ["It provides a concrete image intended to anchor the abstract analysis that follows.",
+     "It presents evidence that contradicts the network models introduced later.",
+     "It establishes that fig trees are the most important species in the valley.",
+     "It explains why the author chose to write a monograph rather than an article."],
+    "Text Structure and Purpose",
+    "The last sentence states the anecdote's job directly: keeping the models \"tethered to something a reader can picture.\" It does not contradict the models, rank species, or justify the book's format."),
+
+  // ── Information and Ideas ──────────────────────────────────────────────
+  R(5009, "info", "E", 0,
+    "Sea otters eat enormous quantities of sea urchins. Where otter populations collapsed during the twentieth century, urchin numbers exploded and the animals grazed kelp forests down to bare rock. Where otters have since returned, the kelp has regrown, and with it the fish and invertebrates that shelter among the fronds.",
+    "Which choice best states the main idea of the text?",
+    ["Otters shape kelp forest ecosystems by controlling urchin populations.",
+     "Sea urchins are the most numerous animals living in kelp forests.",
+     "Kelp forests recover on their own without any change in animal populations.",
+     "Fish populations determine how many otters a stretch of coastline can support."],
+    "Central Ideas and Details",
+    "Both halves of the text tie kelp's fate to otter numbers acting through urchins. The text never counts urchins, never describes recovery without otters, and reverses no causal direction involving fish."),
+
+  RP(5010, "info", "E", 0,
+    "In a study of 120 university students, researchers taught each participant forty unfamiliar words. Half the group then slept for eight hours; the other half stayed awake for the same period. When both groups were tested the following evening, the students who had slept recalled, on average, nine more words than those who had not.",
+    "According to the text, what was the result of the study?",
+    ["Students who slept after learning recalled more words than those who stayed awake.",
+     "Students who stayed awake recalled more words than those who slept.",
+     "Both groups recalled about the same number of words.",
+     "Sleep had no measurable effect on how many words students learned."],
+    "Central Ideas and Details",
+    "The final sentence reports that the sleeping group recalled nine more words on average. The other three choices contradict that result."),
+
+  R(5011, "info", "M", 0,
+    "Pottery unearthed at one inland settlement includes vessels whose clay contains minerals found only in riverbeds more than two hundred kilometres to the north. No kiln capable of firing such vessels has been located anywhere nearby, and the decorative motifs match those of northern workshops. Archaeologists therefore conclude that ______",
+    "Which choice most logically completes the text?",
+    ["the vessels were made elsewhere and carried to the settlement.",
+     "the residents of the settlement invented the northern decorative style.",
+     "the minerals in the clay formed locally after the pots were buried.",
+     "pottery was not used at the settlement until a very late period."],
+    "Inferences",
+    "Three details point the same way: distant minerals, no local kiln, northern motifs. Together they support import rather than local manufacture. Nothing suggests local invention, post-burial mineral formation, or a late start to pottery use."),
+
+  R(5012, "info", "M", 0,
+    "In her study of urban birdsong, ornithologist Mei Rattana hypothesized that great tits living beside busy roads would sing at a higher pitch than those in quiet parks, because low frequencies are the ones most thoroughly masked by traffic noise.",
+    "Which finding, if true, would most directly support Rattana's hypothesis?",
+    ["Recordings of roadside great tits show a mean song frequency 400 hertz higher than that of park birds.",
+     "Great tits in parks sing more often in the early morning than roadside birds do.",
+     "Traffic noise in the study city has increased steadily over the past decade.",
+     "Great tits build their nests at similar heights in parks and beside roads."],
+    "Command of Evidence",
+    "The hypothesis is specifically about pitch, so the supporting evidence must compare frequencies between the two groups. Timing of song, trends in noise, and nest height leave the pitch claim untested."),
+
+  R(5013, "info", "M", 0,
+    "A research team surveyed four coastal villages to measure how many households had installed rooftop solar panels between 2020 and 2024. The team expected adoption to be highest where the electricity grid was least reliable.",
+    "Which choice best describes data from the table that support the team's expectation?",
+    ["Ban Nam, which had the most frequent outages, also had the highest adoption, at 62%.",
+     "Ban Tha, which had the fewest outages, had the highest adoption, at 62%.",
+     "Ban Klang and Ban Rai had identical rates of solar adoption.",
+     "Adoption was highest in the village with the most reliable electricity grid."],
+    "Command of Evidence",
+    "The table pairs the most outages (Ban Nam, 9 per month) with the highest adoption (62%), which is exactly the expected relationship. Ban Tha had the fewest outages and the lowest adoption, and the two middle villages differ (41% and 24%).",
+    "<table><thead><tr><th>Village</th><th>Grid outages per month</th><th>Households with solar (%)</th></tr></thead><tbody><tr><td>Ban Nam</td><td>9</td><td>62</td></tr><tr><td>Ban Rai</td><td>6</td><td>41</td></tr><tr><td>Ban Klang</td><td>3</td><td>24</td></tr><tr><td>Ban Tha</td><td>1</td><td>11</td></tr></tbody></table>"),
+
+  R(5014, "info", "H", 0,
+    "Between 1890 and 1910, the number of patents filed by residents of one mid-sized industrial city tripled, while its population grew by only a third. Over the same twenty years the public library extended its opening hours, the technical school enrolled its first evening classes, and a new streetcar line joined the industrial district to the residential wards. Economists studying the episode argue that the surge is best explained not by an influx of inventors but by ______",
+    "Which choice most logically completes the text?",
+    ["a broadening of access to knowledge and mobility among residents already there.",
+     "a nationwide decline in the cost of filing a patent application.",
+     "the increase in the city's population over those two decades.",
+     "the arrival of unusually skilled inventors from other cities."],
+    "Inferences",
+    "The economists explicitly rule out an influx of inventors, which eliminates the last choice, and population grew far more slowly than patents. The three changes listed - library hours, evening classes, streetcars - all widened existing residents' access. No nationwide fee change is mentioned."),
+
+  R(5015, "info", "H", 0,
+    "Literary scholar Aroon Vichit contends that the anonymous fifteenth-century poem \"The Ferryman's Complaint\" was composed not by a labourer, as its title implies, but by someone with formal legal training.",
+    "Which quotation from \"The Ferryman's Complaint\" would most effectively support Vichit's claim?",
+    ["\"I plead my case in the form the statutes name, with writ and witness, seal and countersign.\"",
+     "\"The river runs cold before the sun is up, and colder still when the last fare is paid.\"",
+     "\"My hands are split from rope and winter oar; no salve the village keeps has mended them.\"",
+     "\"I have not seen the city since my youth, nor wish to see its towers again.\""],
+    "Command of Evidence",
+    "Only the first quotation shows command of legal procedure and vocabulary - statutes, writ, witness, seal, countersign - which is what Vichit's claim requires. The others depict a labourer's experience, which is what the title already implies."),
+
+  // ── Standard English Conventions ───────────────────────────────────────
+  R(5016, "conv", "E", 0,
+    "In 1843 Ada Lovelace translated an Italian engineer's account of Charles Babbage's Analytical Engine and appended a commentary of her own. Her notes on the machine are considerably longer than the paper they were written to annotate ______",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    ["; they are also far more widely read today.",
+     ", they are also far more widely read today.",
+     " they are also far more widely read today.",
+     ": they are also, far more widely read today."],
+    "Boundaries",
+    "Two independent clauses need a semicolon (or a period). A comma alone makes a comma splice, no punctuation makes a run-on, and the last choice adds a comma that separates the subject from its verb."),
+
+  R(5017, "conv", "E", 0,
+    "Last spring the university library accepted a donation from the family of a historian who had spent forty years studying the region's canal networks. The collection of manuscripts donated by the family ______ currently being catalogued by two archivists.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    ["is", "are", "were", "have been"],
+    "Form, Structure, and Sense",
+    "The subject is the singular noun \"collection\"; \"of manuscripts\" is a prepositional phrase and cannot control the verb. The singular present \"is\" agrees and matches \"currently.\""),
+
+  R(5018, "conv", "E", 0,
+    "The first successful ascent of the mountain is usually dated to May 1953, but the peak had already defeated a long series of attempts. By the time the survey team reached the summit that year, three earlier expeditions ______ already turned back.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    ["had", "have", "has", "will have"],
+    "Form, Structure, and Sense",
+    "The turning back happened before another past event, so the past perfect \"had turned\" is required. \"Have\" and \"has\" are present perfect, and \"will have\" is future."),
+
+  R(5019, "conv", "M", 0,
+    "Conservation campaigns have struggled to raise public sympathy for an animal that most people have never seen alive. The pangolin ______ the only mammal covered in scales, is trafficked more heavily than any other wild mammal.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    [", which is", " which is", ", which is,", "; which is"],
+    "Boundaries",
+    "The nonrestrictive clause \"which is the only mammal covered in scales\" needs a comma at both ends; the closing comma is already printed. Omitting the opening comma, doubling it, or using a semicolon all break the pair."),
+
+  R(5020, "conv", "M", 0,
+    "The altarpiece had hung above the side chapel for three centuries, and a film of darkened varnish had flattened its colours almost to monochrome. The restoration involved stripping that varnish, repairing tears in the canvas, and ______ the original pigments as closely as modern materials allow.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    ["matching", "to match", "matched", "match"],
+    "Form, Structure, and Sense",
+    "The sentence lists three activities in parallel: stripping, repairing, and matching. Only the gerund keeps the series parallel."),
+
+  R(5021, "conv", "M", 0,
+    "The Osaka conference brought together engineers working on building foundations in ground prone to liquefaction during earthquakes. Nara Phong ______ presented the project's findings on the final morning.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    ["Nara Phong, a specialist in soil mechanics,",
+     "Nara Phong a specialist in soil mechanics,",
+     "Nara Phong, a specialist in soil mechanics",
+     "Nara Phong; a specialist in soil mechanics,"],
+    "Boundaries",
+    "\"A specialist in soil mechanics\" is a nonessential appositive and needs a comma on each side. One comma, no comma, or a semicolon all fail to bracket it."),
+
+  R(5022, "conv", "H", 0,
+    "The organizers had expected a mostly regional turnout, but registrations arrived from three continents. The conference drew researchers from Lima, Peru ______ Accra, Ghana; and Hanoi, Vietnam.",
+    "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    [";", ",", ":", " and"],
+    "Boundaries",
+    "When the items in a series already contain commas, the items are separated by semicolons instead. The second semicolon is already printed before \"and Hanoi,\" which confirms the pattern."),
+
+  // ── Expression of Ideas ────────────────────────────────────────────────
+  R(5023, "expr", "E", 0,
+    "Solar panels generate electricity without producing any emissions at all. ______, manufacturing them consumes a great deal of energy, which in most countries still comes largely from fossil fuels.",
+    "Which choice completes the text with the most logical transition?",
+    ["However", "Therefore", "Similarly", "For example"],
+    "Transitions",
+    "The second sentence undercuts the clean image established by the first, so a contrast transition is needed. \"Therefore\" signals result, \"similarly\" comparison, and \"for example\" illustration."),
+
+  R(5024, "expr", "M", 0,
+    "Early attempts to cultivate vanilla outside Mexico failed, because the orchid's natural pollinator did not live in the new plantations. ______, a twelve-year-old boy on Réunion worked out a method of hand-pollination simple enough to be taught in an afternoon, and global production became possible.",
+    "Which choice completes the text with the most logical transition?",
+    ["Eventually", "Likewise", "For instance", "In other words"],
+    "Transitions",
+    "The second sentence reports the later solution to the problem in the first, so a transition marking the passage of time fits. The others signal similarity, illustration, and restatement."),
+
+  R(5025, "expr", "M", 0,
+    "While researching a presentation, a student took the following notes: • The Antikythera mechanism was recovered from a shipwreck in 1901. • It is a geared bronze device dated to roughly the second century BCE. • X-ray imaging carried out in 2006 revealed at least thirty interlocking gears. • The gearing models the movements of the sun and the moon.",
+    "The student wants to emphasize the mechanism's complexity. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    ["X-ray imaging carried out in 2006 revealed that the device contains at least thirty interlocking gears, which together model the movements of the sun and the moon.",
+     "The Antikythera mechanism was recovered from a shipwreck in 1901.",
+     "The Antikythera mechanism is a bronze device that has been dated to roughly the second century BCE.",
+     "Though it was recovered in 1901, the Antikythera mechanism was not imaged by X-ray until 2006."],
+    "Rhetorical Synthesis",
+    "Complexity is conveyed by the thirty interlocking gears and what they model. The other choices give provenance, date, or chronology - true, but not evidence of complexity."),
+
+  R(5026, "expr", "H", 0,
+    "Cochlear implants restore a sense of sound by stimulating the auditory nerve directly. They do not reproduce ordinary hearing, and music in particular is often described by recipients as flat or metallic. ______, many implant users report that in a quiet room their comprehension of speech approaches that of hearing listeners.",
+    "Which choice completes the text with the most logical transition?",
+    ["Even so", "As a result", "That is", "Likewise"],
+    "Transitions",
+    "The third sentence offers something positive despite the limitation just described, so a concessive contrast is needed. \"As a result\" claims causation, \"that is\" restates, and \"likewise\" adds a parallel case."),
+
+  R(5027, "expr", "H", 0,
+    "While researching a presentation, a student took the following notes: • The Svalbard Global Seed Vault opened in 2008. • It stores duplicate samples of seeds already held in gene banks worldwide. • It is built into permafrost 130 metres inside a mountain. • In 2015 researchers made the first withdrawal, replacing a collection lost in the Syrian civil war.",
+    "The student wants to explain why the vault matters to researchers. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    ["Because the vault holds duplicates of collections kept elsewhere, researchers were able to replace a seed collection lost to war in Syria when they made the first withdrawal in 2015.",
+     "The Svalbard Global Seed Vault, which opened in 2008, is built into permafrost 130 metres inside a mountain.",
+     "The vault stores duplicate samples of seeds that are also held in gene banks around the world.",
+     "The Svalbard Global Seed Vault opened in 2008 and made its first withdrawal seven years later."],
+    "Rhetorical Synthesis",
+    "The question asks why the vault matters, so the answer must link its purpose (duplicates) to a demonstrated use (replacing the Syrian collection). The others describe construction, purpose, or dates without showing the benefit."),
+];

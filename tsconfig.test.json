@@ -1,0 +1,20 @@
+{
+  "// why": [
+    "Node cannot resolve the extensionless relative imports that lib/sat uses, so the",
+    "tests are compiled with the TypeScript that is already a devDependency rather than",
+    "run straight from source. No test framework is added: the runner is node:test.",
+    "Only lib/sat and tests are compiled - nothing here touches React or Next."
+  ],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": ".test-build",
+    "types": ["node"],
+    "jsx": "react-jsx"
+  },
+  "include": ["lib/sat/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules", ".next"]
+}

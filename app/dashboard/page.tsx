@@ -58,6 +58,23 @@ export default function Dashboard() {
         <div className="stat"><span className="lb">Questions answered</span><div className="v">{p.answered.toLocaleString()}</div></div>
         <div className="stat"><span className="lb">Topics mastered</span><div className="v">{mastered}<small> / {TOPICS.length}</small></div></div>
       </div>
+      {p.satTests.length > 0 && (() => {
+        const latest = p.satTests[0];
+        const best = (k: "rw" | "math") =>
+          Math.max(0, ...p.satTests.map((t) => t[k]?.scaled ?? 0));
+        return (
+          <Link href="/sat" className="card hov" style={{ display: "block", marginTop: 16 }}>
+            <b>SAT practice</b>
+            <div className="meta" style={{ marginTop: 6 }}>
+              <span>{p.satTests.length} sitting{p.satTests.length === 1 ? "" : "s"}</span>
+              <span>latest: Form {latest.formId}</span>
+              {best("math") > 0 && <span className={`tag ${best("math") >= 620 ? "easy" : "hard"}`}>best Math ~{best("math")} / SIIT 620</span>}
+              {best("rw") > 0 && <span className={`tag ${best("rw") >= 400 ? "easy" : "hard"}`}>best R&amp;W ~{best("rw")} / SIIT 400</span>}
+            </div>
+          </Link>
+        );
+      })()}
+
       <div className="dash-g" style={{ marginTop: 16 }}>
         <div className="card">
           <b>Accuracy - recent quizzes</b>

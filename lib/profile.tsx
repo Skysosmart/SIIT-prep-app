@@ -21,9 +21,23 @@ export type Profile = {
   daily: { last: string | null; streak: number }; // daily-challenge completions
   flash: string[];             // formula names mastered in flashcard mode
   exams: ExamHistory[];        // completed mock exams
+  satTests: SatAttempt[];      // completed SAT practice sittings
 };
 
 export type ExamHistory = { date: string; correct: number; total: number; timeSec: number };
+
+/** One SAT sitting. Scores are ESTIMATED - see lib/sat/score.ts. */
+export type SatAttempt = {
+  date: string;
+  formId: "A" | "B";
+  mode: "full" | "section" | "module";
+  // route/scaled are absent for a single module sat on its own: half a section
+  // cannot honestly be converted to a 200-800 score.
+  rw?: { raw: number; of: number; route?: "lower" | "upper"; scaled?: number };
+  math?: { raw: number; of: number; route?: "lower" | "upper"; scaled?: number };
+  total?: number;
+  timeSec: number;
+};
 
 const EMPTY: Profile = {
   xp: 0, quizzes: 0, answered: 0, correct: 0,
@@ -31,6 +45,7 @@ const EMPTY: Profile = {
   daily: { last: null, streak: 0 },
   flash: [],
   exams: [],
+  satTests: [],
 };
 
 const KEY = "siit-math-arena-profile";
@@ -61,6 +76,7 @@ type Ctx = {
   markFlash: (name: string, known: boolean) => void;
   resetFlash: () => void;
   recordExam: (r: { correct: number; total: number; timeSec: number }) => void;
+  recordSatTest: (r: SatAttempt) => void;
 };
 
 const ProfileCtx = createContext<Ctx | null>(null);
@@ -97,6 +113,8 @@ export function mergeProfiles(a: Profile, b: Profile): Profile {
       : { last: a.daily.last, streak: Math.max(a.daily.streak, b.daily.streak) },
     hist: uniqBy([...b.hist, ...a.hist], (h) => `${h.date}|${h.topic}|${h.score}`).slice(0, 12),
     exams: uniqBy([...b.exams, ...a.exams], (e) => `${e.date}|${e.correct}|${e.total}|${e.timeSec}`).slice(0, 20),
+    satTests: uniqBy([...b.satTests, ...a.satTests],
+      (t) => `${t.date}|${t.formId}|${t.mode}|${t.total ?? ""}|${t.timeSec}`).slice(0, 20),
   };
 }
 
@@ -201,8 +219,24 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const recordSatTest = (r: SatAttempt) => {
+    const today = localToday();
+    const correct = (r.rw?.raw ?? 0) + (r.math?.raw ?? 0);
+    // XP and the daily streak move (real work was done), but `prog`/`hist`/
+    // `quizzes` deliberately do not: those are keyed by TopicId and keeping SAT
+    // out of them is what leaves the OSP dashboard and leaderboard untouched.
+    save({
+      ...p,
+      xp: p.xp + correct * 5,
+      streakDays: p.lastPlayed === today ? p.streakDays
+        : p.lastPlayed === localYesterday() ? p.streakDays + 1 : 1,
+      lastPlayed: today,
+      satTests: [r, ...p.satTests].slice(0, 20),
+    });
+  };
+
   return (
-    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav, markFlash, resetFlash, recordExam }}>
+    <ProfileCtx.Provider value={{ p, ready, finishQuiz, toggleFav, markFlash, resetFlash, recordExam, recordSatTest }}>
       {children}
     </ProfileCtx.Provider>
   );

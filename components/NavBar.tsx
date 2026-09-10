@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth-client";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/exam", label: "Mock Exam" },
+  { href: "/sat", label: "SAT" },
   { href: "/practice", label: "Practice" },
   { href: "/flashcards", label: "Flashcards" },
   { href: "/library", label: "Formula Library" },

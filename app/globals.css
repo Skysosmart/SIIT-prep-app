@@ -455,3 +455,27 @@ tr.me td{background:var(--teal-t);font-weight:700}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* ---------- SAT ---------- */
+.grid-in{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.grid-in input{width:190px;background:var(--bg);border:2px solid var(--line);border-radius:14px;
+  padding:14px 16px;font-size:1.3rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.06em;
+  color:var(--ink);outline:0}
+.grid-in input:focus{border-color:var(--teal)}
+.grid-in.bad input{border-color:var(--red)}
+.grid-in-msg{font-size:.82rem;color:var(--mut);flex:1 1 220px}
+.grid-in.bad .grid-in-msg{color:var(--red)}
+.sat-fig{margin:14px 0;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:14px;
+  text-align:center;color:var(--ink)}
+.sat-fig svg{width:100%;max-width:340px;height:auto}
+.sat-fig table{margin:0 auto;border-collapse:collapse;font-size:.92rem}
+.sat-fig th,.sat-fig td{border:1px solid var(--line);padding:6px 12px}
+.sat-pause{font-size:3.2rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--teal-d)}
+.sat-score{font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.sat-verdict{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.sat-target{stroke:var(--mut);stroke-dasharray:4 4;stroke-width:1}
+/* the global table rule sets min-width:560px for the leaderboard; the per-domain
+   breakdown sits in a half-width card and must be allowed to wrap instead */
+.sat-domains{min-width:0}
+.sat-domains td:first-child,.sat-domains th:first-child{white-space:normal}
+.sat-domains td:last-child,.sat-domains th:last-child{text-align:right;white-space:nowrap}

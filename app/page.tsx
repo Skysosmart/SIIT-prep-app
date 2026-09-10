@@ -83,6 +83,17 @@ export default function Home() {
         </>
       )}
 
+      {/* SIIT also admits on SAT scores, so the SAT simulator gets a route in from here. */}
+      <div className="sec-h"><h2>Applying with an SAT score instead?</h2></div>
+      <Link href="/sat" className="card hov" style={{ display: "block", marginBottom: 22 }}>
+        <b>Digital SAT practice</b>
+        <p className="sub" style={{ textAlign: "left", margin: "6px 0 0" }}>
+          SIIT accepts SAT scores as an alternative to its own entrance exam - Math 620 and
+          Reading &amp; Writing 400. Two full-length adaptive papers, timed exactly like the real
+          test, with an estimated score against those cutoffs.
+        </p>
+      </Link>
+
       {([["math","Mathematics topics"],["phys","Physics topics"],["eng","English topics"]] as const).map(([subj, heading]) => (
         <div key={subj}>
           <div className="sec-h">

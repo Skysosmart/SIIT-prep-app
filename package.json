@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/",
+    "test:math": "python3 tests/verify-math.py"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
