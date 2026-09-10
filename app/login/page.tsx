@@ -90,6 +90,13 @@ function LoginInner() {
           </button>
         </form>
 
+        {mode === "login" && googleEnabled && (
+          <p className="auth-switch" style={{ marginTop: 10 }}>
+            Forgot your password? Sign in with Google using the same email address, then set a new
+            one from your profile.
+          </p>
+        )}
+
         <p className="auth-switch">
           {mode === "login" ? "New here? " : "Already have an account? "}
           <button onClick={() => { setMode(mode === "login" ? "signup" : "login"); setErr(""); }}>

@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth-client";
 import { localToday, DAILY_BONUS_XP } from "@/lib/daily";
 import { Star, Sparkles, LogOut, LogIn, Check } from "lucide-react";
 import { TopicChip, StreakFlame } from "@/components/bits";
+import { PasswordCard } from "@/components/PasswordCard";
 
 export default function Dashboard() {
   const { p } = useProfile();
@@ -51,6 +52,8 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      <PasswordCard />
 
       <div className="stats">
         <div className="stat flame"><span className="lb">Daily streak</span><div className="v"><StreakFlame size={24} /> {p.streakDays}<small> {p.streakDays === 1 ? "day" : "days"}</small></div></div>
