@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { TOPICS } from "@/lib/topics";
 import { QUESTIONS, questionsForTopic } from "@/lib/questions";
 import { useProfile } from "@/lib/profile";
 import { localToday, dailyLabel, DAILY_BONUS_XP } from "@/lib/daily";
 import { Star, ChevronRight } from "lucide-react";
 import { TopicChip, StreakFlame } from "@/components/bits";
+import { hasVisitedBefore } from "@/lib/firstVisit";
 
 function DailyBanner() {
   const { p } = useProfile();
@@ -32,11 +35,23 @@ function DailyBanner() {
 
 export default function Home() {
   const { p } = useProfile();
+  const router = useRouter();
+  // First visit lands on the exam-booklet cover instead of here. Hold the
+  // render until that is decided, so the hero never flashes before redirecting.
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    const visited = hasVisitedBefore();
+    if (visited === false) router.replace("/welcome");
+    else setSettled(true);          // true, or null when storage is unreadable
+  }, [router]);
+
   const acc = p.answered ? Math.round((100 * p.correct) / p.answered) : 0;
   const cont = TOPICS
     .filter((t) => (p.prog[t.id] ?? 0) > 0 && (p.prog[t.id] ?? 0) < 100)
     .sort((a, b) => (p.prog[b.id] ?? 0) - (p.prog[a.id] ?? 0))
     .slice(0, 3);
+
+  if (!settled) return <div className="gate-load" aria-hidden="true" />;
 
   return (
     <div className="view">

@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { EXAM_SECTIONS } from "@/lib/exam";
 import { Tex } from "@/components/Tex";
+import { markVisited } from "@/lib/firstVisit";
 
 const YEAR = 2027; // SIIT/OSP admission cycle referenced on the exam header
 
 export default function Welcome() {
-  const router = useRouter();
+  // Seeing the cover counts as the first visit, so "/" stops redirecting here.
+  useEffect(() => markVisited(), []);
 
   return (
     <div className="view wl">
@@ -36,6 +37,9 @@ export default function Welcome() {
             <Link href="/exam" className="btn btn-p btn-big">Sit the mock exam <ArrowRight size={18} /></Link>
             <Link href="/practice" className="btn btn-line btn-big">Practice by topic</Link>
           </div>
+          <p className="wl-note" style={{ marginTop: 10 }}>
+            <Link href="/">Or go straight to the home page &rarr;</Link>
+          </p>
           <p className="wl-note">No account needed. Your progress is saved in this browser.</p>
         </div>
 
@@ -88,9 +92,9 @@ export default function Welcome() {
       <section className="wl-enter">
         <div>
           <b>Ready when you are.</b>
-          <span>Create a candidate account to start the paper and keep your progress.</span>
+          <span>No sign-up and no account - open the paper and your progress is kept in this browser.</span>
         </div>
-        <Link href="/login?mode=signup" className="btn btn-p btn-big">Register to begin <ArrowRight size={18} /></Link>
+        <Link href="/exam" className="btn btn-p btn-big">Begin the paper <ArrowRight size={18} /></Link>
       </section>
     </div>
   );
