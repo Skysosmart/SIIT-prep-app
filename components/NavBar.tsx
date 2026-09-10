@@ -20,6 +20,10 @@ export function NavBar() {
   const path = usePathname();
   const { p } = useProfile();
 
+  // The SAT runner takes over the whole viewport in Bluebook format, and a
+  // visible nav bar mid-module is both wrong and an invitation to wander off.
+  if (path.startsWith("/sat/test")) return null;
+
   const active = (href: string) => {
     if (href === "/") return path === "/";
     if (href === "/exam") return path.startsWith("/exam");

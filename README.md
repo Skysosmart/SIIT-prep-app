@@ -1,10 +1,11 @@
 # SIIT Math Arena
 
-A Kahoot-inspired quiz website for SIIT entrance-exam math prep — timed formula quizzes,
+A Kahoot-inspired quiz website for SIIT entrance-exam prep — timed formula quizzes,
 a searchable formula library, XP/streak tracking, a leaderboard, and a student dashboard.
 
-**157 questions** across 12 topics, transcribed from the SIIT Math Formula question bank
-(Sets & Logic → Calculus), rendered with real LaTeX (KaTeX).
+**557 questions** across 21 topics — Math 357 (Sets & Logic → Calculus), English 135,
+Physics 65 — transcribed from the SIIT question banks and rendered with real LaTeX (KaTeX).
+A further **294 original SAT items** live under `/sat` (see below).
 
 ## Run locally
 
@@ -55,9 +56,30 @@ discarded.
 
 `lib/sat/validate.ts` enforces the blueprint - module sizes, domain quotas,
 question order, difficulty mix, grid-legal answers - and is imported from
-`next.config.ts`, so a malformed form **fails `npm run build`**. That is
-deliberate: it is the only automated gate in a repo with no test framework.
-Run `npm run typecheck` for the fast signal.
+`next.config.ts`, so a malformed form **fails `npm run build`**.
+
+Alongside it, `npm test` runs 45 tests on Node's built-in `node:test` (no test
+framework is installed) covering the grader, routing, scoring curves, content
+integrity and autosave, and `npm run test:math` re-derives every SAT math answer
+with sympy. See `tests/README.md`. Run `npm run typecheck` for the fast signal.
+
+### On-screen format
+
+The runner reproduces Bluebook, the real digital SAT app: a full-screen shell with
+the section/module title and a `Directions` disclosure, a centred countdown that can
+be hidden, the practice-test banner, a numbered question header with **Mark for
+Review** and the **ABC** answer-eliminator, a resizable split pane for passages and
+directions, the question navigator, and a *Check Your Work* review page before the
+module is submitted.
+
+The Math section carries the same two tools the real test does:
+
+- **Calculator** — the Desmos graphing calculator, which is what College Board
+  actually embeds in Bluebook, loaded through Desmos's public calculator API. It
+  needs a network connection; the rest of the test works offline. The bundled key
+  is Desmos's published demo key - set `NEXT_PUBLIC_DESMOS_API_KEY` to use your own.
+- **Reference** — the published SAT reference sheet, the only formulas the real
+  test hands you.
 
 ## Stack
 
@@ -69,5 +91,8 @@ Run `npm run typecheck` for the fast signal.
 ## How to play
 
 Pick a topic → choose a mode (Formula Recall / Fill the Missing Formula / Calculation / Mixed)
-and difficulty (scales the timer) → answer with clicks or keys **1–4** → review mistakes and
+and difficulty (scales the timer) → answer with clicks or keys **1–6** → review mistakes and
 retry. Correct answers earn points (speed + streak bonuses) and XP toward your rank.
+
+In the SAT runner the keys are **1–4** to answer, **←/→** to move, **M** to mark for
+review, and **C** / **R** for the calculator and reference sheet.
