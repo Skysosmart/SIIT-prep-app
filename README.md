@@ -20,21 +20,6 @@ Pushing to `main` builds a static export and publishes it to GitHub Pages via
 
 Live site: https://skysosmart.github.io/SIIT-prep-app/
 
-## Shared leaderboard (Neon Postgres)
-
-The Vercel deployment runs `/api/scores` (Next API route + `pg`) against a
-Neon database. One-time setup:
-
-1. Create a free database at https://neon.tech and copy the connection string.
-2. **Vercel** → Project → Settings → Environment Variables → add
-   `DATABASE_URL` = that connection string → Redeploy.
-3. Done - the API creates the `scores` table automatically
-   (schema also in `db/schema.sql`). Never commit the connection string.
-
-Players pick a nickname on the Leaderboard page; stats upsert per device.
-The GitHub Pages build is fully static (the workflow strips `app/api`), so
-its leaderboard falls back to a local-only view and links to the main site.
-
 ## SAT practice (`/sat`)
 
 SIIT admits on SAT scores as an alternative to its own entrance exam - the bar is
@@ -62,8 +47,9 @@ easier and a harder version; a student sees 98 in one sitting. Pick a paper on
 All SAT questions and passages are **original**, written from scratch to the
 published blueprint. Real administered SAT forms are not publicly released.
 
-An interrupted sitting is autosaved to `localStorage` (`lib/sat/progress.ts`) and
-offered for resume on `/sat`. The module clock keeps running while you are away -
+There are no accounts: all progress, including SAT attempts, lives in the
+browser's `localStorage`. An interrupted sitting is autosaved there
+(`lib/sat/progress.ts`) and offered for resume on `/sat`. The module clock keeps running while you are away -
 reloading is not a way to pause a timed test - and a save older than six hours is
 discarded.
 
@@ -78,7 +64,7 @@ Run `npm run typecheck` for the fast signal.
 - Next.js 15 (App Router, static export) + TypeScript
 - KaTeX for math rendering
 - Plain CSS design tokens (light + dark themes), no UI framework
-- Progress persisted in `localStorage` — no backend
+- Progress persisted in `localStorage` — no accounts, no backend
 
 ## How to play
 

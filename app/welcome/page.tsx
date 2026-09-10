@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { useAuth } from "@/lib/auth-client";
 import { EXAM_SECTIONS } from "@/lib/exam";
 import { Tex } from "@/components/Tex";
 
@@ -12,8 +11,6 @@ const YEAR = 2027; // SIIT/OSP admission cycle referenced on the exam header
 
 export default function Welcome() {
   const router = useRouter();
-  const { user, ready } = useAuth();
-  useEffect(() => { if (ready && user) router.replace("/"); }, [ready, user, router]);
 
   return (
     <div className="view wl">
@@ -36,10 +33,10 @@ export default function Welcome() {
             between now and exam day.
           </p>
           <div className="wl-cta">
-            <Link href="/login?mode=signup" className="btn btn-p btn-big">Register to begin <ArrowRight size={18} /></Link>
-            <Link href="/login" className="btn btn-line btn-big">I have an account</Link>
+            <Link href="/exam" className="btn btn-p btn-big">Sit the mock exam <ArrowRight size={18} /></Link>
+            <Link href="/practice" className="btn btn-line btn-big">Practice by topic</Link>
           </div>
-          <p className="wl-note">Registration is free. Your progress is saved to your candidate account.</p>
+          <p className="wl-note">No account needed. Your progress is saved in this browser.</p>
         </div>
 
         {/* specimen question card, styled like the real exam */}

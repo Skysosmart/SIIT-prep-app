@@ -15,6 +15,6 @@
     "types": ["node"],
     "jsx": "react-jsx"
   },
-  "include": ["lib/sat/**/*.ts", "lib/password-policy.ts", "tests/**/*.ts"],
+  "include": ["lib/sat/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules", ".next"]
 }
